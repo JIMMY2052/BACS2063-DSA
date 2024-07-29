@@ -9,5 +9,5 @@ package adt;
  * @author JIMMY
  */
 public class ArrayList<E> implements ListInterface<E> {
-
+  jjimmy
 }
