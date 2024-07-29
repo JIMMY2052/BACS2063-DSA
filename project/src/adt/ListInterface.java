@@ -9,5 +9,5 @@ package adt;
  * @author JIMMY
  */
 public interface ListInterface<E> {
-    
+   
 }

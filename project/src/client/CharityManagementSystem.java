@@ -23,7 +23,7 @@ public class CharityManagementSystem {
             System.out.println("|\t     2. Donee Management \t\t|");
             System.out.println("|\t     3. Donation Management \t\t|");
             System.out.println("------------------------------------------------");
-            System.out.println("Choose an option from the above by entering number (1-4): ");
+            System.out.println("Choose an option from the above by entering number (1-3): ");
             Scanner sc = new Scanner(System.in);
             opt = sc.nextInt();
 
@@ -70,6 +70,18 @@ public class CharityManagementSystem {
                     System.out.println("Error");
             }
         } while (opt <= 3 && opt >= 1);
+    }
+    
+    public static void donateFoodFunction(){
+         System.out.println("FOOD DONATION");
+         System.out.println("Donate Food");
+         System.out.println("1. Rice");
+         System.out.println("2. Oil");
+         System.out.println("3. Milo");
+         System.out.println("4. Chicken");
+         System.out.println("5. Others...");
+         Scanner sc = new Scanner(System.in);
+         sc.nextInt();
     }
 
     public static void clearScreen() {

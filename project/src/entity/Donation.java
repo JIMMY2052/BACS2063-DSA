@@ -44,5 +44,7 @@ public class Donation {
     public void setDonateDate(Date donateDate) {
         this.donateDate = donateDate;
     }
+    
+    
 
 }
