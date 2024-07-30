@@ -97,7 +97,14 @@ public class CharityManagementSystem {
 
             itemNo = captureItemNo();
             optAscii = itemNo;
-
+            if ((optAscii >= 49 && optAscii <= 53) || optAscii == 'x') {
+            if (optAscii == 'x') {
+                return -1; // Indicating to go back to previous step
+            }
+            confirm = confirmationFood();
+        } else {
+            System.out.println("Invalid input. Please enter a number between 1 and 5 or 'x' to go back.");
+        }
             if (optAscii >= 49 && optAscii <= 53) {
                 confirm = confirmationFood();
                 
