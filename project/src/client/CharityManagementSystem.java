@@ -59,7 +59,10 @@ public class CharityManagementSystem {
             clearScreen();
             switch (opt) {
                 case 1:
-                    donateFoodFunction();
+                   int itemNo = donateFoodFunction();
+                   if (itemNo != 'x' || itemNo != 'x'){
+                       
+                   }
                     break;
                 case 2:
                     System.out.println("Donate CASH");
@@ -73,37 +76,35 @@ public class CharityManagementSystem {
         } while (opt <= 3 && opt >= 1);
     }
 
-    public static void donateFoodFunction() {
+    public static int donateFoodFunction() {
 
-        
         char itemNo;
-        char confirm = 'n';
+        char confirm = 'y';
         int optAscii;
 
-        do{
-        clearScreen();
-        System.out.println("FOOD DONATION");
-        System.out.println("Donate Food");
-        System.out.println("1. Rice");
-        System.out.println("2. Oil");
-        System.out.println("3. Milo");
-        System.out.println("4. Chicken");
-        System.out.println("5. Others...");
-        System.out.println("Press (Y) : Proceed to next step");
-        System.out.println("Press (X) : Back to previous step");
-        System.out.printf("Enter the item no. that want to donate \nHere --> ");
-        
-        itemNo = captureItemNo();
-        optAscii = itemNo;
-        
-        Scanner sc = new Scanner(System.in);
+        do {
+            confirm = 'y';
+            clearScreen();
+            System.out.println("FOOD DONATION");
+            System.out.println("Donate Food");  
+            System.out.println("1. Rice");
+            System.out.println("2. Oil");
+            System.out.println("3. Milo");
+            System.out.println("4. Chicken");
+            System.out.println("5. Others...");
+            System.out.println("Press (X) : Back to previous step");
+            System.out.printf("Enter the item no. that want to donate \nHere --> ");
 
-        
-//        if (optAscii >= 49 && optAscii <= 53) {
-//            confirm = confirmationFood();
-//        }
-        }while(confirm == 'n' || itemNo != 'y');
+            itemNo = captureItemNo();
+            optAscii = itemNo;
 
+            if (optAscii >= 49 && optAscii <= 53) {
+                confirm = confirmationFood();
+                
+            }
+
+        } while (confirm == 'n' || confirm == 'N');
+        return optAscii;
     }
 
     public static char captureItemNo() {
@@ -117,18 +118,18 @@ public class CharityManagementSystem {
             ascii = itemNo.charAt(0);
 
             if (itemNo.length() > 1) {
-                System.out.printf("Please enter correct number (1-5) or character(Y/N) only. \n");
+                System.out.printf("Please enter correct number (1-5) or (X) to exit only. \n");
                 check = true;
             }
-            if (ascii != 49 && ascii !=50 && ascii != 51 && ascii != 52 && ascii !=53 &&
-                    itemNo.toUpperCase().charAt(0) != 'Y' && itemNo.toUpperCase().charAt(0) != 'X'){
-                System.out.printf("Please enter correct number (1-5) or character(Y/N) only. \n");
+            if (ascii != 49 && ascii != 50 && ascii != 51 && ascii != 52 && ascii != 53 && itemNo.toUpperCase().charAt(0) != 'X') {
+                System.out.printf("Please enter correct number (1-5) or (X) to exit only. \n");
                 check = true;
             }
 
         } while (check);
         return itemNo.charAt(0);
     }
+
     public static char confirmationFood() {
         String confirm;
         Scanner sc = new Scanner(System.in);
@@ -136,12 +137,12 @@ public class CharityManagementSystem {
         do {
             System.out.printf("**Are you sure to donate this item ?(Y/N)**\nHere -->");
             confirm = sc.next();
-            
-            if (confirm.length() > 1) {
+
+            if (confirm.length() > 1 || (confirm.toUpperCase().charAt(0) != 'Y' && confirm.toUpperCase().charAt(0) != 'N')) {
                 System.out.printf("Please enter correct character (Y/N) only.\n");
             }
-            
-        } while (confirm.length() > 1);
+
+        } while (confirm.length() > 1 || (confirm.toUpperCase().charAt(0) != 'Y' && confirm.toUpperCase().charAt(0) != 'N'));
 
         return confirm.charAt(0);
     }
