@@ -4,17 +4,20 @@
  */
 package entity;
 
+import java.util.Date;
+
 /**
  *
  * @author JIMMY
  */
-public class Cash {
+public class CashDonation extends Donation{
     private double amount;
     private String paymentMethod;
 
-    public Cash(double amount, String paymentMethod) {
+    
+    public CashDonation(int id, Donor donor, Donee donee, Date donationDate, double amount) {
+        super(id, donor, donee, donationDate);
         this.amount = amount;
-        this.paymentMethod = paymentMethod;
     }
 
     public double getAmount() {

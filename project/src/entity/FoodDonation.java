@@ -4,24 +4,23 @@
  */
 package entity;
 
+import java.util.Date;
+
 /**
  *
  * @author JIMMY
  */
-public class Food {
+public class FoodDonation extends Donation {
+
     private String foodName;
     private int qty;
-    
-    public Food(){
-        this.foodName = null;
-        this.qty = 0;
-    }
 
-    public Food(String foodName, int qty) {
+    public FoodDonation(int id, Donor donor, Donee donee, Date donationDate, String foodName, int qty) {
+        super(id, donor, donee, donationDate);
         this.foodName = foodName;
         this.qty = qty;
     }
-    
+
     public String getFoodName() {
         return foodName;
     }
@@ -37,5 +36,5 @@ public class Food {
     public void setQty(int qty) {
         this.qty = qty;
     }
-    
+
 }
