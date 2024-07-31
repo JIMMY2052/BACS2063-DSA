@@ -15,4 +15,6 @@ public class Donation {
    private Date donationDate;
    
    
+   
+   
 }
