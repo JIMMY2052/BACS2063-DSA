@@ -9,5 +9,20 @@ package entity;
  * @author JIMMY
  */
 public class Donor {
+    private String name;
+   
+
+    public Donor(String name) {
+        this.name = name;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+      
     
 }

@@ -4,12 +4,24 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
+import entity.*;
+import java.util.Date;
+import adt.ListInterface;
+import adt.ArrayList;
 
 public class CharityManagementSystem {
 
     public static void main(String[] args) {
-        displayMainMenu();
-
+        //displayMainMenu();
+        Donor g1 = new Donor("JIMMY");
+        Donee r1 = new Donee("Chan");
+        Donation d1 = new Donation(1,g1,r1,new Date());
+        FoodDonation f1 = new FoodDonation(2,g1,r1,new Date(),"RICE",1);
+        FoodDonation f2 = new FoodDonation(3,g1,r1,new Date(),"RICEasdf",2);
+        ListInterface<FoodDonation> foodArray = new ArrayList<>();
+        foodArray.add(f1);
+        foodArray.add(f2);
+        System.out.println(foodArray.getEntry(2).getFoodName());
     }
 
     public static void displayMainMenu() {
