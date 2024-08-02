@@ -13,7 +13,25 @@ public class CharityManagementSystem {
 
     public static void main(String[] args) {
         //displayMainMenu();
- 
+        Donor g1 = new Donor("JIMMY");
+        Donee r1 = new Donee("JIE YANG");
+        FoodDonation fd1 = new FoodDonation(1,g1,r1,new Date(), "MILO", 2);
+        FoodDonation fd2 = new FoodDonation(1,g1,r1,new Date(), "RICE", 2);
+        FoodDonation fd3 = new FoodDonation(1,g1,r1,new Date(), "OIL", 3);
+        ListInterface<FoodDonation> foodList = new ArrayList<>();
+        foodList.add(fd1);
+        foodList.add(fd2);
+        foodList.add(fd3);
+        g1.setFoodDoantionList(foodList);
+         ListInterface<FoodDonation> foodList1 = g1.getFoodDoantionList();
+        
+        for(int i =1; i<= foodList1.getNumberOfEntries(); i++){
+            System.out.print(foodList1.getEntry(i).getFoodName() + " QTY : ");
+            System.out.println(foodList1.getEntry(i).getQty());
+        }
+        
+
+        
     }
 
     public static void displayMainMenu() {

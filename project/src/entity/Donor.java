@@ -4,12 +4,16 @@
  */
 package entity;
 
+import adt.ListInterface;
+
 /**
  *
  * @author JIMMY
  */
 public class Donor {
     private String name;
+    private ListInterface foodDoantionList;
+    private ListInterface casdDonationList;
    
 
     public Donor(String name) {
@@ -23,6 +27,25 @@ public class Donor {
     public void setName(String name) {
         this.name = name;
     }
-      
+
+    public ListInterface<FoodDonation> getFoodDoantionList() {
+        return this.foodDoantionList;
+    }
+
+    public void setFoodDoantionList(ListInterface<FoodDonation> foodDoantionList) {
+        this.foodDoantionList = foodDoantionList;
+    }
+
+    public ListInterface getCasdDonationList() {
+        return casdDonationList;
+    }
+
+    public void setCasdDonationList(ListInterface casdDonationList) {
+        this.casdDonationList = casdDonationList;
+    }
+
+
+    
+    
     
 }
