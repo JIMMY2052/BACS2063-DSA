@@ -14,7 +14,8 @@ public class CharityManagementSystem {
     public static void main(String[] args) {
 
         Donor g1 = new Donor("JIMMY");
-        Donee r1 = new Donee("CHAN");
+        Donee r1 = new Donee("MR.CHAN");
+        Donee r2 = new Donee("MS.OOI");
 
         Donation d1 = new FoodDonation(1, g1, "MILO", 1);
         Donation d2 = new CashDonation(1, g1, 200.10);
@@ -27,13 +28,14 @@ public class CharityManagementSystem {
 
         ListInterface<Donee> doneeList = new ArrayList<>();
         doneeList.add(r1);
-        
+        doneeList.add(r2);
         
         DonationDistribution dd1 = new DonationDistribution(1,new Date(),donationList, doneeList);
         
         ListInterface<Donation> donationdd1 = dd1.getDonations();
         
-
+        System.out.println("Donated BY: " + donationdd1.getEntry(1).getDonor().getName());
+        System.out.println("Donated Item: ");
         for (int i = 1; i <= donationdd1.getNumberOfEntries(); i++) {
             Donation donate = donationdd1.getEntry(i);
             if (donate instanceof FoodDonation) {
@@ -45,6 +47,12 @@ public class CharityManagementSystem {
                 CashDonation cashDonate = (CashDonation) donate;
                 System.out.printf("RM %.2f\n", cashDonate.getAmount());
             }
+        }
+        
+        System.out.print("Received BY: \n");
+        for (int i = 1; i <= dd1.getDonees().getNumberOfEntries(); i++) {
+            System.out.println(dd1.getDonees().getEntry(i).getName());
+            
         }
 
     }
