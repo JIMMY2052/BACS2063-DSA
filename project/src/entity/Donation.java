@@ -1,5 +1,6 @@
 
 package entity;
+import adt.ListInterface;
 import java.util.Date;
 
 /**
@@ -7,17 +8,16 @@ import java.util.Date;
  * @author JIMMY
  */
 public class Donation {
-    
    private int donationId;
+   private Date donationDate;
    private Donor donor;
    private Donee donee;
-   private Date donationDate;
-   
-    public Donation(int donationId, Donor donor, Donee donee, Date donationDate) {
+
+    public Donation(int donationId, Donor donor, Donee donee) {
         this.donationId = donationId;
+        this.donationDate = new Date();
         this.donor = donor;
         this.donee = donee;
-        this.donationDate = donationDate;
     }
 
     public int getDonationId() {
@@ -26,6 +26,14 @@ public class Donation {
 
     public void setDonationId(int donationId) {
         this.donationId = donationId;
+    }
+
+    public Date getDonationDate() {
+        return donationDate;
+    }
+
+    public void setDonationDate(Date donationDate) {
+        this.donationDate = donationDate;
     }
 
     public Donor getDonor() {
@@ -43,13 +51,7 @@ public class Donation {
     public void setDonee(Donee donee) {
         this.donee = donee;
     }
+   
 
-    public Date getDonationDate() {
-        return donationDate;
-    }
-
-    public void setDonationDate(Date donationDate) {
-        this.donationDate = donationDate;
-    }
    
 }

@@ -12,26 +12,17 @@ import adt.ArrayList;
 public class CharityManagementSystem {
 
     public static void main(String[] args) {
-        //displayMainMenu();
+      
         Donor g1 = new Donor("JIMMY");
-        Donee r1 = new Donee("JIE YANG");
-        FoodDonation fd1 = new FoodDonation(1,g1,r1,new Date(), "MILO", 2);
-        FoodDonation fd2 = new FoodDonation(1,g1,r1,new Date(), "RICE", 2);
-        FoodDonation fd3 = new FoodDonation(1,g1,r1,new Date(), "OIL", 3);
-        ListInterface<FoodDonation> foodList = new ArrayList<>();
-        foodList.add(fd1);
-        foodList.add(fd2);
-        foodList.add(fd3);
-        g1.setFoodDoantionList(foodList);
-         ListInterface<FoodDonation> foodList1 = g1.getFoodDoantionList();
+        Donee r1 = new Donee("CHAN");
+        Donation d1 = new FoodDonation(1, g1,r1,"MILO",1);
+        ListInterface<Donation> donationList = new ArrayList<>();
+        donationList.add(d1);
         
-        for(int i =1; i<= foodList1.getNumberOfEntries(); i++){
-            System.out.print(foodList1.getEntry(i).getFoodName() + " QTY : ");
-            System.out.println(foodList1.getEntry(i).getQty());
+        if(d1 instanceof FoodDonation){
+            System.out.println(((FoodDonation) d1).getFoodType());
         }
-        
 
-        
     }
 
     public static void displayMainMenu() {
@@ -97,8 +88,6 @@ public class CharityManagementSystem {
             }
         } while (opt <= 3 && opt >= 1);
     }
-
-
 
     public static void clearScreen() {
         try {

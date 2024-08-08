@@ -10,23 +10,23 @@ import java.util.Date;
  *
  * @author JIMMY
  */
-public class FoodDonation extends Donation {
+public class FoodDonation extends Donation{
 
-    private String foodName;
+    private String foodType;
     private int qty;
 
-    public FoodDonation(int id, Donor donor, Donee donee, Date donationDate, String foodName, int qty) {
-        super(id, donor, donee, donationDate);
-        this.foodName = foodName;
+    public FoodDonation(int donationId, Donor donor, Donee donee, String foodType, int qty) {
+        super(donationId, donor, donee);
+        this.foodType = foodType;
         this.qty = qty;
     }
 
-    public String getFoodName() {
-        return foodName;
+    public String getFoodType() {
+        return foodType;
     }
 
-    public void setFoodName(String foodName) {
-        this.foodName = foodName;
+    public void setFoodType(String foodType) {
+        this.foodType = foodType;
     }
 
     public int getQty() {

@@ -161,4 +161,23 @@ public class ArrayList<T> implements ListInterface<T>, Serializable {
             array[index] = array[index + 1];
         }
     }
+    
+    
+    @Override
+     public T searchByName(String name) {
+        for (int index = 0; index < numberOfEntries; index++) {
+            try {
+                T element = array[index];
+                // Assuming the object has a getName() method
+                String elementName = (String) element.getClass().getMethod("getName").invoke(element);
+                if (name.equals(elementName)) {
+                    return element;
+                }
+            } catch (Exception e) {
+                // Handle exception: either log it or rethrow it
+                e.printStackTrace();
+            }
+        }
+        return null; // Return null if no match found
+    }
 }
