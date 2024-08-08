@@ -15,8 +15,8 @@ public class FoodDonation extends Donation{
     private String foodType;
     private int qty;
 
-    public FoodDonation(int donationId, Donor donor, Donee donee, String foodType, int qty) {
-        super(donationId, donor, donee);
+    public FoodDonation(int donationId, Donor donor, String foodType, int qty) {
+        super(donationId, donor);
         this.foodType = foodType;
         this.qty = qty;
     }

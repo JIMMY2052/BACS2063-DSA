@@ -12,15 +12,39 @@ import adt.ArrayList;
 public class CharityManagementSystem {
 
     public static void main(String[] args) {
-      
+
         Donor g1 = new Donor("JIMMY");
         Donee r1 = new Donee("CHAN");
-        Donation d1 = new FoodDonation(1, g1,r1,"MILO",1);
+
+        Donation d1 = new FoodDonation(1, g1, "MILO", 1);
+        Donation d2 = new CashDonation(1, g1, 200.10);
+        Donation d3 = new CashDonation(2,g1,1);
+
         ListInterface<Donation> donationList = new ArrayList<>();
         donationList.add(d1);
+        donationList.add(d2);
+        donationList.add(d3);
+
+        ListInterface<Donee> doneeList = new ArrayList<>();
+        doneeList.add(r1);
         
-        if(d1 instanceof FoodDonation){
-            System.out.println(((FoodDonation) d1).getFoodType());
+        
+        DonationDistribution dd1 = new DonationDistribution(1,new Date(),donationList, doneeList);
+        
+        ListInterface<Donation> donationdd1 = dd1.getDonations();
+        
+
+        for (int i = 1; i <= donationdd1.getNumberOfEntries(); i++) {
+            Donation donate = donationdd1.getEntry(i);
+            if (donate instanceof FoodDonation) {
+                FoodDonation foodDonate = (FoodDonation) donate;
+                System.out.println(foodDonate.getFoodType());
+            }
+
+            if (donate instanceof CashDonation) {
+                CashDonation cashDonate = (CashDonation) donate;
+                System.out.printf("RM %.2f\n", cashDonate.getAmount());
+            }
         }
 
     }

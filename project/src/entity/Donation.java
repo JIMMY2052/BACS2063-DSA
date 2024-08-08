@@ -8,16 +8,14 @@ import java.util.Date;
  * @author JIMMY
  */
 public class Donation {
-   private int donationId;
-   private Date donationDate;
-   private Donor donor;
-   private Donee donee;
+   protected int donationId;
+   protected Date donationDate;
+   protected Donor donor;
 
-    public Donation(int donationId, Donor donor, Donee donee) {
+    public Donation(int donationId, Donor donor) {
         this.donationId = donationId;
         this.donationDate = new Date();
         this.donor = donor;
-        this.donee = donee;
     }
 
     public int getDonationId() {
@@ -44,13 +42,6 @@ public class Donation {
         this.donor = donor;
     }
 
-    public Donee getDonee() {
-        return donee;
-    }
-
-    public void setDonee(Donee donee) {
-        this.donee = donee;
-    }
    
 
    
