@@ -4,6 +4,9 @@
  */
 package entity;
 
+import adt.SortedArrayList;
+import adt.SortedListInterface;
+
 /**
  *
  * @author JIMMY
@@ -11,11 +14,13 @@ package entity;
 public class Donor {
     private String name;
     private int DonorId;
+    private SortedListInterface<Donation> donorDonationList;
     private static int numberOfDonor = 1;
 
     public Donor(String name) {
         this.name = name;
         this.DonorId = numberOfDonor;
+        this.donorDonationList = new SortedArrayList<Donation>();
         numberOfDonor++;
     }
 
@@ -43,7 +48,13 @@ public class Donor {
         Donor.numberOfDonor = numberOfDonor;
     }
 
-    
+    public SortedListInterface<Donation> getDonorDonationList() {
+        return donorDonationList;
+    }
+
+    public void setDonorDonationList(SortedListInterface<Donation> donorDonationList) {
+        this.donorDonationList = donorDonationList;
+    }  
     
     
 }

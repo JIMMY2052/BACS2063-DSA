@@ -5,7 +5,6 @@ import java.awt.Robot;
 import java.awt.event.KeyEvent;
 import java.util.Scanner;
 import entity.*;
-import java.util.Date;
 import adt.SortedArrayList;
 import adt.SortedListInterface;
 
@@ -26,11 +25,20 @@ public class CharityManagementSystem {
         DonatedItem di2 = new DonatedItem("Apple",2,"kg");
         
         Donation d1 = new Donation(g1);
+        Donation d2 = new Donation(g1);
+        Donation d3 = new Donation(g1);
         d1.addDonatedItem(di2);
          d1.addDonatedItem(di1);
           d1.addDonatedItem(di);
           
+          SortedListInterface<Donation> dlist = new SortedArrayList<>();
+          dlist.add(d3);
+          dlist.add(d1);
+          dlist.add(d2);
           
+          for (int i = 0; i < dlist.getNumberOfEntries() ; i++) {
+              System.out.printf("%s\n",dlist.getEntry(i));
+        }
           
           SortedListInterface<DonatedItem> donationList = d1.getDonatedItems();
           donationList.clear();

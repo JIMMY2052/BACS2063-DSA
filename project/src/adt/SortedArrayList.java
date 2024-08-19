@@ -76,6 +76,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         for(int i  = 0; i < numberOfEntries; i++){
             array[i] = null;
         }
+        
         numberOfEntries = 0;
         return true;
     }

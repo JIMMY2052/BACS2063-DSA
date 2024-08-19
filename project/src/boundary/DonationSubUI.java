@@ -18,7 +18,8 @@ public class DonationSubUI {
         System.out.println("2. View Donations");
         System.out.println("3. Search Donation");
         System.out.println("4. Delete Donation");
-        System.out.println("5. Generate Summary Report");
+        System.out.println("5. Update Donation");
+        System.out.println("6. Generate Summary Report");
         System.out.println("0. Return Back to Previous Page");
         
         System.out.println("Enter your choice -> ");
