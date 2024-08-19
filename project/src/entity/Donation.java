@@ -10,12 +10,11 @@ import adt.SortedListInterface;
  */
 public class Donation {
 
-    private int donationId; 
+    private int donationId;
     private Donor donor;
     private SortedListInterface<DonatedItem> donatedItems;
     private Date date;
     private static int numberOfDonation = 0;
-
 
     public Donation(Donor donor) {
         numberOfDonation++;
@@ -29,6 +28,10 @@ public class Donation {
         this.donatedItems.add(item);
     }
 
+    public void deleteDonatedItem(int index) {
+        this.donatedItems.remove(index);
+    }
+
     public SortedListInterface<DonatedItem> getDonatedItems() {
         return donatedItems;
     }
@@ -37,5 +40,5 @@ public class Donation {
     public String toString() {
         return "Donation ID: " + donationId + ", Donor: " + donor.getName() + ", Date: " + date + ", Items: " + donatedItems;
     }
-    
+
 }

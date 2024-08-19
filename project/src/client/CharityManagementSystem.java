@@ -30,9 +30,11 @@ public class CharityManagementSystem {
          d1.addDonatedItem(di1);
           d1.addDonatedItem(di);
           
-          System.out.println();
+          
           
           SortedListInterface<DonatedItem> donationList = d1.getDonatedItems();
+          donationList.clear();
+
           
           for (int i = 0; i < donationList.getNumberOfEntries() ; i++) {
               System.out.printf("%s\n",donationList.getEntry(i));

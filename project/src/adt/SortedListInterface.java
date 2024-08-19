@@ -13,7 +13,7 @@ public interface SortedListInterface<T extends Comparable <T>> {
   public boolean add(T newEntry);
   public int search(T entry);
   public T remove(int givenPosition);
-  public void clear();
+  public boolean clear();
   public boolean replace(int givenPosition, T newEntry);
   public T getEntry(int givenPosition);
   public int getNumberOfEntries();

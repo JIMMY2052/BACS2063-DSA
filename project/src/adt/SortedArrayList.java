@@ -68,9 +68,16 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
 
     // Clear the list
     @Override
-    public void clear() {
-        Arrays.fill(array, 0, numberOfEntries, null);
+    public boolean clear() {
+        if(numberOfEntries == 0){
+            return false;
+        }
+        
+        for(int i  = 0; i < numberOfEntries; i++){
+            array[i] = null;
+        }
         numberOfEntries = 0;
+        return true;
     }
 
     // Replace an entry at a given position
