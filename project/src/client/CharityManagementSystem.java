@@ -6,8 +6,8 @@ import java.awt.event.KeyEvent;
 import java.util.Scanner;
 import entity.*;
 import java.util.Date;
-import adt.ListInterface;
-import adt.ArrayList;
+import adt.SortedArrayList;
+import adt.SortedListInterface;
 
 public class CharityManagementSystem {
 
@@ -16,43 +16,24 @@ public class CharityManagementSystem {
         Donor g1 = new Donor("JIMMY");
         Donee r1 = new Donee("MR.CHAN");
         Donee r2 = new Donee("MS.OOI");
+        Donee r3 = new Donee("MS.OOI");
+        Donee r4 = new Donee("MS.OOI");
+        Donee r5 = new Donee("MS.OOI");
+        Donee r6 = new Donee("MS.OOI");
 
-        Donation d1 = new FoodDonation(1, g1, "MILO", 1);
-        Donation d2 = new CashDonation(1, g1, 200.10);
-        Donation d3 = new CashDonation(2,g1,1);
-
-        ListInterface<Donation> donationList = new ArrayList<>();
-        donationList.add(d1);
-        donationList.add(d2);
-        donationList.add(d3);
-
-        ListInterface<Donee> doneeList = new ArrayList<>();
-        doneeList.add(r1);
-        doneeList.add(r2);
+        DonatedItem di = new DonatedItem("CASH",1000);
+        DonatedItem di1 = new DonatedItem("FOOD",1);
+        DonatedItem di2 = new DonatedItem("Apple",2);
         
-        DonationDistribution dd1 = new DonationDistribution(1,new Date(),donationList, doneeList);
-        
-        ListInterface<Donation> donationdd1 = dd1.getDonations();
-        
-        System.out.println("Donated BY: " + donationdd1.getEntry(1).getDonor().getName());
-        System.out.println("Donated Item: ");
-        for (int i = 1; i <= donationdd1.getNumberOfEntries(); i++) {
-            Donation donate = donationdd1.getEntry(i);
-            if (donate instanceof FoodDonation) {
-                FoodDonation foodDonate = (FoodDonation) donate;
-                System.out.println(foodDonate.getFoodType());
-            }
-
-            if (donate instanceof CashDonation) {
-                CashDonation cashDonate = (CashDonation) donate;
-                System.out.printf("RM %.2f\n", cashDonate.getAmount());
-            }
-        }
-        
-        System.out.print("Received BY: \n");
-        for (int i = 1; i <= dd1.getDonees().getNumberOfEntries(); i++) {
-            System.out.println(dd1.getDonees().getEntry(i).getName());
-            
+        Donation d1 = new Donation(g1);
+        d1.addDonatedItem(di2);
+         d1.addDonatedItem(di1);
+          d1.addDonatedItem(di);
+          
+          SortedListInterface<DonatedItem> donationList = d1.getDonatedItems();
+          
+          for (int i = 0; i <donationList.getNumberOfEntries() ; i++) {
+              System.out.printf("%s\n",donationList.getEntry(i));
         }
 
     }

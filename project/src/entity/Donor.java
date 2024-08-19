@@ -10,9 +10,13 @@ package entity;
  */
 public class Donor {
     private String name;
+    private int DonorId;
+    private static int numberOfDonor = 1;
 
     public Donor(String name) {
         this.name = name;
+        this.DonorId = numberOfDonor;
+        numberOfDonor++;
     }
 
     public String getName() {
@@ -22,6 +26,24 @@ public class Donor {
     public void setName(String name) {
         this.name = name;
     }
+
+    public int getDonorId() {
+        return DonorId;
+    }
+
+    public void setDonorId(int DonorId) {
+        this.DonorId = DonorId;
+    }
+
+    public static int getNumberOfDonor() {
+        return numberOfDonor;
+    }
+
+    public static void setNumberOfDonor(int numberOfDonor) {
+        Donor.numberOfDonor = numberOfDonor;
+    }
+
+    
     
     
 }

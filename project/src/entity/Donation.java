@@ -1,48 +1,41 @@
-
 package entity;
-import adt.ListInterface;
+
 import java.util.Date;
+import adt.SortedArrayList;
+import adt.SortedListInterface;
 
 /**
  *
  * @author JIMMY
  */
 public class Donation {
-   protected int donationId;
-   protected Date donationDate;
-   protected Donor donor;
 
-    public Donation(int donationId, Donor donor) {
-        this.donationId = donationId;
-        this.donationDate = new Date();
+    private int donationId; 
+    private Donor donor;
+    private SortedListInterface<DonatedItem> donatedItems;
+    private Date date;
+    private static int numberOfDonation = 0;
+
+    // Constructors, Getters, Setters
+    public Donation(Donor donor) {
+        numberOfDonation++;
+        this.donationId = numberOfDonation;
         this.donor = donor;
+        this.date = new Date();
+        this.donatedItems = new SortedArrayList<>();
     }
 
-    public int getDonationId() {
-        return donationId;
+    public void addDonatedItem(DonatedItem item) {
+        this.donatedItems.add(item);
     }
 
-    public void setDonationId(int donationId) {
-        this.donationId = donationId;
+    public SortedListInterface<DonatedItem> getDonatedItems() {
+        return donatedItems;
     }
 
-    public Date getDonationDate() {
-        return donationDate;
+    @Override
+    public String toString() {
+        return "Donation ID: " + donationId + ", Donor: " + donor.getName() + ", Date: " + date + ", Items: " + donatedItems;
     }
-
-    public void setDonationDate(Date donationDate) {
-        this.donationDate = donationDate;
-    }
-
-    public Donor getDonor() {
-        return donor;
-    }
-
-    public void setDonor(Donor donor) {
-        this.donor = donor;
-    }
-
-   
-
-   
+    
 }

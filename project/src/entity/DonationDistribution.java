@@ -4,20 +4,21 @@
  */
 package entity;
 
-import adt.ListInterface;
 import java.util.Date;
+import adt.SortedListInterface;
 
 /**
  *
  * @author JIMMY
  */
 public class DonationDistribution {
+
     private int distributionId;
     private Date date;
-    private ListInterface<Donation> donations;
-    private ListInterface<Donee> donees;
+    private SortedListInterface<Donation> donations;
+    private SortedListInterface<Donee> donees;
 
-    public DonationDistribution(int distributionId, Date date, ListInterface<Donation> donations, ListInterface<Donee> donees) {
+    public DonationDistribution(int distributionId, Date date, SortedListInterface<Donation> donations, SortedListInterface<Donee> donees) {
         this.distributionId = distributionId;
         this.date = date;
         this.donations = donations;
@@ -40,22 +41,20 @@ public class DonationDistribution {
         this.date = date;
     }
 
-    public ListInterface<Donation> getDonations() {
+    public SortedListInterface<Donation> getDonations() {
         return donations;
     }
 
-    public void setDonations(ListInterface<Donation> donations) {
+    public void setDonations(SortedListInterface<Donation> donations) {
         this.donations = donations;
     }
 
-    public ListInterface<Donee> getDonees() {
+    public SortedListInterface<Donee> getDonees() {
         return donees;
     }
 
-    public void setDonees(ListInterface<Donee> donees) {
+    public void setDonees(SortedListInterface<Donee> donees) {
         this.donees = donees;
     }
-    
-    
-    
+
 }
