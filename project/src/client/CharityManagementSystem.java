@@ -21,18 +21,20 @@ public class CharityManagementSystem {
         Donee r5 = new Donee("MS.OOI");
         Donee r6 = new Donee("MS.OOI");
 
-        DonatedItem di = new DonatedItem("CASH",1000);
-        DonatedItem di1 = new DonatedItem("FOOD",1);
-        DonatedItem di2 = new DonatedItem("Apple",2);
+        DonatedItem di = new DonatedItem("CASH",1000.50,"RM");
+        DonatedItem di1 = new DonatedItem("FOOD",1.5,"pack");
+        DonatedItem di2 = new DonatedItem("Apple",2,"kg");
         
         Donation d1 = new Donation(g1);
         d1.addDonatedItem(di2);
          d1.addDonatedItem(di1);
           d1.addDonatedItem(di);
           
+          System.out.println();
+          
           SortedListInterface<DonatedItem> donationList = d1.getDonatedItems();
           
-          for (int i = 0; i <donationList.getNumberOfEntries() ; i++) {
+          for (int i = 0; i < donationList.getNumberOfEntries() ; i++) {
               System.out.printf("%s\n",donationList.getEntry(i));
         }
 

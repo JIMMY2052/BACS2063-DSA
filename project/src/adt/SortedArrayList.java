@@ -22,7 +22,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         numberOfEntries = 0;
     }
 
-    // Add a new entry to the list
     @Override
     public boolean add(T newEntry) {
         if (isFull()) {

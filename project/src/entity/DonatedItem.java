@@ -10,14 +10,15 @@ package entity;
  */
 public class DonatedItem implements Comparable<DonatedItem>{
     private String itemName;
-    private int quantity;
+    private String unit;
+    private double quantity;
 
-    public DonatedItem(String itemName, int quantity) {
+    public DonatedItem(String itemName, double quantity, String unit) {
         this.itemName = itemName;
         this.quantity = quantity;
+        this.unit = unit;
     }
 
-    // Getters and Setters
     public String getItemName() {
         return itemName;
     }
@@ -26,18 +27,31 @@ public class DonatedItem implements Comparable<DonatedItem>{
         this.itemName = itemName;
     }
 
-
-    public int getQuantity() {
+    public double getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(double quantity) {
         this.quantity = quantity;
     }
 
+    public String getUnit() {
+        return unit;
+    }
+
+    public void setUnit(String unit) {
+        this.unit = unit;
+    }
+    
+    
+
     @Override
     public String toString() {
-        return "Item Name: " + itemName  + "\n Quantity: " + quantity;
+        if(itemName.equals("CASH")){
+            return "Item Name: " + itemName + "\nRM " + String.format("%.2f", quantity);
+        }
+        return "Item Name: " + itemName  + "\nQuantity: " + quantity + unit;
+        
     }
 
     @Override

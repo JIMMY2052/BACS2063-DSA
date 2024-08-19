@@ -16,7 +16,7 @@ public class Donation {
     private Date date;
     private static int numberOfDonation = 0;
 
-    // Constructors, Getters, Setters
+
     public Donation(Donor donor) {
         numberOfDonation++;
         this.donationId = numberOfDonation;
