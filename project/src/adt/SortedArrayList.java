@@ -119,6 +119,11 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
     public boolean isFull() {
         return numberOfEntries >= array.length;
     }
+    
+    @Override
+    public boolean merge(T[] list) {
+        
+    }
 
     private void makeRoom(int newPosition) {
         int newIndex = newPosition - 1;
@@ -137,5 +142,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
         array = Arrays.copyOf(array, newLength);
     }
+
+    
 
 }

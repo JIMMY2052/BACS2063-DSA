@@ -19,6 +19,7 @@ public interface SortedListInterface<T extends Comparable <T>> {
   public int getNumberOfEntries();
   public boolean isEmpty();
   public boolean isFull();
+  public boolean merge(T[] list);
 
   
 }
