@@ -8,6 +8,6 @@ package Control;
  *
  * @author JIMMY
  */
-public class DonationSubSystem {
+public class DonationController {
     
 }

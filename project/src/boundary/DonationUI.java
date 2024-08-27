@@ -10,7 +10,7 @@ import java.util.Scanner;
  *
  * @author JIMMY
  */
-public class DonationSubUI {
+public class DonationUI {
     Scanner sc = new Scanner(System.in);
     
     public int displayMenu(){
