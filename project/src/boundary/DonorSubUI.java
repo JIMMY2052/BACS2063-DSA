@@ -19,7 +19,8 @@ public class DonorSubUI {
                            "|  6. Filter Donor based On Criteria           |\n" +
                            "|  7. Categories Donors                        |\n" +
                            "|  8. Generate Donor Summary Report            |\n" +
-                           "+----------------------------------------------+\n");
+                           "|  0. Exit                                     |\n" +
+                           "+----------------------------------------------+\n\n");
     }
     
     public void addDonorMenu() {
