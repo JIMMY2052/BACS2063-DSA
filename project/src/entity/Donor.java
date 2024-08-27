@@ -11,23 +11,24 @@ import adt.SortedListInterface;
  *
  * @author JIMMY
  */
-public class Donor {
+public class Donor implements Comparable<Donor>{
     private String name;
-    private String DonorId;
     private int contactNo;
     private String category;
     private String gender;
+    private String donorId;
     private SortedListInterface<Donation> donorDonationList;
-    private static int numberOfDonor = 1;
+    private static int numberOfDonor = 0;
 
     public Donor(String name, int contactNo, String category, String gender) {
         this.name = name;
-        this.DonorId = "DR" + numberOfDonor;
+        this.donorId = "DR" + numberOfDonor;
         this.contactNo = contactNo;
         this.category = category;
         this.gender = gender;
         this.donorDonationList = new SortedArrayList<Donation>();
         numberOfDonor++;
+         this.donorId = String.format("D%03d", numberOfDonor); 
     }
 
     public Donor() {
@@ -66,12 +67,12 @@ public class Donor {
         this.name = name;
     }
 
-    public void setDonorId(String DonorId) {
-        this.DonorId = DonorId;
+    public String getDonorId() {
+        return donorId;
     }
 
-    public String getDonorId() {
-        return DonorId;
+    public void setDonorId(String donorId) {
+        this.donorId = donorId;
     }
 
     public static int getNumberOfDonor() {
@@ -90,5 +91,9 @@ public class Donor {
         this.donorDonationList = donorDonationList;
     }
     
+    @Override
+    public int compareTo(Donor o) {
+        return name.compareTo(o.name);
+    }
     
 }

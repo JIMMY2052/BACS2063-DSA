@@ -8,7 +8,7 @@ package boundary;
  *
  * @author User
  */
-public class DonorSubUI {
+public class DonorUI {
     public void donorMenu() {
         System.out.println("+----------------------------------------------+\n" +
                            "|  1. Add Donor                                |\n" +
