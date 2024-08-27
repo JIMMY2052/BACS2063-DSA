@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Control;
+
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -14,19 +15,30 @@ import boundary.DonationUI;
  * @author JIMMY
  */
 public class DonationController {
+
     DonationUI donationUI = new DonationUI();
-    
-    public DonationController(){
-        clearScreen();
-        int choice = donationUI.displayDonationMenu();
-        
+
+    public DonationController() {
+        int choice;
+        do {
+            clearScreen();
+            choice = donationUI.displayDonationMenu();
+            switch(choice){
+                case 1:
+                    clearScreen();
+                    donationUI.addDonationMenu();
+                    break;
+                case 2:
+            }
+        } while (choice != 0);
+
     }
-    
+
     public static void main(String[] args) {
         DonationController dc = new DonationController();
     }
-    
-        public static void clearScreen() {
+
+    public static void clearScreen() {
         try {
             Robot rob = new Robot();
             try {

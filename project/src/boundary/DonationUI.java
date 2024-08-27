@@ -11,9 +11,11 @@ import java.util.Scanner;
  * @author JIMMY
  */
 public class DonationUI {
+
     Scanner sc = new Scanner(System.in);
-    
-    public int displayDonationMenu(){
+
+    public int displayDonationMenu() {
+        int opt;
         System.out.println("\t\tDONATION MANAGEMENT");
         System.out.println("======================================================");
         System.out.println("\t\t1. Make A Donation");
@@ -24,63 +26,64 @@ public class DonationUI {
         System.out.println("\t\t6. Generate Summary Report");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
-        
-        System.out.println("Enter your choice -> ");
-        int opt = sc.nextInt();
+
+        System.out.print("Enter your choice -> ");
+        opt = sc.nextInt();
+        while (opt < 0 || opt > 6) {
+            System.out.print("Invalid option! Please select a number between 0 and 6 : ");
+            opt = sc.nextInt();
+        }
         return opt;
     }
-    
-    public int addDonationMenu(){
+
+    public int addDonationMenu() {
         System.out.println("\t\tMAKE DONATION");
         System.out.println("======================================================");
         System.out.println("\t\t1. Donate Food");
         System.out.println("\t\t2. Donate Cash");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
-        
+
         System.out.println("Enter your choice -> ");
         int opt = sc.nextInt();
         return opt;
     }
-    
+
     //---------MAKE DONATION---------------------
-    public String inputDonorId(){
-       System.out.print("Enter Donor ID: ");
-       String donorId = sc.nextLine().trim(); 
-       return donorId;
+    public String inputDonorId() {
+        System.out.print("Enter Donor ID: ");
+        String donorId = sc.nextLine().trim();
+        return donorId;
     }
-    
-    public String inputFoodName(){
+
+    public String inputFoodName() {
         System.out.println("Enter Food Name: ");
         String foodName = sc.nextLine().trim();
         return foodName;
     }
-    
-    public double inputQuantity(){
+
+    public double inputQuantity() {
         System.out.println("Enter Quantity: ");
         double qty = sc.nextDouble();
         return qty;
     }
-    
-    public String inputUnit(){
+
+    public String inputUnit() {
         System.out.print("Enter the Unit(cm,m,kg,g): ");
         String unit = sc.nextLine().trim();
         return unit;
     }
-    
-    public double inputCash(){
+
+    public double inputCash() {
         System.out.println("Enter amount cash: ");
         double amount = sc.nextDouble();
         return amount;
     }
     //---------MAKE DONATION---------------------
-    
-    
-    
+
     public static void main(String[] args) {
         DonationUI ui = new DonationUI();
         ui.addDonationMenu();
     }
-    
-    
+
 }
