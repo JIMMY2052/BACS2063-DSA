@@ -37,6 +37,7 @@ public class DonationUI {
     }
 
     public int addDonationMenu() {
+        int opt;
         System.out.println("\t\tMAKE DONATION");
         System.out.println("======================================================");
         System.out.println("\t\t1. Donate Food");
@@ -44,8 +45,12 @@ public class DonationUI {
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
 
-        System.out.println("Enter your choice -> ");
-        int opt = sc.nextInt();
+        System.out.print("Enter your choice -> ");
+        opt = sc.nextInt();
+        while (opt < 0 || opt > 2) {
+            System.out.print("Invalid option! Please select a number between 0 and 2 : ");
+            opt = sc.nextInt();
+        }
         return opt;
     }
 

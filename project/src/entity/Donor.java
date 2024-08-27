@@ -13,13 +13,15 @@ import adt.SortedListInterface;
  */
 public class Donor implements Comparable<Donor>{
     private String name;
+    private String donorId;
     private SortedListInterface<Donation> donorDonationList;
-    private static int numberOfDonor = 1;
+    private static int numberOfDonor = 0;
 
     public Donor(String name) {
         this.name = name;
         this.donorDonationList = new SortedArrayList<Donation>();
         numberOfDonor++;
+         this.donorId = String.format("D%03d", numberOfDonor); 
     }
 
     public String getName() {
@@ -28,6 +30,14 @@ public class Donor implements Comparable<Donor>{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getDonorId() {
+        return donorId;
+    }
+
+    public void setDonorId(String donorId) {
+        this.donorId = donorId;
     }
 
     public static int getNumberOfDonor() {
