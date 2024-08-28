@@ -19,22 +19,16 @@ public class DonorController {
     private SortedListInterface<Donor> donorList = new SortedArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     
-    private String name = "";
-    private String contactNo;
-    private String category = "";
-    private String gender = "";
-    
-    
     public void addDonor() {
         donorUI.addDonorMenu();
         System.out.print("Enter a new donor name: ");
-        name = scanner.nextLine();
+        String name = scanner.nextLine();
         System.out.print("Enter new donor's contact number: ");
-        contactNo = scanner.nextLine();
+        String contactNo = scanner.nextLine();
         System.out.print("Enter new donor in what category: ");
-        category = scanner.nextLine();
+        String category = scanner.nextLine();
         System.out.print("Enter new donor's gender: ");
-        gender = scanner.nextLine();
+        String gender = scanner.nextLine();
         
         Donor donor = new Donor(name, contactNo, category, gender);
         donorList.add(donor);
