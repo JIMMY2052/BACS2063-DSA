@@ -65,21 +65,22 @@ public class DonationController {
     }
 
     private void foodDonation() {
+        Donor donor;
+        boolean found = false;
         String donorId = donationUI.inputDonorId();
         Iterator<Donor> iterator = donors.getIterator();
         while (iterator.hasNext()) {
-            Donor donor = iterator.next();
+            donor = iterator.next();
             if (donor.getDonorId().equals(donorId)) {
-                System.out.println("Correct");
-                pressEnterContinue();
-                
+                found = true;
+                break;
             }
-            else{
-                System.out.println("Incorrect");
-                pressEnterContinue();
-            }
+        
         }
-        pressEnterContinue();
+        
+                System.out.println("Donor ID does not exists.");
+
+        
     }
     
     private void cashDonation(){

@@ -37,7 +37,8 @@ public class DonorController {
         gender = scanner.nextLine();
         
         Donor donor = new Donor(name, contactNo, category, gender);
-        arrayList.add(donor);
+        
+        System.out.println(donor.getDonorId());
     }
     
     public void menu() {

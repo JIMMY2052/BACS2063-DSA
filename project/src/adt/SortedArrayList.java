@@ -29,20 +29,14 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
             doubleCapacity();
         }
 
-        if (isEmpty()) {
-            array[0] = newEntry;
-            numberOfEntries++;
+        int i = 0;
+        while (i < numberOfEntries && newEntry.compareTo(array[i]) > 0) {
+            i++;
         }
+        makeRoom(i + 1);
+        array[i] = newEntry;
+        numberOfEntries++;
 
-        if (!isEmpty()) {
-            int i = 0;
-            while (i < numberOfEntries && newEntry.compareTo(array[i]) > 0) {
-                i++;
-            }
-            makeRoom(i + 1);
-            array[i] = newEntry;
-            numberOfEntries++;
-        }
         return true;
     }
 
@@ -107,7 +101,9 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
             if (!hasNext()) {
                 return null;
             }
-            return array[currentIndex++];
+            T obj = (T) array[currentIndex];
+            currentIndex++;
+            return obj;
         }
     }
 
