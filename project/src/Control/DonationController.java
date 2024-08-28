@@ -25,15 +25,15 @@ import java.util.Scanner;
 public class DonationController {
 
     private Scanner sc = new Scanner(System.in);
-    private SortedListInterface<Donor> donors = new SortedArrayList<>();
-    private SortedListInterface<Donation> donations = new SortedArrayList<>();
-    private SortedListInterface<DonatedItem> donatedItems = new SortedArrayList<>();
+    private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
+    private SortedListInterface<Donation> allDonations = new SortedArrayList<>();
+    private SortedListInterface<DonatedItem> allDonatedItems = new SortedArrayList<>();
 
     private DonationUI donationUI = new DonationUI();
     private DonorInitializer donorinitializer = new DonorInitializer();
 
     public DonationController() {
-        donors = donorinitializer.initializeStudent();
+        allDonors = donorinitializer.initializeStudent();
         int choice;
         do {
             clearScreen();
@@ -54,37 +54,46 @@ public class DonationController {
         do {
             clearScreen();
             choice = donationUI.addDonationMenu();
-
+            Donor donor;
             switch (choice) {
                 case 1:
-                    Donor donor = searchDonorByID();
-                    if(donor == null){
+                    donor = searchDonorByID();
+                    if (donor == null) {
                         break;
+                    } else {
+                        foodDonation(donor);
+                        donor.setDonorDonationList(donations);
+                        donations.clear();
                     }
-                    foodDonation(donor);
                     break;
                 case 2:
-
-                    cashDonation();
+                    donor = searchDonorByID();
+                    if (donor == null) {
+                        break;
+                    } else {
+                        cashDonation(donor);
+                        
+                        donations.clear();
+                    }
                     break;
             }
         } while (choice != 0);
     }
 
     private void foodDonation(Donor donor) {
-        Donation donation = new Donation(donor);
+        Donation donation = new Donation(donor, "FOOD");
         int choice;
-        
-        do{
-        String foodName = donationUI.inputFoodName();
-        double qty = donationUI.inputQuantity();
-        String unit = donationUI.inputUnit();
-        DonatedItem donatedItem = new DonatedItem(foodName,qty,unit);
-        donation.addDonatedItem(donatedItem);
-        choice = donationUI.askToContinue();
-        }while(choice == 1);
-        
-        donations.add(donation);
+
+        do {
+            String foodName = donationUI.inputFoodName();
+            double qty = donationUI.inputQuantity();
+            String unit = donationUI.inputUnit();
+            DonatedItem donatedItem = new DonatedItem(foodName, qty, unit);
+            donation.addDonatedItem(donatedItem);
+            choice = donationUI.askToContinue();
+        } while (choice == 1);
+        donor.setDonorDonationList(donation);
+        allDonations.add(donation);
     }
 
     private Donor searchDonorByID() {
@@ -109,7 +118,7 @@ public class DonationController {
         return donor;
     }
 
-    private void cashDonation() {
+    private void cashDonation(Donor donor) {
 
     }
 

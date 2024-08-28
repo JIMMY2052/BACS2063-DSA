@@ -13,13 +13,15 @@ public class Donation implements Comparable<Donation> {
     private String donationId;
     private Donor donor;
     private SortedListInterface<DonatedItem> donatedItems;
+    private String category;
     private Date date;
     private static int numberOfDonation = 0;
 
-    public Donation(Donor donor) {
+    public Donation(Donor donor, String category) {
         numberOfDonation++;
         this.donor = donor;
         this.date = new Date();
+        this.category = category;
         this.donatedItems = new SortedArrayList<>();
         this.donationId = String.format("K%03d", numberOfDonation);
     }
@@ -35,6 +37,15 @@ public class Donation implements Comparable<Donation> {
     public Donor getDonor() {
         return donor;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    
 
     public void setDonor(Donor donor) {
         this.donor = donor;

@@ -90,6 +90,10 @@ public class Donor implements Comparable<Donor> {
     public void setDonorDonationList(SortedListInterface<Donation> donorDonationList) {
         this.donorDonationList = donorDonationList;
     }
+    
+    public void addDonation(Donation donation){
+        donorDonationList.add(donation);
+    }
 
     @Override
     public int compareTo(Donor o) {
