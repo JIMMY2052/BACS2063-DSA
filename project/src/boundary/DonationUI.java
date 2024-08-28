@@ -47,6 +47,7 @@ public class DonationUI {
 
         System.out.print("Enter your choice -> ");
         opt = sc.nextInt();
+        sc.nextLine();
         while (opt < 0 || opt > 2) {
             System.out.print("Invalid option! Please select a number between 0 and 2 : ");
             opt = sc.nextInt();

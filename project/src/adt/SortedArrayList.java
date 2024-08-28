@@ -5,6 +5,7 @@
 package adt;
 
 import java.util.Arrays;
+import java.util.Iterator;
 
 /**
  *
@@ -28,13 +29,20 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
             doubleCapacity();
         }
 
-        int i = 0;
-        while (i < numberOfEntries && newEntry.compareTo(array[i]) > 0) {
-            i++;
+        if (isEmpty()) {
+            array[0] = newEntry;
+            numberOfEntries++;
         }
-        makeRoom(i + 1);
-        array[i] = newEntry;
-        numberOfEntries++;
+
+        if (!isEmpty()) {
+            int i = 0;
+            while (i < numberOfEntries && newEntry.compareTo(array[i]) > 0) {
+                i++;
+            }
+            makeRoom(i + 1);
+            array[i] = newEntry;
+            numberOfEntries++;
+        }
         return true;
     }
 
@@ -79,6 +87,33 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
 
         numberOfEntries = 0;
         return true;
+    }
+
+    private class SortedArrayListIterator implements Iterator<T> {
+
+        private int currentIndex;
+
+        public SortedArrayListIterator() {
+            currentIndex = 0;
+        }
+
+        @Override
+        public boolean hasNext() {
+            return currentIndex < numberOfEntries;
+        }
+
+        @Override
+        public T next() {
+            if (!hasNext()) {
+                return null;
+            }
+            return array[currentIndex++];
+        }
+    }
+
+    @Override
+    public Iterator<T> getIterator() {
+        return new SortedArrayListIterator();
     }
 
     // Replace an entry at a given position
@@ -137,7 +172,5 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
         array = Arrays.copyOf(array, newLength);
     }
-
-
 
 }

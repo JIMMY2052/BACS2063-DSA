@@ -4,6 +4,8 @@
  */
 package adt;
 
+import java.util.Iterator;
+
 /**
  *
  * @author JIMMY
@@ -27,6 +29,8 @@ public interface SortedListInterface<T extends Comparable<T>> {
     public boolean isEmpty();
 
     public boolean isFull();
+    
+    public Iterator<T> getIterator();
     
 
 }

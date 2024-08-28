@@ -14,21 +14,23 @@ import dao.DonorInitializer;
 import boundary.DonationUI;
 import entity.Donation;
 import entity.Donor;
+import java.util.Iterator;
+import java.util.Scanner;
 
 /**
  *
  * @author JIMMY
  */
 public class DonationController {
-    
+    private Scanner sc = new Scanner(System.in);
     private SortedListInterface<Donor> donors = new SortedArrayList<>();
     private SortedListInterface<Donation> donations = new SortedArrayList<>();
     
     private DonationUI donationUI = new DonationUI();
-    private DonorInitializer initializer = new DonorInitializer();
+    private DonorInitializer donorinitializer = new DonorInitializer();
 
     public DonationController() {
-        donors = initializer.
+        donors = donorinitializer.initializeStudent();
         int choice;
         do {
             clearScreen();
@@ -63,9 +65,20 @@ public class DonationController {
 
     private void foodDonation() {
         String donorId = donationUI.inputDonorId();
-        for (int i = 0; i < 10; i++) {
-            
+        Iterator<Donor> iterator = donors.getIterator();
+        while (iterator.hasNext()) {
+            Donor donor = iterator.next();
+            if (donor.getDonorId().equals(donorId)) {
+                System.out.println("Correct");
+                pressEnterContinue();
+                
+            }
+            else{
+                System.out.println("Incorrect");
+                pressEnterContinue();
+            }
         }
+        pressEnterContinue();
     }
     
     private void cashDonation(){
@@ -91,5 +104,12 @@ public class DonationController {
         } catch (AWTException e) {
             e.printStackTrace();
         }
+    }
+    
+        public static void pressEnterContinue() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Press [Enter] key to continue...");
+        sc.nextLine();
+        clearScreen();
     }
 }
