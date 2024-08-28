@@ -4,17 +4,19 @@
  */
 package Control;
 
-import boundary.DonorSubUI;
+import boundary.DonorUI;
 import entity.Donor;
-import adt.*;
+import entity.Donation;
+import adt.SortedListInterface;
+import adt.SortedArrayList;
 import java.util.Scanner;
 /**
  *
  * @author User
  */
-public class DonorSubSystem {
-    private DonorSubUI donorUI = new DonorSubUI();
-    private SortedListInterface<T> arrayList = new SortedArrayList<>();
+public class DonorController {
+    private DonorUI donorUI = new DonorUI();
+    private SortedListInterface<Donation> donationList = new SortedArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     
     private String name = "";
@@ -57,7 +59,7 @@ public class DonorSubSystem {
     }
     
     public static void main(String[] args) {
-        DonorSubSystem d = new DonorSubSystem();
+        DonorController d = new DonorController();
         
         d.menu();
     }

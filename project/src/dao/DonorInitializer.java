@@ -17,11 +17,10 @@ public class DonorInitializer {
     public SortedListInterface<Donor> initializeStudent() {
 
         SortedListInterface<Donor> donors = new SortedArrayList<>();
-        
-        donors.add(new Donor("JIMMY"));
-        donors.add(new Donor("JIE YANG"));
 
-       
+        donors.add(new Donor("JIMMY", 010, "c", "m"));
+        donors.add(new Donor("JIE YANG", 010, "c", "m"));
+
         return donors;
     }
 
