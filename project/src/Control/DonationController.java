@@ -13,6 +13,7 @@ import adt.SortedArrayList;
 import dao.DonorInitializer;
 import boundary.DonationUI;
 import entity.Donation;
+import entity.DonatedItem;
 import entity.Donor;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -22,10 +23,12 @@ import java.util.Scanner;
  * @author JIMMY
  */
 public class DonationController {
+
     private Scanner sc = new Scanner(System.in);
     private SortedListInterface<Donor> donors = new SortedArrayList<>();
     private SortedListInterface<Donation> donations = new SortedArrayList<>();
-    
+    private SortedListInterface<DonatedItem> donatedItems = new SortedArrayList<>();
+
     private DonationUI donationUI = new DonationUI();
     private DonorInitializer donorinitializer = new DonorInitializer();
 
@@ -54,18 +57,38 @@ public class DonationController {
 
             switch (choice) {
                 case 1:
-                    foodDonation();
+                    Donor donor = searchDonorByID();
+                    if(donor == null){
+                        break;
+                    }
+                    foodDonation(donor);
                     break;
                 case 2:
-                        
+
                     cashDonation();
                     break;
             }
         } while (choice != 0);
     }
 
-    private void foodDonation() {
-        Donor donor;
+    private void foodDonation(Donor donor) {
+        Donation donation = new Donation(donor);
+        int choice;
+        
+        do{
+        String foodName = donationUI.inputFoodName();
+        double qty = donationUI.inputQuantity();
+        String unit = donationUI.inputUnit();
+        DonatedItem donatedItem = new DonatedItem(foodName,qty,unit);
+        donation.addDonatedItem(donatedItem);
+        choice = donationUI.askToContinue();
+        }while(choice == 1);
+        
+        donations.add(donation);
+    }
+
+    private Donor searchDonorByID() {
+        Donor donor = null;
         boolean found = false;
         String donorId = donationUI.inputDonorId();
         Iterator<Donor> iterator = donors.getIterator();
@@ -75,16 +98,19 @@ public class DonationController {
                 found = true;
                 break;
             }
-        
-        }
-        
-                System.out.println("Donor ID does not exists.");
 
-        
+        }
+
+        if (found == false) {
+            System.out.println("Donor ID does not exists.");
+            pressEnterContinue();
+            return null;
+        }
+        return donor;
     }
-    
-    private void cashDonation(){
-        
+
+    private void cashDonation() {
+
     }
 
     public static void main(String[] args) {
@@ -107,8 +133,8 @@ public class DonationController {
             e.printStackTrace();
         }
     }
-    
-        public static void pressEnterContinue() {
+
+    public static void pressEnterContinue() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Press [Enter] key to continue...");
         sc.nextLine();

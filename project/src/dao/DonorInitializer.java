@@ -18,11 +18,11 @@ public class DonorInitializer {
 
         SortedListInterface<Donor> donors = new SortedArrayList<>();
 
-        donors.add(new Donor("JIMMY", 010, "c", "m"));
-        donors.add(new Donor("JIE YANG", 010, "c", "m"));
-        donors.add(new Donor("A", 010, "c", "m"));
-        donors.add(new Donor("D", 010, "c", "m"));
-        donors.add(new Donor("B", 010, "c", "m"));
+        donors.add(new Donor("JIMMY", "010", "c", "m"));
+        donors.add(new Donor("JIE YANG", "010", "c", "m"));
+        donors.add(new Donor("A", "010", "c", "m"));
+        donors.add(new Donor("D", "010", "c", "m"));
+        donors.add(new Donor("B", "010", "c", "m"));
 
         return donors;
     }

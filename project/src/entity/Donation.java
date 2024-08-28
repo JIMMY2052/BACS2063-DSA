@@ -8,9 +8,9 @@ import adt.SortedListInterface;
  *
  * @author JIMMY
  */
-public class Donation implements Comparable<Donation>{
+public class Donation implements Comparable<Donation> {
 
-    private int donationId;
+    private String donationId;
     private Donor donor;
     private SortedListInterface<DonatedItem> donatedItems;
     private Date date;
@@ -18,17 +18,17 @@ public class Donation implements Comparable<Donation>{
 
     public Donation(Donor donor) {
         numberOfDonation++;
-        this.donationId = numberOfDonation;
         this.donor = donor;
         this.date = new Date();
         this.donatedItems = new SortedArrayList<>();
+        this.donationId = String.format("K%03d", numberOfDonation);
     }
 
-    public int getDonationId() {
+    public String getDonationId() {
         return donationId;
     }
 
-    public void setDonationId(int donationId) {
+    public void setDonationId(String donationId) {
         this.donationId = donationId;
     }
 
@@ -55,7 +55,6 @@ public class Donation implements Comparable<Donation>{
     public static void setNumberOfDonation(int numberOfDonation) {
         Donation.numberOfDonation = numberOfDonation;
     }
-    
 
     public void addDonatedItem(DonatedItem item) {
         this.donatedItems.add(item);
@@ -76,13 +75,7 @@ public class Donation implements Comparable<Donation>{
 
     @Override
     public int compareTo(Donation o) {
-        if(this.donationId > o.donationId){
-            return 1;
-        }
-        if(this.donationId < o.donationId){
-            return -1;
-        }
-        return 0;
+        return this.donationId.compareTo(o.donationId);
     }
 
 }

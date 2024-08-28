@@ -29,6 +29,7 @@ public class DonationUI {
 
         System.out.print("Enter your choice -> ");
         opt = sc.nextInt();
+        sc.nextLine();
         while (opt < 0 || opt > 6) {
             System.out.print("Invalid option! Please select a number between 0 and 6 : ");
             opt = sc.nextInt();
@@ -63,14 +64,15 @@ public class DonationUI {
     }
 
     public String inputFoodName() {
-        System.out.println("Enter Food Name: ");
+        System.out.print("Enter Food Name: ");
         String foodName = sc.nextLine().trim();
         return foodName;
     }
 
     public double inputQuantity() {
-        System.out.println("Enter Quantity: ");
+        System.out.print("Enter Quantity: ");
         double qty = sc.nextDouble();
+        sc.nextLine();
         return qty;
     }
 
@@ -81,9 +83,22 @@ public class DonationUI {
     }
 
     public double inputCash() {
-        System.out.println("Enter amount cash: ");
+        System.out.print("Enter amount cash: ");
         double amount = sc.nextDouble();
+        sc.nextLine();
         return amount;
+    }
+    
+    public int askToContinue(){
+        System.out.print("Do you want to continue ? (Yes = 1 / N = 0): ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        while (choice < 0 || choice > 1) {
+            System.out.print("Invalid option! Please select a number (0 OR 1) : ");
+            choice = sc.nextInt();
+            sc.nextLine();
+        }
+        return choice;
     }
     //---------MAKE DONATION---------------------
 
