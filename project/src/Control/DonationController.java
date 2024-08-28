@@ -44,11 +44,12 @@ public class DonationController {
                     makeDonation();
                     break;
                 case 2:
+                    listDonation();
             }
         } while (choice != 0);
 
     }
-
+//------------- Make Donation ------------------------------
     private void makeDonation() {
         int choice;
         do {
@@ -113,6 +114,21 @@ public class DonationController {
         System.out.printf("%s (%s) succesful make a cash donation.\n", donor.getName(), donor.getDonorId());
         pressEnterContinue();
     }
+//------------- Make Donation ------------------------------
+    
+    private void listDonation(){
+        clearScreen();
+        donationUI.listDonationHeader();
+        Iterator<Donation> donationIterator = allDonations.getIterator();
+                while (donationIterator.hasNext()) {
+                    Donation donation = donationIterator.next();
+                    System.out.printf("%-18s \t %-18s \t %-18s\n",
+                            donation.getDonationId(),
+                            donation.getFormattedDate(),
+                            donation.getDonor().getName());
+                }
+        pressEnterContinue();
+    }
 
     private Donor searchDonorByID() {
         Donor donor = null;
@@ -134,10 +150,6 @@ public class DonationController {
             return null;
         }
         return donor;
-    }
-
-    public static void main(String[] args) {
-        DonationController dc = new DonationController();
     }
 
     public static void clearScreen() {
@@ -162,5 +174,9 @@ public class DonationController {
         System.out.print("Press [Enter] key to continue...");
         sc.nextLine();
         clearScreen();
+    }
+    
+    public static void main(String[] args) {
+        DonationController dc = new DonationController();
     }
 }

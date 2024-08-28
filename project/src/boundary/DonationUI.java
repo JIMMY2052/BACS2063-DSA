@@ -20,7 +20,7 @@ public class DonationUI {
         System.out.println("\t\tDONATION MANAGEMENT");
         System.out.println("======================================================");
         System.out.println("\t\t1. Make A Donation");
-        System.out.println("\t\t2. View Donations");
+        System.out.println("\t\t2. List of Donations");
         System.out.println("\t\t3. Search Donation");
         System.out.println("\t\t4. Delete Donation");
         System.out.println("\t\t5. Update Donation");
@@ -37,7 +37,7 @@ public class DonationUI {
         }
         return opt;
     }
-     //---------Main Donation Menu---------------------
+    //---------Main Donation Menu---------------------
 
     public int addDonationMenu() {
         int opt;
@@ -66,6 +66,13 @@ public class DonationUI {
     public void displayDonateCashHeader(){
         System.out.println("\t\tDONATE CASH");
         System.out.println("======================================================");
+    }
+    
+    public void listDonationHeader(){
+        System.out.println("\t\t\t\t DONATION LIST");
+        printLine(1, 100);
+        System.out.printf("%-18s %-18s %-18s %-18s\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item" );
+        printLine(1, 100);
     }
 
     //---------MAKE DONATION---------------------
@@ -99,7 +106,9 @@ public class DonationUI {
         double amount = sc.nextDouble();
         sc.nextLine();
         return amount;
-    }
+    } 
+    //---------MAKE DONATION---------------------
+
     
     public int askToContinue(){
         System.out.print("Do you want to continue ? (Yes = 1 / N = 0): ");
@@ -112,10 +121,15 @@ public class DonationUI {
         }
         return choice;
     }
+    public void printLine(int row, int col) {
+        for (int i = 0; i < row; i++) {
+            for (int j = 0; j < col; j++) {
+                System.out.print("-");
+            }
+        }
+        System.out.println();
+    }
     
-  
-    //---------MAKE DONATION---------------------
-
     public static void main(String[] args) {
         DonationUI ui = new DonationUI();
         ui.addDonationMenu();

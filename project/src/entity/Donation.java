@@ -1,5 +1,6 @@
 package entity;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import adt.SortedArrayList;
 import adt.SortedListInterface;
@@ -45,7 +46,6 @@ public class Donation implements Comparable<Donation> {
     public void setCategory(String category) {
         this.category = category;
     }
-    
 
     public void setDonor(Donor donor) {
         this.donor = donor;
@@ -79,14 +79,19 @@ public class Donation implements Comparable<Donation> {
         return donatedItems;
     }
 
+    // Method to return formatted date as a String
+    public String getFormattedDate() {
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy");
+        return sdf.format(date);
+    }
+
     @Override
     public String toString() {
-        return "Donation ID: " + donationId + ", Donor: " + donor.getName() + ", Date: " + date + ", Items: " + donatedItems;
+        return "Donation ID: " + donationId + ", Donor: " + donor.getName() + ", Date: " + getFormattedDate() + ", Items: " + donatedItems;
     }
 
     @Override
     public int compareTo(Donation o) {
         return this.donationId.compareTo(o.donationId);
     }
-
 }
