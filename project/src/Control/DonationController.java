@@ -62,8 +62,6 @@ public class DonationController {
                         break;
                     } else {
                         foodDonation(donor);
-                        donor.setDonorDonationList(donations);
-                        donations.clear();
                     }
                     break;
                 case 2:
@@ -72,8 +70,6 @@ public class DonationController {
                         break;
                     } else {
                         cashDonation(donor);
-                        
-                        donations.clear();
                     }
                     break;
             }
@@ -81,7 +77,7 @@ public class DonationController {
     }
 
     private void foodDonation(Donor donor) {
-        Donation donation = new Donation(donor, "FOOD");
+        Donation donation = new Donation(donor, "F");
         int choice;
 
         do {
@@ -92,15 +88,33 @@ public class DonationController {
             donation.addDonatedItem(donatedItem);
             choice = donationUI.askToContinue();
         } while (choice == 1);
-        donor.setDonorDonationList(donation);
+        donor.addDonation(donation);
         allDonations.add(donation);
+        System.out.printf("%s (%s) succesful make a food donation.\n", donor.getName(), donor.getDonorId());
+        pressEnterContinue();
+    }
+
+    private void cashDonation(Donor donor) {
+        Donation donation = new Donation(donor, "C");
+        int choice;
+
+        do {
+            double amount = donationUI.inputCash();
+            DonatedItem donatedItem = new DonatedItem("CASH", amount, "RM");
+            donation.addDonatedItem(donatedItem);
+            choice = donationUI.askToContinue();
+        } while (choice == 1);
+        donor.addDonation(donation);
+        allDonations.add(donation);
+        System.out.printf("%s (%s) succesful make a cash donation.\n", donor.getName(), donor.getDonorId());
+        pressEnterContinue();
     }
 
     private Donor searchDonorByID() {
         Donor donor = null;
         boolean found = false;
         String donorId = donationUI.inputDonorId();
-        Iterator<Donor> iterator = donors.getIterator();
+        Iterator<Donor> iterator = allDonors.getIterator();
         while (iterator.hasNext()) {
             donor = iterator.next();
             if (donor.getDonorId().equals(donorId)) {
@@ -116,10 +130,6 @@ public class DonationController {
             return null;
         }
         return donor;
-    }
-
-    private void cashDonation(Donor donor) {
-
     }
 
     public static void main(String[] args) {

@@ -30,7 +30,7 @@ public interface SortedListInterface<T extends Comparable<T>> {
 
     public boolean isFull();
     
-    public Iterator<T> getIterator();
+    public Iterator<T> getIterator(); //JIMMY
     
 
 }

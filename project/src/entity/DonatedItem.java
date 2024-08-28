@@ -48,7 +48,7 @@ public class DonatedItem implements Comparable<DonatedItem>{
     @Override
     public String toString() {
         if(itemName.equals("CASH")){
-            return "Item Name: " + itemName + "\nRM " + String.format("%.2f", quantity);
+            return "Item Name: " + itemName + "\n" + unit + String.format("%.2f", quantity);
         }
         return "Item Name: " + itemName  + "\nQuantity: " + quantity + unit;
         
