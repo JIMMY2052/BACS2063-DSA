@@ -82,6 +82,11 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         numberOfEntries = 0;
         return true;
     }
+    
+    @Override
+    public Iterator<T> getIterator() {
+        return new SortedArrayListIterator();
+    }
 
     private class SortedArrayListIterator implements Iterator<T> {
 
@@ -105,11 +110,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
             currentIndex++;
             return obj;
         }
-    }
-
-    @Override
-    public Iterator<T> getIterator() {
-        return new SortedArrayListIterator();
     }
 
     // Replace an entry at a given position

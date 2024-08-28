@@ -102,7 +102,7 @@ public class Donor implements Comparable<Donor> {
 
     @Override
     public String toString() {
-        return "name = " + name + "\ncontactNo = " + contactNo + "\ncategory = " + category + "\ngender = " + gender + "\ndonorId = " + donorId + "\ndonorDonationList = " + donorDonationList;
+        return "\ndonorId = " + donorId + "name = " + name + "\ncontactNo = " + contactNo + "\ncategory = " + category + "\ngender = " + gender;
     }
 
 }

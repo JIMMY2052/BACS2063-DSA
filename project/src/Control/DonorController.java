@@ -9,6 +9,7 @@ import entity.Donor;
 import entity.Donation;
 import adt.SortedListInterface;
 import adt.SortedArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 /**
@@ -56,22 +57,69 @@ public class DonorController {
     }
 
     public int searchDonor() {
-        int exit = 0;
+        int exit, found = 0;
         String id;
         
-        SortedArrayListIterator<Donor> getDonor = donor.getIterator();
-        while(getDonor.hasNext()){
+        do{
             donorUI.searchDonorMenu();
             id = donorUI.inputDonorId();
+            if(id.equals("0")){
+                return exit = 0;
+            }
+            Iterator<Donor> getDonor = donor.getIterator();
+            while(getDonor.hasNext()){
+                Donor donorObject = getDonor.next();
+                if(donorObject.getDonorId().equals(id)){
+                    ++found;
+                    System.out.println(donorObject);
+                    break;
+                }
+            }
+            if(found == 0){
+                System.out.println("There is no details for this donor.");
+            }
             
-        }
+            exit = donorUI.inputExitPage();
+        }while(exit == 0);
+        
             
         
         return exit;
     }
 
-    public void removeDonor() {
+    public int removeDonor() {
+        int exit = 0;
+        String id;
+        boolean isSuccess = false;
         
+        do{
+            donorUI.removeDonorMenu();
+            id = donorUI.inputDonorId();
+            if(id.equals("0")){
+                return exit;
+            }
+            if(donorUI.inputConfirmation("remove this donor") == true){
+                Iterator<Donor> getDonor = donor.getIterator();
+                while(getDonor.hasNext()){
+                    Donor donorObject = getDonor.next();
+                    if(donorObject.getDonorId().equals(id)){
+                        donor.remove(donorObject);
+                        isSuccess = true;
+                        break;
+                    }
+                }
+                if(isSuccess == true){
+                    System.out.println("Remove the donor successfully.");
+                }else {
+                    System.out.println("The donor id entered is not in the list.");
+                }
+            }else{
+                System.out.println("Your canceled to remove the donor.");
+            }
+            
+            exit = donorUI.inputExitPage();
+        }while(exit == 0);
+        return exit;
     }
 
     public void updateDonorDetails() {
@@ -85,9 +133,7 @@ public class DonorController {
             option = donorUI.donorMenu();
             switch (option) {
                 case 1:
-                {
                     exit = addDonor();
-                }
                     break;
 
                 case 2:
@@ -97,7 +143,7 @@ public class DonorController {
                     updateDonorDetails();
                     break;
                 case 4:
-                    searchDonor();
+                    exit = searchDonor();
                     break;
                 case 0:
                     System.out.println("Bye Bye. ^_^");

@@ -107,7 +107,7 @@ public class DonorUI {
         String donorId;
         
         do{
-            System.out.print("Enter donor id: ");
+            System.out.print("Enter donor id (Exit = 0): ");
             donorId = scanner.nextLine();
             if(donorId.isEmpty()){
                 System.out.println("Opps!! Please do not leave it blank.");
@@ -201,5 +201,19 @@ public class DonorUI {
         } else {
             return false;
         }
+    }
+    
+    public int inputExitPage() {
+        int exit;
+
+        System.out.println();
+        System.out.println("Do you want to EXIT this page? (Yes = 1 / No = 0) : ");
+        exit = scanner.nextInt();
+        while (exit < 0 || exit > 1) {
+            System.out.println("Invalid Input! Please enter 0 or 1 (Yes=1/No=0) : ");
+            exit = scanner.nextInt();
+        }
+        System.out.println();
+        return exit;
     }
 }
