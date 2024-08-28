@@ -14,14 +14,14 @@ import adt.SortedListInterface;
 public class Donor implements Comparable<Donor> {
 
     private String name;
-    private int contactNo;
+    private String contactNo;
     private String category;
     private String gender;
     private String donorId;
     private SortedListInterface<Donation> donorDonationList;
     private static int numberOfDonor = 0;
 
-    public Donor(String name, int contactNo, String category, String gender) {
+    public Donor(String name, String contactNo, String category, String gender) {
         this.name = name;
         this.contactNo = contactNo;
         this.category = category;
@@ -39,7 +39,7 @@ public class Donor implements Comparable<Donor> {
         return name;
     }
 
-    public void setContactNo(int contactNo) {
+    public void setContactNo(String contactNo) {
         this.contactNo = contactNo;
     }
 
@@ -51,7 +51,7 @@ public class Donor implements Comparable<Donor> {
         this.gender = gender;
     }
 
-    public int getContactNo() {
+    public String getContactNo() {
         return contactNo;
     }
 

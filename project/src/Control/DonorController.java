@@ -20,7 +20,7 @@ public class DonorController {
     private Scanner scanner = new Scanner(System.in);
     
     private String name = "";
-    private int contactNo = 0;
+    private String contactNo;
     private String category = "";
     private String gender = "";
     
@@ -30,7 +30,7 @@ public class DonorController {
         System.out.print("Enter a new donor name: ");
         name = scanner.nextLine();
         System.out.println("Enter new donor's contact number: ");
-        contactNo = scanner.nextInt();
+        contactNo = scanner.nextLine();
         System.out.println("Enter new donor in what category: ");
         category = scanner.nextLine();
         System.out.println("Enter new donor's gender: ");
