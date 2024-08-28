@@ -96,4 +96,9 @@ public class Donor implements Comparable<Donor> {
         return name.compareTo(o.name);
     }
 
+    @Override
+    public String toString() {
+        return "Donor{" + "name=" + name + ", contactNo=" + contactNo + ", category=" + category + ", gender=" + gender + ", donorId=" + donorId + ", donorDonationList=" + donorDonationList + '}';
+    }
+
 }

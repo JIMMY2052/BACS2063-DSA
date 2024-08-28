@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class DonorController {
     private DonorUI donorUI = new DonorUI();
-    private SortedListInterface<Donation> donationList = new SortedArrayList<>();
+    private SortedListInterface<Donor> donationList = new SortedArrayList<>();
     private Scanner scanner = new Scanner(System.in);
     
     private String name = "";
@@ -29,16 +29,16 @@ public class DonorController {
         donorUI.addDonorMenu();
         System.out.print("Enter a new donor name: ");
         name = scanner.nextLine();
-        System.out.println("Enter new donor's contact number: ");
+        System.out.print("Enter new donor's contact number: ");
         contactNo = scanner.nextLine();
-        System.out.println("Enter new donor in what category: ");
+        System.out.print("Enter new donor in what category: ");
         category = scanner.nextLine();
-        System.out.println("Enter new donor's gender: ");
+        System.out.print("Enter new donor's gender: ");
         gender = scanner.nextLine();
         
         Donor donor = new Donor(name, contactNo, category, gender);
-        
- 
+        donationList.add(donor);
+        System.out.println(donationList.getEntry(1).getDonorId());
     }
     
     public void menu() {
