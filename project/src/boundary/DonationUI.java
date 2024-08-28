@@ -14,6 +14,7 @@ public class DonationUI {
 
     Scanner sc = new Scanner(System.in);
 
+    //---------Main Donation Menu---------------------
     public int displayDonationMenu() {
         int opt;
         System.out.println("\t\tDONATION MANAGEMENT");
@@ -36,6 +37,7 @@ public class DonationUI {
         }
         return opt;
     }
+     //---------Main Donation Menu---------------------
 
     public int addDonationMenu() {
         int opt;
@@ -54,6 +56,16 @@ public class DonationUI {
             opt = sc.nextInt();
         }
         return opt;
+    }
+    
+    public void displayDonateFoodHeader(){
+        System.out.println("\t\tDONATE FOOD");
+        System.out.println("======================================================");
+    }
+    
+    public void displayDonateCashHeader(){
+        System.out.println("\t\tDONATE CASH");
+        System.out.println("======================================================");
     }
 
     //---------MAKE DONATION---------------------
@@ -100,6 +112,8 @@ public class DonationUI {
         }
         return choice;
     }
+    
+  
     //---------MAKE DONATION---------------------
 
     public static void main(String[] args) {

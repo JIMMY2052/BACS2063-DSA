@@ -57,6 +57,8 @@ public class DonationController {
             Donor donor;
             switch (choice) {
                 case 1:
+                    clearScreen();
+                    donationUI.displayDonateFoodHeader();
                     donor = searchDonorByID();
                     if (donor == null) {
                         break;
@@ -65,6 +67,8 @@ public class DonationController {
                     }
                     break;
                 case 2:
+                    clearScreen();
+                    donationUI.displayDonateFoodHeader();
                     donor = searchDonorByID();
                     if (donor == null) {
                         break;
