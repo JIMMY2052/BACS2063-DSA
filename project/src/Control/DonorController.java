@@ -38,7 +38,7 @@ public class DonorController {
         
         Donor donor = new Donor(name, contactNo, category, gender);
         
-        System.out.println(donor.getDonorId());
+ 
     }
     
     public void menu() {
