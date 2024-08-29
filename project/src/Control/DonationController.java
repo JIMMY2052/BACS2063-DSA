@@ -125,7 +125,7 @@ public class DonationController {
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
             donatedItem = donation.getDonatedItems();
-            System.out.printf("|%-18s %-18s %-18s",
+            System.out.printf("|%-18s| %-18s| %-18s|",
                     donation.getDonationId(),
                     donation.getFormattedDate(),
                     donation.getDonor().getName());
@@ -135,13 +135,13 @@ public class DonationController {
                 DonatedItem item = itemIterator.next();
 
                 if (firstTime == true) {
-                    System.out.printf(" %-57s | \n", item.getItemName());
+                    System.out.printf(" %-18s|%-18s| \n", item.getItemName(),item.toString());
                     firstTime = false;
                 } else {
-                    System.out.printf("|%-18s %-18s %-18s %-57s |\n", "", "", "", item.getItemName());
+                    System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(),item.toString());
                 }
             }
-            donationUI.printLine(1, 100);
+            donationUI.printLine(1, 99);
             firstTime = true;
         }
         pressEnterContinue();

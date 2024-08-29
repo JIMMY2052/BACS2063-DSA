@@ -69,10 +69,10 @@ public class DonationUI {
     }
     
     public void listDonationHeader(){
-        System.out.println("\t\t\t\t DONATION LIST");
-        printLine(1, 100);
-        System.out.printf("%-18s %-18s %-18s %-18s\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item" );
-        printLine(1, 100);
+        System.out.println("\t\t\t\t\tALL DONATION LIST");
+        printLine(1, 99);
+        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity" );
+        printLine(1, 99);
     }
 
     //---------MAKE DONATION---------------------
