@@ -207,7 +207,7 @@ public class DonorUI {
         int exit;
 
         System.out.println();
-        System.out.println("Do you want to EXIT this page? (Yes = 1 / No = 0) : ");
+        System.out.print("Do you want to EXIT this page? (Yes = 1 / No = 0) : ");
         exit = scanner.nextInt();
         while (exit < 0 || exit > 1) {
             System.out.println("Invalid Input! Please enter 0 or 1 (Yes=1/No=0) : ");

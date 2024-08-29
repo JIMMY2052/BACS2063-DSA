@@ -48,6 +48,7 @@ public class DonorController {
             if (donorUI.inputConfirmation("add a new donor")) {
                 Donor dr = new Donor(name, contactNo, category, gender);
                 isSuccess = donor.add(dr);
+                System.out.println("You have successfully added a new donor!!");
             } else {
                 System.out.println("You canceled to add a new donor!!");
             }

@@ -32,5 +32,6 @@ public interface SortedListInterface<T extends Comparable<T>> {
     
     public Iterator<T> getIterator(); //JIMMY
     
+    public boolean remove(T entry);
 
 }
