@@ -1,5 +1,5 @@
-<<<<<<< Updated upstream
 package dao;
+
 /**
  *
  * @author KK
@@ -13,9 +13,9 @@ public class Initializer {
     private SortedListInterface<Volunteer> volunteerList = new SortedArrayList<>();
 
     public Initializer() {
-        Event event1 = new Event("EV001", "Book Donation","Gathering books for underserved schools and libraries.");
-        Event event2 = new Event("EV002", "Food Drive","Collecting non-perishable food items for the community.");
-        Event event3 = new Event("EV003", "Blood Donation","Organizing a blood donation drive in collaboration with the Red Cross.");
+        Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
+        Event event2 = new Event("EV002", "Food Drive", "Collecting non-perishable food items for the community.");
+        Event event3 = new Event("EV003", "Blood Donation", "Organizing a blood donation drive in collaboration with the Red Cross.");
         Event event4 = new Event("EV004", "Toy Drive", "Collecting toys for children in low-income families during the holidays.");
         Event event5 = new Event("EV005", "Clothes Donation", "Collecting gently used clothes for homeless shelters.");
 
@@ -485,38 +485,36 @@ public class Initializer {
 
     public SortedListInterface<Volunteer> getVolunteerList() {
         return volunteerList;
-=======
-/*
+         == == ==
+                = /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+                 */
 package dao;
+        import adt.SortedListInterface;
+        import adt.SortedArrayList;
+        import entity.DonatedItem;
+        import entity.Donation;
+        import entity.Donor;
+        /**
+         *
+         * @author JIMMY
+         */
+    public class Initializer {
 
-import adt.SortedListInterface;
-import adt.SortedArrayList;
-import entity.DonatedItem;
-import entity.Donation;
-import entity.Donor;
+        public SortedListInterface<Donor> initializeDonor() {
 
-/**
- *
- * @author JIMMY
- */
-public class Initializer {
+            SortedListInterface<Donor> donors = new SortedArrayList<>();
 
-    public SortedListInterface<Donor> initializeDonor() {
+            donors.add(new Donor("JIMMY", "0105772052", "c", "m"));
+            donors.add(new Donor("JIE YANG", "0105284838", "c", "m"));
+            donors.add(new Donor("CHUN YIN", "0106655478", "c", "m"));
+            donors.add(new Donor("STEVEN", "010", "c", "m"));
+            donors.add(new Donor("KENGKEONG", "010", "c", "m"));
+            donors.add(new Donor("JIAQIAN", "010", "c", "m"));
 
-        SortedListInterface<Donor> donors = new SortedArrayList<>();
-
-        donors.add(new Donor("JIMMY", "0105772052", "c", "m"));
-        donors.add(new Donor("JIE YANG", "0105284838", "c", "m"));
-        donors.add(new Donor("CHUN YIN", "0106655478", "c", "m"));
-        donors.add(new Donor("STEVEN", "010", "c", "m"));
-        donors.add(new Donor("KENGKEONG", "010", "c", "m"));
-        donors.add(new Donor("JIAQIAN", "010", "c", "m"));
-
-        return donors;
-    }
+            return donors;
+        }
 
 //    public SortedListInterface<DonatedItem> initializeDonatedItem() {
 //
@@ -530,32 +528,30 @@ public class Initializer {
 //        donatedItems.add(new DonatedItem("CLOTHES", 100, "unit"));
 //        return donatedItems;
 //    }
-    
-    public SortedListInterface<Donation> initializeDonation() {
-        
-        SortedListInterface<Donation> donations = new SortedArrayList<>();
-        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"),"C");
-        Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "c", "m"),"F");
-        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "c", "m"), "C");
-        Donation d4 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"),"C");
-        d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
-        d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
-        d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
-        d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
-        d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
-        d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
-        d2.addDonatedItem(new DonatedItem("OIL", 10, "L"));
-        d3.addDonatedItem(new DonatedItem("OIL", 10, "L"));
-        d4.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
-        d4.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
-        donations.add(d1);
-        donations.add(d2);
-        donations.add(d3);
-        donations.add(d4);
-        
-       
-        return donations;
->>>>>>> Stashed changes
-    }
+        public SortedListInterface<Donation> initializeDonation() {
 
-}
+            SortedListInterface<Donation> donations = new SortedArrayList<>();
+            Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"), "C");
+            Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "c", "m"), "F");
+            Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "c", "m"), "C");
+            Donation d4 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"), "C");
+            d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+            d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
+            d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
+            d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+            d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
+            d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
+            d2.addDonatedItem(new DonatedItem("OIL", 10, "L"));
+            d3.addDonatedItem(new DonatedItem("OIL", 10, "L"));
+            d4.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+            d4.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
+            donations.add(d1);
+            donations.add(d2);
+            donations.add(d3);
+            donations.add(d4);
+
+            return donations;
+             >>> >>> > Stashed changes
+        }
+
+    }
