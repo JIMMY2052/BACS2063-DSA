@@ -87,7 +87,7 @@ public class Donation implements Comparable<Donation> {
 
     @Override
     public String toString() {
-        return "Donation ID: " + donationId + ", Donor: " + donor.getName() + ", Date: " + getFormattedDate() + ", Items: " + donatedItems;
+        return "Donation ID: " + donationId + "\n Donor: " + donor.getName() + "\n Date: " + getFormattedDate();
     }
 
     @Override
