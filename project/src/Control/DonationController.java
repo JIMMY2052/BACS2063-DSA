@@ -155,6 +155,48 @@ public class DonationController {
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
             donatedItem = donation.getDonatedItems();
+            if (donatedItem.getNumberOfEntries() == 1) {
+                System.out.printf("|%-18s| %-18s| %-18s|",
+                        donation.getDonationId(),
+                        donation.getFormattedDate(),
+                        donation.getDonor().getName());
+                System.out.printf(" %-18s|%-18s| \n", donatedItem.getEntry(0).getItemName(), donatedItem.getEntry(0).toString());
+                
+            }
+            if(donatedItem.getNumberOfEntries() > 1){
+                System.out.printf("|%-18s  %-18s  %-18s|",
+                        donation.getDonationId(),
+                        donation.getFormattedDate(),
+                        donation.getDonor().getName());
+                Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
+                
+                while (itemIterator.hasNext()) {
+                    DonatedItem item = itemIterator.next();
+
+                    if (firstTime == true) {
+                        System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
+                        firstTime = false;
+                    } else {
+                        System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
+                    }
+                }
+            }
+
+            donationUI.printLine(1, 99);
+            firstTime = true;
+        }
+        pressEnterContinue();
+    }
+
+    private void listFoodDonation() {
+        donationUI.listFoodDonationHeader();
+        SortedListInterface<DonatedItem> donatedItem;
+        Iterator<Donation> donationIterator = allDonations.getIterator();
+        boolean firstTime = true;
+        
+        while (donationIterator.hasNext()) {
+            Donation donation = donationIterator.next();
+            donatedItem = donation.getDonatedItems();
             if (donatedItem.getNumberOfEntries() > 1) {
                 System.out.printf("|%-18s  %-18s  %-18s|",
                         donation.getDonationId(),
@@ -185,10 +227,6 @@ public class DonationController {
             firstTime = true;
         }
         pressEnterContinue();
-    }
-
-    private void listFoodDonation() {
-
     }
 
     private void listCashDonation() {

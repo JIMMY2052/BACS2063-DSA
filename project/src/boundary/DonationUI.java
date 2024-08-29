@@ -75,6 +75,13 @@ public class DonationUI {
         printLine(1, 99);
     }
     
+    public void listFoodDonationHeader(){
+        System.out.println("\t\t\t\t\tALL FOOD DONATION LIST");
+        printLine(1, 99);
+        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity" );
+        printLine(1, 99);
+    }
+    
     public void displayEditDonationHeader(){
         System.out.println("\t\tEDIT DONATION");
         System.out.println("======================================================");
