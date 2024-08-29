@@ -20,7 +20,7 @@ public class DonationUI {
         System.out.println("\t\tDONATION MANAGEMENT");
         System.out.println("======================================================");
         System.out.println("\t\t1. Make A Donation");
-        System.out.println("\t\t2. List All Donations");
+        System.out.println("\t\t2. View Donation");
         System.out.println("\t\t3. Edit Donation");
         System.out.println("\t\t4. Delete Donation");
         System.out.println("\t\t5. Search Donation");
@@ -43,7 +43,7 @@ public class DonationUI {
         int opt;
         System.out.println("\t\tMAKE DONATION");
         System.out.println("======================================================");
-        System.out.println("\t\t1. Donate Food");
+        System.out.println("\t\t1. Donate Food or Goods");
         System.out.println("\t\t2. Donate Cash");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
@@ -78,6 +78,26 @@ public class DonationUI {
     public void displayEditDonationHeader(){
         System.out.println("\t\tEDIT DONATION");
         System.out.println("======================================================");
+    }
+    
+    public int viewDonationMenu() {
+        int opt;
+        System.out.println("\t\tVIEW DONATION");
+        System.out.println("======================================================");
+        System.out.println("\t\t1. View All Donation");
+        System.out.println("\t\t2. View Food Donation");
+        System.out.println("\t\t3. View Cash Donation");
+        System.out.println("\t\t0. Return Back to Previous Page");
+        System.out.println("======================================================");
+
+        System.out.print("Enter your choice -> ");
+        opt = sc.nextInt();
+        sc.nextLine();
+        while (opt < 0 || opt > 3) {
+            System.out.print("Invalid option! Please select a number between 0 and 3 : ");
+            opt = sc.nextInt();
+        }
+        return opt;
     }
 
     //---------MAKE DONATION---------------------

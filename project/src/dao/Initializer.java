@@ -1,3 +1,4 @@
+<<<<<<< Updated upstream
 package dao;
 /**
  *
@@ -484,6 +485,77 @@ public class Initializer {
 
     public SortedListInterface<Volunteer> getVolunteerList() {
         return volunteerList;
+=======
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package dao;
+
+import adt.SortedListInterface;
+import adt.SortedArrayList;
+import entity.DonatedItem;
+import entity.Donation;
+import entity.Donor;
+
+/**
+ *
+ * @author JIMMY
+ */
+public class Initializer {
+
+    public SortedListInterface<Donor> initializeDonor() {
+
+        SortedListInterface<Donor> donors = new SortedArrayList<>();
+
+        donors.add(new Donor("JIMMY", "0105772052", "c", "m"));
+        donors.add(new Donor("JIE YANG", "0105284838", "c", "m"));
+        donors.add(new Donor("CHUN YIN", "0106655478", "c", "m"));
+        donors.add(new Donor("STEVEN", "010", "c", "m"));
+        donors.add(new Donor("KENGKEONG", "010", "c", "m"));
+        donors.add(new Donor("JIAQIAN", "010", "c", "m"));
+
+        return donors;
+    }
+
+//    public SortedListInterface<DonatedItem> initializeDonatedItem() {
+//
+//        SortedListInterface<DonatedItem> donatedItems = new SortedArrayList<>();
+//
+//        donatedItems.add(new DonatedItem("CASH", 2000, "RM"));
+//        donatedItems.add(new DonatedItem("MILO", 200, "KG"));
+//        donatedItems.add(new DonatedItem("RICE", 10, "KG"));
+//        donatedItems.add(new DonatedItem("MILK", 10, "L"));
+//        donatedItems.add(new DonatedItem("OIL", 10, "L"));
+//        donatedItems.add(new DonatedItem("CLOTHES", 100, "unit"));
+//        return donatedItems;
+//    }
+    
+    public SortedListInterface<Donation> initializeDonation() {
+        
+        SortedListInterface<Donation> donations = new SortedArrayList<>();
+        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"),"C");
+        Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "c", "m"),"F");
+        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "c", "m"), "C");
+        Donation d4 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"),"C");
+        d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+        d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
+        d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
+        d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+        d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
+        d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
+        d2.addDonatedItem(new DonatedItem("OIL", 10, "L"));
+        d3.addDonatedItem(new DonatedItem("OIL", 10, "L"));
+        d4.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+        d4.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
+        donations.add(d1);
+        donations.add(d2);
+        donations.add(d3);
+        donations.add(d4);
+        
+       
+        return donations;
+>>>>>>> Stashed changes
     }
 
 }

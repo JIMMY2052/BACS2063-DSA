@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 import adt.SortedListInterface;
 import adt.SortedArrayList;
-import dao.DonorInitializer;
+import dao.Initializer;
 import boundary.DonationUI;
 import entity.Donation;
 import entity.DonatedItem;
@@ -27,13 +27,13 @@ public class DonationController {
     private Scanner sc = new Scanner(System.in);
     private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
     private SortedListInterface<Donation> allDonations = new SortedArrayList<>();
-    private SortedListInterface<DonatedItem> allDonatedItems = new SortedArrayList<>();
 
     private DonationUI donationUI = new DonationUI();
-    private DonorInitializer donorinitializer = new DonorInitializer();
+    private Initializer init = new Initializer();
 
     public DonationController() {
-        allDonors = donorinitializer.initializeStudent();
+        allDonors = init.initializeDonor();
+        allDonations = init.initializeDonation();
         int choice;
         do {
             clearScreen();
@@ -44,10 +44,10 @@ public class DonationController {
                     makeDonation();
                     break;
                 case 2:
-                    listDonation();
+                    viewDonation();
                     break;
                 case 3:
-                    editDonation();
+
                     break;
             }
         } while (choice != 0);
@@ -121,37 +121,80 @@ public class DonationController {
     }
 //------------- Make Donation ------------------------------
 
-//------------- List All Donation ------------------------------
+//------------- View Donation ------------------------------
+    private void viewDonation() {
+        clearScreen();
+        int choice;
+        do {
+            choice = donationUI.viewDonationMenu();
+            switch (choice) {
+                case 1:
+                    clearScreen();
+                    listDonation();
+                    break;
+                case 2:
+                    clearScreen();
+                    listFoodDonation();
+                    break;
+                case 3:
+                    clearScreen();
+                    listCashDonation();
+                    break;
+            }
+
+        } while (choice != 0);
+    }
+
     private void listDonation() {
         clearScreen();
         donationUI.listDonationHeader();
         SortedListInterface<DonatedItem> donatedItem;
         Iterator<Donation> donationIterator = allDonations.getIterator();
+        boolean firstTime = true;
+        
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
             donatedItem = donation.getDonatedItems();
-            System.out.printf("|%-18s| %-18s| %-18s|",
-                    donation.getDonationId(),
-                    donation.getFormattedDate(),
-                    donation.getDonor().getName());
-            Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
-            boolean firstTime = true;
-            while (itemIterator.hasNext()) {
-                DonatedItem item = itemIterator.next();
+            if (donatedItem.getNumberOfEntries() > 1) {
+                System.out.printf("|%-18s  %-18s  %-18s|",
+                        donation.getDonationId(),
+                        donation.getFormattedDate(),
+                        donation.getDonor().getName());
+                Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
+                
+                while (itemIterator.hasNext()) {
+                    DonatedItem item = itemIterator.next();
 
-                if (firstTime == true) {
-                    System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
-                    firstTime = false;
-                } else {
-                    System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
+                    if (firstTime == true) {
+                        System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
+                        firstTime = false;
+                    } else {
+                        System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
+                    }
                 }
+            } else {
+                System.out.printf("|%-18s| %-18s| %-18s|",
+                        donation.getDonationId(),
+                        donation.getFormattedDate(),
+                        donation.getDonor().getName());
+                System.out.printf(" %-18s|%-18s| \n", donatedItem.getEntry(0).getItemName(), donatedItem.getEntry(0).toString());
+
             }
+
             donationUI.printLine(1, 99);
             firstTime = true;
         }
         pressEnterContinue();
     }
-//------------- List All Donation ------------------------------
+
+    private void listFoodDonation() {
+
+    }
+
+    private void listCashDonation() {
+
+    }
+//------------- View Donation ------------------------------
 
     private void editDonation() {
         clearScreen();
@@ -160,11 +203,11 @@ public class DonationController {
         donationUI.displayEditDonationHeader();
         donation = searchDonationByID();
         System.out.println(donation);
-        donatedItemList= donation.getDonatedItems();
-        for(int i = 0 ; i < donatedItemList.getNumberOfEntries() ; i++){
+        donatedItemList = donation.getDonatedItems();
+        for (int i = 0; i < donatedItemList.getNumberOfEntries(); i++) {
             DonatedItem donatedItems = donatedItemList.getEntry(i);
-            System.out.printf("%d) %s: %s %s",i+1, donatedItems.getItemName(), donatedItems.getQuantity(),donatedItems.getUnit());
-            
+            System.out.printf("%d) %s: %s %s", i + 1, donatedItems.getItemName(), donatedItems.getQuantity(), donatedItems.getUnit());
+
         }
         pressEnterContinue();
     }
