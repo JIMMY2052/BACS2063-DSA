@@ -20,10 +20,10 @@ public class DonationUI {
         System.out.println("\t\tDONATION MANAGEMENT");
         System.out.println("======================================================");
         System.out.println("\t\t1. Make A Donation");
-        System.out.println("\t\t2. List of Donations");
-        System.out.println("\t\t3. Search Donation");
+        System.out.println("\t\t2. List All Donations");
+        System.out.println("\t\t3. Edit Donation");
         System.out.println("\t\t4. Delete Donation");
-        System.out.println("\t\t5. Update Donation");
+        System.out.println("\t\t5. Search Donation");
         System.out.println("\t\t6. Generate Summary Report");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
@@ -69,10 +69,15 @@ public class DonationUI {
     }
     
     public void listDonationHeader(){
-        System.out.println("\t\t\t\t DONATION LIST");
-        printLine(1, 100);
-        System.out.printf("%-18s %-18s %-18s %-18s\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item" );
-        printLine(1, 100);
+        System.out.println("\t\t\t\t\tALL DONATION LIST");
+        printLine(1, 99);
+        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity" );
+        printLine(1, 99);
+    }
+    
+    public void displayEditDonationHeader(){
+        System.out.println("\t\tEDIT DONATION");
+        System.out.println("======================================================");
     }
 
     //---------MAKE DONATION---------------------
@@ -109,6 +114,11 @@ public class DonationUI {
     } 
     //---------MAKE DONATION---------------------
 
+    public String inputDonationId(){
+        System.out.println("Enter desired DONATION ID(eg: K001) -> ");
+        String donationId = sc.nextLine();
+        return donationId;
+    }
     
     public int askToContinue(){
         System.out.print("Do you want to continue ? (Yes = 1 / N = 0): ");

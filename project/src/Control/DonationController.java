@@ -45,11 +45,16 @@ public class DonationController {
                     break;
                 case 2:
                     listDonation();
+                    break;
+                case 3:
+                    editDonation();
+                    break;
             }
         } while (choice != 0);
 
     }
 //------------- Make Donation ------------------------------
+
     private void makeDonation() {
         int choice;
         do {
@@ -115,18 +120,52 @@ public class DonationController {
         pressEnterContinue();
     }
 //------------- Make Donation ------------------------------
-    
-    private void listDonation(){
+
+//------------- List All Donation ------------------------------
+    private void listDonation() {
         clearScreen();
         donationUI.listDonationHeader();
+        SortedListInterface<DonatedItem> donatedItem;
         Iterator<Donation> donationIterator = allDonations.getIterator();
-                while (donationIterator.hasNext()) {
-                    Donation donation = donationIterator.next();
-                    System.out.printf("%-18s \t %-18s \t %-18s\n",
-                            donation.getDonationId(),
-                            donation.getFormattedDate(),
-                            donation.getDonor().getName());
+        while (donationIterator.hasNext()) {
+            Donation donation = donationIterator.next();
+            donatedItem = donation.getDonatedItems();
+            System.out.printf("|%-18s| %-18s| %-18s|",
+                    donation.getDonationId(),
+                    donation.getFormattedDate(),
+                    donation.getDonor().getName());
+            Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
+            boolean firstTime = true;
+            while (itemIterator.hasNext()) {
+                DonatedItem item = itemIterator.next();
+
+                if (firstTime == true) {
+                    System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
+                    firstTime = false;
+                } else {
+                    System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
                 }
+            }
+            donationUI.printLine(1, 99);
+            firstTime = true;
+        }
+        pressEnterContinue();
+    }
+//------------- List All Donation ------------------------------
+
+    private void editDonation() {
+        clearScreen();
+        Donation donation;
+        SortedListInterface<DonatedItem> donatedItemList;
+        donationUI.displayEditDonationHeader();
+        donation = searchDonationByID();
+        System.out.println(donation);
+        donatedItemList= donation.getDonatedItems();
+        for(int i = 0 ; i < donatedItemList.getNumberOfEntries() ; i++){
+            DonatedItem donatedItems = donatedItemList.getEntry(i);
+            System.out.printf("%d) %s: %s %s",i+1, donatedItems.getItemName(), donatedItems.getQuantity(),donatedItems.getUnit());
+            
+        }
         pressEnterContinue();
     }
 
@@ -152,6 +191,28 @@ public class DonationController {
         return donor;
     }
 
+    private Donation searchDonationByID() {
+        Donation donation = null;
+        boolean found = false;
+        String donationId = donationUI.inputDonationId();
+        Iterator<Donation> iterator = allDonations.getIterator();
+        while (iterator.hasNext()) {
+            donation = iterator.next();
+            if (donation.getDonationId().equals(donationId)) {
+                found = true;
+                break;
+            }
+
+        }
+
+        if (found == false) {
+            System.out.println("Donation ID does not exists.");
+            pressEnterContinue();
+            return null;
+        }
+        return donation;
+    }
+
     public static void clearScreen() {
         try {
             Robot rob = new Robot();
@@ -175,7 +236,7 @@ public class DonationController {
         sc.nextLine();
         clearScreen();
     }
-    
+
     public static void main(String[] args) {
         DonationController dc = new DonationController();
     }
