@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Interface.java to edit this template
- */
 package adt;
 
 import java.util.Iterator;
@@ -29,9 +25,9 @@ public interface SortedListInterface<T extends Comparable<T>> {
     public boolean isEmpty();
 
     public boolean isFull();
-    
+
     public Iterator<T> getIterator(); //JIMMY
-    
+
     public boolean remove(T entry);
 
 }
