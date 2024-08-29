@@ -103,6 +103,29 @@ public class DonorUI {
                            "+----------------------------------------------+\n");
     }
     
+    public int updateMenu() {
+        int option;
+        do{
+            System.out.println();
+            System.out.println("+----------------------------------------------+\n" +
+                               "|  1. Donor Name                               |\n" +
+                               "|  2. Donor Contact Number                     |\n" +
+                               "|  3. Donor Category                           |\n" +
+                               "|  4. Donor Gender                             |\n" +
+                               "+----------------------------------------------+\n");
+            System.out.print("Choose one to update (1-4): ");
+            option = scanner.nextInt();
+
+            if (option < 1 || option > 4) {
+                System.out.print("Invalid option! Please select a number between 1 and 4 : ");
+                option = scanner.nextInt();
+            }
+
+        }while(option < 1 || option > 4);
+        
+        return option;
+    }
+    
     public String inputDonorId() {
         String donorId;
         

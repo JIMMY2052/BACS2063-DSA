@@ -123,8 +123,87 @@ public class DonorController {
         return exit;
     }
 
-    public void updateDonorDetails() {
-
+    public int updateDonorDetails() {
+        int exit, option, count;
+        String id, name = "", contactNo = "", category = "", gender = "";
+        boolean isSuccess = false;
+        
+        do{
+            donorUI.updateDonorMenu();
+            id = donorUI.inputDonorId();
+            if(id.equals("0")){
+                return exit = 1;
+            }
+            option = donorUI.updateMenu();
+            switch(option){
+                case 1: {
+                    name = donorUI.inputDonorName();
+                    if(name.equals("0")){
+                        return exit = 1;
+                    }
+                    break;
+                }
+                case 2: {
+                    contactNo = donorUI.inputDonorContactNo();
+                    if(contactNo.equals("0")){
+                        return exit = 1;
+                    }
+                    break;
+                }
+                case 3: {
+                    category = donorUI.inputDonorCategory();
+                    if(category.equals("0")){
+                        return exit = 1;
+                    }
+                    break;
+                }
+                case 4: {
+                    gender = donorUI.inputDonorGender();
+                    if(gender.equals("0")){
+                        return exit = 1;
+                    }
+                    break;
+                }
+                    
+            }
+            if(donorUI.inputConfirmation("update the donor detail")){
+                Iterator<Donor> getDonor = donor.getIterator();
+                count = 0;
+                while(getDonor.hasNext()){
+                    count++;
+                    Donor donorObject = getDonor.next();
+                    if(donorObject.getDonorId().equals(id)){
+                        if(option == 1){
+                            isSuccess = donor.donorReplace(count, new Donor(name, donorObject.getContactNo(), donorObject.getCategory(), donorObject.getGender()));
+                            break;
+                        }
+                        if(option == 2){
+                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), contactNo, donorObject.getCategory(), donorObject.getGender()));
+                            break;
+                        }
+                        if(option == 3){
+                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), category, donorObject.getGender()));
+                            break;
+                        }
+                        if(option == 4){
+                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), gender));
+                            break;
+                        }
+                    }
+                }
+                if(isSuccess){
+                    System.out.println("You updated the donor detail successfully!!");
+                }else{
+                    System.out.println("Opps!! You updated the donor detail unsuccessfully.");
+                }
+            }else{
+                System.out.println("You canceled to update the donor details.");
+            }
+            
+            exit = donorUI.inputExitPage();
+        }while(exit == 0);
+        
+        return exit;
     }
 
     public void menu() {
@@ -138,10 +217,10 @@ public class DonorController {
                     break;
 
                 case 2:
-                    removeDonor();
+                    exit = removeDonor();
                     break;
                 case 3:
-                    updateDonorDetails();
+                    exit = updateDonorDetails();
                     break;
                 case 4:
                     exit = searchDonor();

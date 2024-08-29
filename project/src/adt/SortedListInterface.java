@@ -30,4 +30,5 @@ public interface SortedListInterface<T extends Comparable<T>> {
 
     public boolean remove(T entry);
 
+    public boolean donorReplace(int givenPosition, T newEntry);
 }

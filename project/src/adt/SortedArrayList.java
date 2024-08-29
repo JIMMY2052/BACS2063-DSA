@@ -143,6 +143,16 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
             throw new IndexOutOfBoundsException("Invalid position given.");
         }
     }
+    
+    @Override
+    public boolean donorReplace(int givenPosition, T newEntry) {
+        if (givenPosition >= 0 && givenPosition <= numberOfEntries) {
+            array[givenPosition - 1] = newEntry;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
     // Get an entry at a given position
     @Override
