@@ -8,7 +8,8 @@ package entity;
  *
  * @author JIMMY
  */
-public class DonatedItem implements Comparable<DonatedItem>{
+public class DonatedItem implements Comparable<DonatedItem> {
+
     private String itemName;
     private String unit;
     private double quantity;
@@ -45,16 +46,21 @@ public class DonatedItem implements Comparable<DonatedItem>{
 
     @Override
     public String toString() {
-        if(itemName.equals("CASH")){
+        if (itemName.equals("CASH")) {
             return unit + " " + String.format("%.2f", quantity);
         }
-        return quantity + " "+ unit;
-        
+        return quantity + " " + unit;
+
     }
 
     @Override
     public int compareTo(DonatedItem o) {
-        return itemName.compareTo(o.itemName);
+        if (quantity == o.quantity) {
+            return 0;
+        } else if (quantity > o.quantity) {
+            return 1;
+        } else {
+            return -1;
+        }
     }
 }
-

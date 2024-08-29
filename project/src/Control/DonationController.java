@@ -47,7 +47,7 @@ public class DonationController {
                     viewDonation();
                     break;
                 case 3:
-
+                    editDonation();
                     break;
             }
         } while (choice != 0);
@@ -239,7 +239,6 @@ public class DonationController {
         }
         return firstTime;
     }
-
 //------------- View Donation ------------------------------
     private void editDonation() {
         clearScreen();
