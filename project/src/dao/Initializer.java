@@ -486,7 +486,7 @@ public class Initializer {
     public SortedListInterface<Volunteer> getVolunteerList() {
         return volunteerList;
     }
-    
+
     public SortedListInterface<Donor> initializeDonor() {
 
         SortedListInterface<Donor> donors = new SortedArrayList<>();
@@ -516,20 +516,19 @@ public class Initializer {
     public SortedListInterface<Donation> initializeDonation() {
 
         SortedListInterface<Donation> donations = new SortedArrayList<>();
-        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"), "C");
+        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"), "F");
         Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "c", "m"), "F");
-        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "c", "m"), "C");
+        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "c", "m"), "F");
         Donation d4 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"), "C");
-        d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+        
+        d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "KG"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
-        d1.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
         d2.addDonatedItem(new DonatedItem("OIL", 10, "L"));
         d3.addDonatedItem(new DonatedItem("OIL", 10, "L"));
         d4.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
-        d4.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         donations.add(d1);
         donations.add(d2);
         donations.add(d3);
@@ -539,4 +538,3 @@ public class Initializer {
 
     }
 }
-

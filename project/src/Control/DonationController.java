@@ -151,35 +151,15 @@ public class DonationController {
         SortedListInterface<DonatedItem> donatedItem;
         Iterator<Donation> donationIterator = allDonations.getIterator();
         boolean firstTime = true;
-        
+
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
             donatedItem = donation.getDonatedItems();
             if (donatedItem.getNumberOfEntries() == 1) {
-                System.out.printf("|%-18s| %-18s| %-18s|",
-                        donation.getDonationId(),
-                        donation.getFormattedDate(),
-                        donation.getDonor().getName());
-                System.out.printf(" %-18s|%-18s| \n", donatedItem.getEntry(0).getItemName(), donatedItem.getEntry(0).toString());
-                
+                printOneDonatedItem(donation, donatedItem);
             }
-            if(donatedItem.getNumberOfEntries() > 1){
-                System.out.printf("|%-18s  %-18s  %-18s|",
-                        donation.getDonationId(),
-                        donation.getFormattedDate(),
-                        donation.getDonor().getName());
-                Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
-                
-                while (itemIterator.hasNext()) {
-                    DonatedItem item = itemIterator.next();
-
-                    if (firstTime == true) {
-                        System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
-                        firstTime = false;
-                    } else {
-                        System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
-                    }
-                }
+            if (donatedItem.getNumberOfEntries() > 1) {
+                firstTime = printMoreThanOneDonatedItem(donation, donatedItem, firstTime);
             }
 
             donationUI.printLine(1, 99);
@@ -193,47 +173,74 @@ public class DonationController {
         SortedListInterface<DonatedItem> donatedItem;
         Iterator<Donation> donationIterator = allDonations.getIterator();
         boolean firstTime = true;
-        
+
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
-            donatedItem = donation.getDonatedItems();
-            if (donatedItem.getNumberOfEntries() > 1) {
-                System.out.printf("|%-18s  %-18s  %-18s|",
-                        donation.getDonationId(),
-                        donation.getFormattedDate(),
-                        donation.getDonor().getName());
-                Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
-                
-                while (itemIterator.hasNext()) {
-                    DonatedItem item = itemIterator.next();
-
-                    if (firstTime == true) {
-                        System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
-                        firstTime = false;
-                    } else {
-                        System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
-                    }
+            if (donation.getCategory().equals("F")) {
+                donatedItem = donation.getDonatedItems();
+                if (donatedItem.getNumberOfEntries() == 1) {
+                    printOneDonatedItem(donation, donatedItem);
                 }
-            } else {
-                System.out.printf("|%-18s| %-18s| %-18s|",
-                        donation.getDonationId(),
-                        donation.getFormattedDate(),
-                        donation.getDonor().getName());
-                System.out.printf(" %-18s|%-18s| \n", donatedItem.getEntry(0).getItemName(), donatedItem.getEntry(0).toString());
+                if (donatedItem.getNumberOfEntries() > 1) {
+                    firstTime = printMoreThanOneDonatedItem(donation, donatedItem, firstTime);
+                }
 
+                donationUI.printLine(1, 99);
+                firstTime = true;
             }
-
-            donationUI.printLine(1, 99);
-            firstTime = true;
         }
         pressEnterContinue();
     }
 
     private void listCashDonation() {
+        donationUI.listCashDonationHeader();
+        SortedListInterface<DonatedItem> donatedItem;
+        Iterator<Donation> donationIterator = allDonations.getIterator();
 
+        while (donationIterator.hasNext()) {
+            Donation donation = donationIterator.next();
+            if (donation.getCategory().equals("C")) {
+                donatedItem = donation.getDonatedItems();
+                if (donatedItem.getNumberOfEntries() == 1) {
+                    printOneDonatedItem(donation, donatedItem);
+                }
+                donationUI.printLine(1, 99);
+            }
+        }
+        pressEnterContinue();
     }
-//------------- View Donation ------------------------------
 
+    private void printOneDonatedItem(Donation donation, SortedListInterface<DonatedItem> donatedItem) {
+        System.out.printf("|%-18s| %-18s| %-18s|",
+                donation.getDonationId(),
+                donation.getFormattedDate(),
+                donation.getDonor().getName());
+        System.out.printf(" %-18s|%-18s| \n", donatedItem.getEntry(0).getItemName(), donatedItem.getEntry(0).toString());
+    }
+
+    private boolean printMoreThanOneDonatedItem(Donation donation, SortedListInterface<DonatedItem> donatedItem, boolean firstTime) {
+        System.out.printf("|%-18s  %-18s  %-18s|",
+                donation.getDonationId(),
+                donation.getFormattedDate(),
+                donation.getDonor().getName());
+        Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
+
+        while (itemIterator.hasNext()) {
+            DonatedItem item = itemIterator.next();
+
+            if (firstTime == true) {
+                System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
+                firstTime = false;
+            }
+            if (firstTime == false) {
+                System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
+            }
+
+        }
+        return firstTime;
+    }
+
+//------------- View Donation ------------------------------
     private void editDonation() {
         clearScreen();
         Donation donation;
