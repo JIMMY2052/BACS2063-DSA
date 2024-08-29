@@ -50,6 +50,7 @@ public class DonationController {
 
     }
 //------------- Make Donation ------------------------------
+
     private void makeDonation() {
         int choice;
         do {
@@ -115,18 +116,34 @@ public class DonationController {
         pressEnterContinue();
     }
 //------------- Make Donation ------------------------------
-    
-    private void listDonation(){
+
+    private void listDonation() {
         clearScreen();
         donationUI.listDonationHeader();
+        SortedListInterface<DonatedItem> donatedItem = new SortedArrayList<>();
         Iterator<Donation> donationIterator = allDonations.getIterator();
-                while (donationIterator.hasNext()) {
-                    Donation donation = donationIterator.next();
-                    System.out.printf("%-18s \t %-18s \t %-18s\n",
-                            donation.getDonationId(),
-                            donation.getFormattedDate(),
-                            donation.getDonor().getName());
+        while (donationIterator.hasNext()) {
+            Donation donation = donationIterator.next();
+            donatedItem = donation.getDonatedItems();
+            System.out.printf("|%-18s %-18s %-18s",
+                    donation.getDonationId(),
+                    donation.getFormattedDate(),
+                    donation.getDonor().getName());
+            Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
+            boolean firstTime = true;
+            while (itemIterator.hasNext()) {
+                DonatedItem item = itemIterator.next();
+
+                if (firstTime == true) {
+                    System.out.printf(" %-57s | \n", item.getItemName());
+                    firstTime = false;
+                } else {
+                    System.out.printf("|%-18s %-18s %-18s %-57s |\n", "", "", "", item.getItemName());
                 }
+            }
+            donationUI.printLine(1, 100);
+            firstTime = true;
+        }
         pressEnterContinue();
     }
 
@@ -175,7 +192,7 @@ public class DonationController {
         sc.nextLine();
         clearScreen();
     }
-    
+
     public static void main(String[] args) {
         DonationController dc = new DonationController();
     }
