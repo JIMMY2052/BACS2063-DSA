@@ -377,7 +377,14 @@ public class DonationController {
 
 //------------- Delete Donated Item ------------------------------
     private void deleteDonatedItem(){
-    
+        SortedListInterface<DonatedItem> donatedItemList;
+        clearScreen();
+        donationUI.displayHeader("REMOVE DONATED ITEM");
+        Donation donation = searchDonationByID();
+        System.out.println(donation);
+        displayDonatedItems(donation);
+        donatedItemList = donation.getDonatedItems();
+        pressEnterContinue();
     }
     private void searchDonation(){}
 

@@ -65,7 +65,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
     }
 
     @Override
-    public boolean remove(T entry){
+    public boolean remove(T entry) {
         int index = getElementIndex(entry);
         if (index >= 0) {
             // Shift elements to fill the gap
@@ -78,9 +78,9 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         } else {
             return false;
         }
-        
+
     }
-    
+
     private int getElementIndex(T object) {
         for (int i = 0; i < numberOfEntries; i++) {
             if (array[i].equals(object)) {
@@ -89,7 +89,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
         return -1;
     }
-    
+
     // Clear the list
     @Override
     public boolean clear() {
@@ -104,11 +104,12 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         numberOfEntries = 0;
         return true;
     }
-    
+
     @Override
     public Iterator<T> getIterator() {
         return new SortedArrayListIterator();
     }
+
 
     private class SortedArrayListIterator implements Iterator<T> {
 

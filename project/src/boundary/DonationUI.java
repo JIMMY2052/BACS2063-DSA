@@ -32,8 +32,8 @@ public class DonationUI {
         System.out.print("Enter your choice -> ");
         opt = sc.nextInt();
         sc.nextLine();
-        while (opt < 0 || opt > 6) {
-            System.out.print("Invalid option! Please select a number between 0 and 6 : ");
+        while (opt < 0 || opt > 7) {
+            System.out.print("Invalid option! Please select a number between 0 and 7 : ");
             opt = sc.nextInt();
         }
         return opt;
@@ -212,6 +212,19 @@ public class DonationUI {
     }
     
     //---------DELETE DONATION---------------------
+    public int askToDeleteDonation(String string) {
+        System.out.printf("Are you sure to delete this donation [%s]? (Yes = 1 / N = 0): ", string);
+        int choice = sc.nextInt();
+        sc.nextLine();
+        while (choice < 0 || choice > 1) {
+            System.out.print("Invalid option! Please select a number (0 OR 1) : ");
+            choice = sc.nextInt();
+            sc.nextLine();
+        }
+        return choice;
+    }
+    
+    //---------DELETE DONATED ITEM--------------------  
     
 
     // sub function
