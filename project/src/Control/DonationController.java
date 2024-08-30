@@ -119,7 +119,6 @@ public class DonationController {
         System.out.printf("%s (%s) succesful make a cash donation.\n", donor.getName(), donor.getDonorId());
         pressEnterContinue();
     }
-//------------- Make Donation ------------------------------
 
 //------------- View Donation ------------------------------
     private void viewDonation() {
@@ -239,7 +238,8 @@ public class DonationController {
         }
         return firstTime;
     }
-//------------- View Donation ------------------------------
+//------------- Edit Donation ------------------------------
+    
     private void editDonation() {
         clearScreen();
         Donation donation;
@@ -255,7 +255,9 @@ public class DonationController {
         }
         pressEnterContinue();
     }
+    
 
+//Sub Function
     private Donor searchDonorByID() {
         Donor donor = null;
         boolean found = false;
