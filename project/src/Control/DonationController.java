@@ -58,6 +58,9 @@ public class DonationController {
                 case 6:
                     searchDonation();
                     break;
+                case 7:
+                    generateReport();
+                    break;
             }
         } while (choice != 0);
 
@@ -351,7 +354,7 @@ public class DonationController {
 
         } while (opt == 0);
 
-        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo - 1 , donation);
+        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo - 1, donation);
         donatedItem.setQuantity(qty);
         donatedItem.setUnit(newUnit);
         System.out.printf("Sucessfully Updated Item Quantity & Unit for Item No. [%d]\n", itemNo);
@@ -366,33 +369,45 @@ public class DonationController {
         displayDonatedItems(donation);
         int opt = donationUI.askToDeleteDonation(donation.getDonationId());
         if (opt == 0) {
-            System.out.printf("Unsuccessful Remove Donation [%s].\n",donation.getDonationId());
+            System.out.printf("Unsuccessful Remove Donation [%s].\n", donation.getDonationId());
             return;
         }
         allDonations.remove(donation);
         System.out.printf("Successfully Deleted Donation [%s]\n", donation.getDonationId());
         pressEnterContinue();
-        
+
     }
 
 //------------- Delete Donated Item ------------------------------
-    private void deleteDonatedItem(){
+    private void deleteDonatedItem() {
         SortedListInterface<DonatedItem> donatedItemList;
         int itemNo;
+        int opt;
         clearScreen();
         donationUI.displayHeader("REMOVE DONATED ITEM");
         Donation donation = searchDonationByID();
         System.out.println(donation);
         displayDonatedItems(donation);
         donatedItemList = donation.getDonatedItems();
-        itemNo = donationUI.inputChoiceDonatedItem(donatedItemList.getNumberOfEntries());
-        if (itemNo == 0) {
-            return;
-        }
+        do {
+            itemNo = donationUI.inputChoiceDonatedItem(donatedItemList.getNumberOfEntries());
+            if (itemNo == 0) {
+                return;
+            }
+            opt = donationUI.areYouSureDonatedItem(itemNo);
+
+        } while (opt == 0);
+
         pressEnterContinue();
     }
-    private void searchDonation(){
-        
+//------------- Search Donated Item ------------------------------
+
+    private void searchDonation() {
+
+    }
+//------------- Search Donated Item ------------------------------    
+
+    private void generateReport() {
     }
 
 //Sub Function

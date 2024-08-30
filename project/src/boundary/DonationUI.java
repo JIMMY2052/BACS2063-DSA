@@ -237,8 +237,8 @@ public class DonationUI {
         return opt;
     }
     
-    public int areYouSureDonatedItem(String string) {
-        System.out.printf("Are you sure to remove %s (Y = 1/N = 0) -> ", string);
+    public int areYouSureDonatedItem(int itemNo) {
+        System.out.printf("Are you sure to remove Item %d (Yes = 1/No = 0) -> ", itemNo);
         int choice = sc.nextInt();
         sc.nextLine();
         while (choice < 0 || choice > 1) {
