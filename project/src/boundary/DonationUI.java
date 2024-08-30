@@ -21,7 +21,7 @@ public class DonationUI {
         System.out.println("======================================================");
         System.out.println("\t\t1. Make A Donation");
         System.out.println("\t\t2. View Donation");
-        System.out.println("\t\t3. Edit Donation");
+        System.out.println("\t\t3. Update Donation");
         System.out.println("\t\t4. Delete Donation");
         System.out.println("\t\t5. Search Donation");
         System.out.println("\t\t6. Generate Summary Report");
@@ -37,26 +37,7 @@ public class DonationUI {
         }
         return opt;
     }
-    //---------Main Donation Menu---------------------
-
-    public int addDonationMenu() {
-        int opt;
-        System.out.println("\t\tMAKE DONATION");
-        System.out.println("======================================================");
-        System.out.println("\t\t1. Donate Food or Goods");
-        System.out.println("\t\t2. Donate Cash");
-        System.out.println("\t\t0. Return Back to Previous Page");
-        System.out.println("======================================================");
-
-        System.out.print("Enter your choice -> ");
-        opt = sc.nextInt();
-        sc.nextLine();
-        while (opt < 0 || opt > 2) {
-            System.out.print("Invalid option! Please select a number between 0 and 2 : ");
-            opt = sc.nextInt();
-        }
-        return opt;
-    }
+    //---------View Donation---------------------
     
     public void displayDonateFoodHeader(){
         System.out.println("\t\tDONATE FOOD");
@@ -89,11 +70,6 @@ public class DonationUI {
         printLine(1, 99);
     }
     
-    public void displayEditDonationHeader(){
-        System.out.println("\t\tEDIT DONATION");
-        System.out.println("======================================================");
-    }
-    
     public int viewDonationMenu() {
         int opt;
         System.out.println("\t\tVIEW DONATION");
@@ -115,6 +91,25 @@ public class DonationUI {
     }
 
     //---------MAKE DONATION---------------------
+    public int addDonationMenu() {
+        int opt;
+        System.out.println("\t\tMAKE DONATION");
+        System.out.println("======================================================");
+        System.out.println("\t\t1. Donate Food or Goods");
+        System.out.println("\t\t2. Donate Cash");
+        System.out.println("\t\t0. Return Back to Previous Page");
+        System.out.println("======================================================");
+
+        System.out.print("Enter your choice -> ");
+        opt = sc.nextInt();
+        sc.nextLine();
+        while (opt < 0 || opt > 2) {
+            System.out.print("Invalid option! Please select a number between 0 and 2 : ");
+            opt = sc.nextInt();
+        }
+        return opt;
+    }
+    
     public String inputDonorId() {
         System.out.print("Enter Donor ID: ");
         String donorId = sc.nextLine().trim();
@@ -146,12 +141,32 @@ public class DonationUI {
         sc.nextLine();
         return amount;
     } 
-    //---------MAKE DONATION---------------------
+    //---------UPDATE DONATION---------------------
+    public void displayEditDonationHeader(){
+        System.out.println("\t\tUpdate DONATION");
+        System.out.println("======================================================");
+    }
 
     public String inputDonationId(){
-        System.out.println("Enter desired DONATION ID(eg: K001) -> ");
+        System.out.print("Enter DONATION ID (Exit = 0) -> ");
         String donationId = sc.nextLine();
         return donationId;
+    }
+    
+    public int inputChoice(int noOfItems){
+        int opt;
+        System.out.println("Choose the item No. to edit (Exit = 0): ");
+        opt = sc.nextInt();
+        sc.nextLine();
+         while (opt < 0 || opt > noOfItems) {
+            System.out.printf("Invalid option! Please select a number between 0 and %d : ", noOfItems);
+            opt = sc.nextInt();
+        }
+        return opt;
+    }
+    
+    public int inputUpdateType(){
+        System.out.println("");
     }
     
     public int askToContinue(){
