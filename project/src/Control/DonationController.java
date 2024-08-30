@@ -322,7 +322,7 @@ public class DonationController {
 
         } while (opt == 0);
 
-        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo, donation);
+        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo - 1, donation);
         donatedItem.setItemName(newItemName);
         System.out.printf("Sucessfully Updated Item Name for Item No. [%d]\n", itemNo);
 
@@ -351,7 +351,7 @@ public class DonationController {
 
         } while (opt == 0);
 
-        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo, donation);
+        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo - 1 , donation);
         donatedItem.setQuantity(qty);
         donatedItem.setUnit(newUnit);
         System.out.printf("Sucessfully Updated Item Quantity & Unit for Item No. [%d]\n", itemNo);
@@ -377,9 +377,23 @@ public class DonationController {
 
 //------------- Delete Donated Item ------------------------------
     private void deleteDonatedItem(){
-    
+        SortedListInterface<DonatedItem> donatedItemList;
+        int itemNo;
+        clearScreen();
+        donationUI.displayHeader("REMOVE DONATED ITEM");
+        Donation donation = searchDonationByID();
+        System.out.println(donation);
+        displayDonatedItems(donation);
+        donatedItemList = donation.getDonatedItems();
+        itemNo = donationUI.inputChoiceDonatedItem(donatedItemList.getNumberOfEntries());
+        if (itemNo == 0) {
+            return;
+        }
+        pressEnterContinue();
     }
-    private void searchDonation(){}
+    private void searchDonation(){
+        
+    }
 
 //Sub Function
     private Donor searchDonorByID() {

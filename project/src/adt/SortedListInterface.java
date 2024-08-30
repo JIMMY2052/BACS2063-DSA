@@ -28,5 +28,5 @@ public interface SortedListInterface<T extends Comparable<T>> {
 
     public Iterator<T> getIterator(); //JIMMY
 
-    public boolean remove(T entry);
+    public boolean remove(T entry); // JIE YANG
 }
