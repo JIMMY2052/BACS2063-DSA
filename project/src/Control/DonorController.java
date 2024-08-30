@@ -175,19 +175,18 @@ public class DonorController {
                     if(donorObject.getDonorId().equals(id)){
                         if(option == 1){
                             donorObject.setName(name);
-//                            isSuccess = donor.replace(count, donorObject.setName(name), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getGender()));
                             break;
                         }
                         if(option == 2){
-//                            isSuccess = donor.replace(count, new Donor(donorObject.getName(), donorObject.setContactNo(contactNo), donorObject.getCategory(), donorObject.getGender()));
+                            donorObject.setContactNo(contactNo);
                             break;
                         }
                         if(option == 3){
-//                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), donorObject.setCategory(category), donorObject.getGender()));
+                            donorObject.setCategory(category);
                             break;
                         }
                         if(option == 4){
-//                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.setGender(gender)));
+                            donorObject.setGender(gender);
                             break;
                         }
                     }
@@ -214,17 +213,20 @@ public class DonorController {
             option = donorUI.donorMenu();
             switch (option) {
                 case 1:
-                    exit = addDonor();
+                    addDonor();
                     break;
 
                 case 2:
-                    exit = removeDonor();
+                    removeDonor();
                     break;
                 case 3:
-                    exit = updateDonorDetails();
+                    updateDonorDetails();
                     break;
                 case 4:
-                    exit = searchDonor();
+                    searchDonor();
+                    break;
+                case 6:
+                    
                     break;
                 case 0:
                     System.out.println("Bye Bye. ^_^");
@@ -235,14 +237,6 @@ public class DonorController {
             }
         } while (option != 0);
     }
-    
-    /*
-    testing
-    
-    private void donorReplace() {
-        
-    }
-    */
 
     public static void main(String[] args) {
         DonorController d = new DonorController();
