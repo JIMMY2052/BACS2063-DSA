@@ -67,11 +67,12 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
     @Override
     public boolean remove(T entry){
         int index = getElementIndex(entry);
-        if (index != -1) {
+        if (index >= 0) {
             // Shift elements to fill the gap
-            for (int i = index; i < numberOfEntries; i++) {
+            for (int i = index; i < numberOfEntries - 1; i++) {
                 array[i] = array[i + 1];
             }
+            array[numberOfEntries - 1] = null;
             numberOfEntries--;
             return true;
         } else {
@@ -141,16 +142,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
             return true;
         } else {
             throw new IndexOutOfBoundsException("Invalid position given.");
-        }
-    }
-    
-    @Override
-    public boolean donorReplace(int givenPosition, T newEntry) {
-        if (givenPosition >= 0 && givenPosition <= numberOfEntries) {
-            array[givenPosition - 1] = newEntry;
-            return true;
-        } else {
-            return false;
         }
     }
 

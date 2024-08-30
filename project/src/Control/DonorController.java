@@ -174,19 +174,20 @@ public class DonorController {
                     Donor donorObject = getDonor.next();
                     if(donorObject.getDonorId().equals(id)){
                         if(option == 1){
-                            isSuccess = donor.donorReplace(count, new Donor(name, donorObject.getContactNo(), donorObject.getCategory(), donorObject.getGender()));
+                            donorObject.setName(name);
+//                            isSuccess = donor.replace(count, donorObject.setName(name), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getGender()));
                             break;
                         }
                         if(option == 2){
-                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), contactNo, donorObject.getCategory(), donorObject.getGender()));
+//                            isSuccess = donor.replace(count, new Donor(donorObject.getName(), donorObject.setContactNo(contactNo), donorObject.getCategory(), donorObject.getGender()));
                             break;
                         }
                         if(option == 3){
-                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), category, donorObject.getGender()));
+//                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), donorObject.setCategory(category), donorObject.getGender()));
                             break;
                         }
                         if(option == 4){
-                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), gender));
+//                            isSuccess = donor.donorReplace(count, new Donor(donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.setGender(gender)));
                             break;
                         }
                     }
@@ -234,6 +235,14 @@ public class DonorController {
             }
         } while (option != 0);
     }
+    
+    /*
+    testing
+    
+    private void donorReplace() {
+        
+    }
+    */
 
     public static void main(String[] args) {
         DonorController d = new DonorController();
