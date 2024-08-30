@@ -276,10 +276,17 @@ public class DonationController {
 
         switch (opt) {
             case 1:
-                updateItemName(itemNo);
+                clearScreen();
+                donationUI.displayHeader("UPDATE ITEM NAME");
+                System.out.println(donation);
+                displayDonatedItems(donation);
+                updateItemName(itemNo,donation);
                 break;
             case 2:
-                updateItemQuantiy();
+                donationUI.displayHeader("UPDATE ITEM QUANTITY");
+                System.out.println(donation);
+                displayDonatedItems(donation);
+                updateItemQuantiy(itemNo,donation);
                 break;
         }
 
@@ -295,20 +302,27 @@ public class DonationController {
         donationUI.printLine(1, 54);
     }
 
-    private void updateItemName(int itemNo) {
+    private void updateItemName(int itemNo,Donation donation) {
         int opt;
+        String newItemName;
+        String string = "Item Number " + itemNo;
         do {
-            String newItemName = donationUI.inputNewItemName();
+            newItemName = donationUI.inputNewItemName(string);
             if (newItemName.equals("0")) {
                 return;
             }
             opt = donationUI.areYouSure("item name.");
+            
         } while (opt == 0);
-
+        
+        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo,donation);
+        donatedItem.setItemName(newItemName);
+        System.out.printf("Sucessfully Updated Item Name for Item No. [%d]\n",itemNo);
+        
     }
 
-    private void updateItemQuantiy() {
-
+    private void updateItemQuantiy(int itemNo,Donation donation) {
+        
     }
 
 //Sub Function
@@ -357,6 +371,12 @@ public class DonationController {
             return null;
         }
         return donation;
+    }
+    
+    private DonatedItem searchDonatedItemByIndex(int itemNo, Donation donation){
+        SortedListInterface<DonatedItem> donatedItems  = donation.getDonatedItems();
+        DonatedItem donatedItem  = donatedItems.getEntry(itemNo);
+        return donatedItem;
     }
 
     public static void clearScreen() {

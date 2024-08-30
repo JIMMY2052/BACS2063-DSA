@@ -38,38 +38,38 @@ public class DonationUI {
         return opt;
     }
     //---------View Donation---------------------
-    
-    public void displayDonateFoodHeader(){
+
+    public void displayDonateFoodHeader() {
         System.out.println("\t\tDONATE FOOD");
         System.out.println("======================================================");
     }
-    
-    public void displayDonateCashHeader(){
+
+    public void displayDonateCashHeader() {
         System.out.println("\t\tDONATE CASH");
         System.out.println("======================================================");
     }
-    
-    public void listDonationHeader(){
+
+    public void listDonationHeader() {
         System.out.println("\t\t\t\t\tALL DONATION LIST");
         printLine(1, 99);
-        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity" );
+        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity");
         printLine(1, 99);
     }
-    
-    public void listFoodDonationHeader(){
+
+    public void listFoodDonationHeader() {
         System.out.println("\t\t\t\t\tALL FOOD DONATION LIST");
         printLine(1, 99);
-        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity" );
+        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity");
         printLine(1, 99);
     }
-    
-    public void listCashDonationHeader(){
+
+    public void listCashDonationHeader() {
         System.out.println("\t\t\t\t\tALL CASH DONATION LIST");
         printLine(1, 99);
-        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity" );
+        System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity");
         printLine(1, 99);
     }
-    
+
     public int viewDonationMenu() {
         int opt;
         System.out.println("\t\tVIEW DONATION");
@@ -109,7 +109,7 @@ public class DonationUI {
         }
         return opt;
     }
-    
+
     public String inputDonorId() {
         System.out.print("Enter Donor ID: ");
         String donorId = sc.nextLine().trim();
@@ -140,32 +140,33 @@ public class DonationUI {
         double amount = sc.nextDouble();
         sc.nextLine();
         return amount;
-    } 
+    }
+
     //---------UPDATE DONATION---------------------
-    public void displayEditDonationHeader(){
+    public void displayEditDonationHeader() {
         System.out.println("\t\tUpdate DONATION");
         System.out.println("======================================================");
     }
 
-    public String inputDonationId(){
+    public String inputDonationId() {
         System.out.print("Enter DONATION ID (Exit = 0) -> ");
         String donationId = sc.nextLine();
         return donationId;
     }
-    
-    public int inputChoice(int noOfItems){
+
+    public int inputChoice(int noOfItems) {
         int opt;
         System.out.print("Choose the item No. to edit (Exit = 0): ");
         opt = sc.nextInt();
         sc.nextLine();
-         while (opt < 0 || opt > noOfItems) {
+        while (opt < 0 || opt > noOfItems) {
             System.out.printf("Invalid option! Please select a number between 0 and %d : ", noOfItems);
             opt = sc.nextInt();
         }
         return opt;
     }
-    
-    public int inputUpdateType(){
+
+    public int inputUpdateType() {
         int opt;
         System.out.print("1)Change Item Name\n2)Change Item Quantity\nPlease enter your choice (Exit = 0) -> ");
         opt = sc.nextInt();
@@ -176,15 +177,15 @@ public class DonationUI {
         }
         return opt;
     }
-    
-    public String inputNewItemName(){
+
+    public String inputNewItemName(String string) {
         String newItemName;
-        System.out.print("Enter new item name (Exit = 0) -> ");
+        System.out.printf("Enter new item name for [%s](Exit = 0) -> ", string);
         newItemName = sc.nextLine().trim();
         return newItemName;
     }
-    
-    public int askToContinue(){
+
+    public int askToContinue() {
         System.out.print("Do you want to continue ? (Yes = 1 / N = 0): ");
         int choice = sc.nextInt();
         sc.nextLine();
@@ -195,6 +196,7 @@ public class DonationUI {
         }
         return choice;
     }
+
     public void printLine(int row, int col) {
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
@@ -203,17 +205,23 @@ public class DonationUI {
         }
         System.out.println();
     }
-    public int areYouSure(String string){
-        System.out.printf("Are you sure to update %s (Y = 1/N = 0) ->", string);
+
+    public int areYouSure(String string) {
+        System.out.printf("Are you sure to update %s (Y = 1/N = 0) -> ", string);
         int choice = sc.nextInt();
         sc.nextLine();
-         while (choice < 0 || choice > 1) {
+        while (choice < 0 || choice > 1) {
             System.out.printf("Invalid option! Please select a number range (0 to 1) : ");
             choice = sc.nextInt();
         }
         return choice;
     }
-    
+
+    public void displayHeader(String string) {
+        System.out.printf("\t\t%s\n", string);
+        System.out.println("======================================================");
+    }
+
     public static void main(String[] args) {
         DonationUI ui = new DonationUI();
         ui.addDonationMenu();
