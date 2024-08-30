@@ -155,7 +155,7 @@ public class DonationUI {
     
     public int inputChoice(int noOfItems){
         int opt;
-        System.out.println("Choose the item No. to edit (Exit = 0): ");
+        System.out.print("Choose the item No. to edit (Exit = 0): ");
         opt = sc.nextInt();
         sc.nextLine();
          while (opt < 0 || opt > noOfItems) {
@@ -166,7 +166,22 @@ public class DonationUI {
     }
     
     public int inputUpdateType(){
-        System.out.println("");
+        int opt;
+        System.out.print("1)Change Item Name\n2)Change Item Quantity\nPlease enter your choice (Exit = 0) -> ");
+        opt = sc.nextInt();
+        sc.nextLine();
+        while (opt < 0 || opt > 2) {
+            System.out.print("Invalid option! Please select a number between 0 and 2 : ");
+            opt = sc.nextInt();
+        }
+        return opt;
+    }
+    
+    public String inputNewItemName(){
+        String newItemName;
+        System.out.print("Enter new item name (Exit = 0) -> ");
+        newItemName = sc.nextLine().trim();
+        return newItemName;
     }
     
     public int askToContinue(){
@@ -187,6 +202,16 @@ public class DonationUI {
             }
         }
         System.out.println();
+    }
+    public int areYouSure(String string){
+        System.out.printf("Are you sure to update %s (Y = 1/N = 0) ->", string);
+        int choice = sc.nextInt();
+        sc.nextLine();
+         while (choice < 0 || choice > 1) {
+            System.out.printf("Invalid option! Please select a number range (0 to 1) : ");
+            choice = sc.nextInt();
+        }
+        return choice;
     }
     
     public static void main(String[] args) {

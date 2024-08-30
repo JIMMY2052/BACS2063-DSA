@@ -237,8 +237,7 @@ public class DonationController {
             if (firstTime == true) {
                 System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
                 firstTime = false;
-            }
-            if (firstTime == false) {
+            } else {
                 System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
             }
 
@@ -250,6 +249,7 @@ public class DonationController {
     private void updateDonation() {
         clearScreen();
         int opt;
+        int itemNo;
         Donation donation;
         SortedListInterface<DonatedItem> donatedItemList;
         donationUI.displayEditDonationHeader();
@@ -259,14 +259,28 @@ public class DonationController {
         if (donation == null) {
             return;
         }
-
+        clearScreen();
+        donationUI.displayEditDonationHeader();
         System.out.println(donation);
         displayDonatedItems(donation);
         donatedItemList = donation.getDonatedItems();
-        opt = donationUI.inputChoice(donatedItemList.getNumberOfEntries());
+        itemNo = donationUI.inputChoice(donatedItemList.getNumberOfEntries());
+        if (itemNo == 0) {
+            return;
+        }
 
+        opt = donationUI.inputUpdateType();
         if (opt == 0) {
             return;
+        }
+
+        switch (opt) {
+            case 1:
+                updateItemName(itemNo);
+                break;
+            case 2:
+                updateItemQuantiy();
+                break;
         }
 
         pressEnterContinue();
@@ -276,8 +290,25 @@ public class DonationController {
         SortedListInterface<DonatedItem> donatedItemList = donation.getDonatedItems();
         for (int i = 0; i < donatedItemList.getNumberOfEntries(); i++) {
             DonatedItem donatedItems = donatedItemList.getEntry(i);
-            System.out.printf("%d) %-13s: %s %s\n", i + 1, donatedItems.getItemName(), donatedItems.getQuantity(), donatedItems.getUnit());
+            System.out.printf("%d) %-13s: %11s %s\n", i + 1, donatedItems.getItemName(), donatedItems.getQuantity(), donatedItems.getUnit());
         }
+        donationUI.printLine(1, 54);
+    }
+
+    private void updateItemName(int itemNo) {
+        int opt;
+        do {
+            String newItemName = donationUI.inputNewItemName();
+            if (newItemName.equals("0")) {
+                return;
+            }
+            opt = donationUI.areYouSure("item name.");
+        } while (opt == 0);
+
+    }
+
+    private void updateItemQuantiy() {
+
     }
 
 //Sub Function
