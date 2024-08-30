@@ -190,5 +190,4 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
         array = Arrays.copyOf(array, newLength);
     }
-
 }

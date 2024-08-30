@@ -87,6 +87,8 @@ public class DonorUI {
                            "+----------------------------------------------+\n");
     }
     
+    
+    
     public void categoriesDonorMenu() {
         System.out.println("+----------------------------------------------+\n" +
                            "|                                              |\n" +
@@ -112,13 +114,39 @@ public class DonorUI {
                                "|  2. Donor Contact Number                     |\n" +
                                "|  3. Donor Category                           |\n" +
                                "|  4. Donor Gender                             |\n" +
+                               "|  0. Exit                                     |\n" +
                                "+----------------------------------------------+\n");
             System.out.print("Choose one to update (1-4): ");
             option = scanner.nextInt();
-
+            scanner.nextLine();
             if (option < 1 || option > 4) {
                 System.out.print("Invalid option! Please select a number between 1 and 4 : ");
                 option = scanner.nextInt();
+                scanner.nextLine();
+            }
+
+        }while(option < 1 || option > 4);
+        
+        return option;
+    }
+    
+    public int filterMenu() {
+        int option;
+        
+        do{
+            System.out.println();
+            System.out.println("+----------------------------------------------+\n" +
+                               "|  1. Donor Category                           |\n" +
+                               "|  2. Donor Gender                             |\n" +
+                               "|  0. Exit                                     |\n" +
+                               "+----------------------------------------------+\n");
+            System.out.print("Choose one to list (1-2): ");
+            option = scanner.nextInt();
+            scanner.nextLine();
+            if (option < 1 || option > 3) {
+                System.out.print("Invalid option! Please select 1 or 2 : ");
+                option = scanner.nextInt();
+                scanner.nextLine();
             }
 
         }while(option < 1 || option > 4);

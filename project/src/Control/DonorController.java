@@ -205,6 +205,62 @@ public class DonorController {
         
         return exit;
     }
+    
+    public void filterDonor(){
+        int exit, option, count = 0;
+        String category, gender;
+        do {
+            donorUI.filterDonorMenu();
+            option = donorUI.filterMenu();
+            
+            if(donor.isEmpty()){
+                System.out.println("Opps!! There is no donor in the list.");
+            }else{
+                Iterator<Donor> getDonor = donor.getIterator();
+                while(getDonor.hasNext()){
+                    ++count;
+                    Donor donorObject = getDonor.next();
+                    if(option == 1){
+                        System.out.print("Enter the donor category that wanted to list: ");
+                        category = scanner.nextLine();
+                        SortedListInterface<Donor> filterByCategory = filterByCategory(category);
+                        Iterator<Donor> itDonor = filterByCategory.getIterator();
+                        while (itDonor.hasNext()) {
+                             System.out.println(itDonor.next().toString());
+                        }
+                    }
+                }
+            }
+                
+            exit = donorUI.inputExitPage();
+        }while(exit == 0);
+    }
+    
+    private SortedListInterface<Donor> filterByCategory(String category){
+        SortedListInterface<Donor> result = new SortedArrayList<>();
+        
+        Iterator<Donor> itDonor = donor.getIterator();
+        while (itDonor.hasNext()) {
+            Donor tempDonor = itDonor.next();
+            if(tempDonor.getCategory().equals(category)) {
+                result.add(tempDonor);
+            }
+        }
+        return result;
+    }
+    
+    private SortedListInterface<Donor> filterByGender(String gender){
+        SortedListInterface<Donor> result = new SortedArrayList<>();
+        
+        Iterator<Donor> itDonor = donor.getIterator();
+        while (itDonor.hasNext()) {
+            Donor tempDonor = itDonor.next();
+            if(tempDonor.getGender().equals(gender)) {
+                result.add(tempDonor);
+            }
+        }
+        return result;
+    }
 
     public void menu() {
         int option, exit;
@@ -226,7 +282,7 @@ public class DonorController {
                     searchDonor();
                     break;
                 case 6:
-                    
+                    filterDonor();
                     break;
                 case 0:
                     System.out.println("Bye Bye. ^_^");
