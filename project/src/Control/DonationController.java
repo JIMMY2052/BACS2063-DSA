@@ -50,7 +50,13 @@ public class DonationController {
                     updateDonation();
                     break;
                 case 4:
-
+                    deleteDonation();
+                    break;
+                case 5:
+                    deleteDonatedItem();
+                    break;
+                case 6:
+                    searchDonation();
                     break;
             }
         } while (choice != 0);
@@ -280,13 +286,14 @@ public class DonationController {
                 donationUI.displayHeader("UPDATE ITEM NAME");
                 System.out.println(donation);
                 displayDonatedItems(donation);
-                updateItemName(itemNo,donation);
+                updateItemName(itemNo, donation);
                 break;
             case 2:
+                clearScreen();
                 donationUI.displayHeader("UPDATE ITEM QUANTITY");
                 System.out.println(donation);
                 displayDonatedItems(donation);
-                updateItemQuantiy(itemNo,donation);
+                updateItemQuantiy(itemNo, donation);
                 break;
         }
 
@@ -302,7 +309,7 @@ public class DonationController {
         donationUI.printLine(1, 54);
     }
 
-    private void updateItemName(int itemNo,Donation donation) {
+    private void updateItemName(int itemNo, Donation donation) {
         int opt;
         String newItemName;
         String string = "Item Number " + itemNo;
@@ -312,18 +319,67 @@ public class DonationController {
                 return;
             }
             opt = donationUI.areYouSure("item name.");
-            
+
         } while (opt == 0);
-        
-        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo,donation);
+
+        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo, donation);
         donatedItem.setItemName(newItemName);
-        System.out.printf("Sucessfully Updated Item Name for Item No. [%d]\n",itemNo);
+        System.out.printf("Sucessfully Updated Item Name for Item No. [%d]\n", itemNo);
+
+    }
+
+    private void updateItemQuantiy(int itemNo, Donation donation) {
+        int opt;
+        double qty;
+        String newUnit;
+        String string = "Item Number " + itemNo;
+        do {
+            qty = donationUI.inputNewItemQty(string);
+            if (qty == 0) {
+                return;
+            }
+            opt = donationUI.areYouSure("quantity.");
+
+        } while (opt == 0);
+
+        do {
+            newUnit = donationUI.inputNewItemUnit(string);
+            if (newUnit.equals("0")) {
+                return;
+            }
+            opt = donationUI.areYouSure("item name.");
+
+        } while (opt == 0);
+
+        DonatedItem donatedItem = searchDonatedItemByIndex(itemNo, donation);
+        donatedItem.setQuantity(qty);
+        donatedItem.setUnit(newUnit);
+        System.out.printf("Sucessfully Updated Item Quantity & Unit for Item No. [%d]\n", itemNo);
+    }
+
+//------------- Delete Donation ------------------------------
+    private void deleteDonation() {
+        clearScreen();
+        donationUI.displayHeader("DELETE DONATION BY ID");
+        Donation donation = searchDonationByID();
+        System.out.println(donation);
+        displayDonatedItems(donation);
+        int opt = donationUI.askToDeleteDonation(donation.getDonationId());
+        if (opt == 0) {
+            System.out.printf("Unsuccessful Remove Donation [%s].\n",donation.getDonationId());
+            return;
+        }
+        allDonations.remove(donation);
+        System.out.printf("Successfully Deleted Donation [%s]\n", donation.getDonationId());
+        pressEnterContinue();
         
     }
 
-    private void updateItemQuantiy(int itemNo,Donation donation) {
-        
+//------------- Delete Donated Item ------------------------------
+    private void deleteDonatedItem(){
+    
     }
+    private void searchDonation(){}
 
 //Sub Function
     private Donor searchDonorByID() {
@@ -372,10 +428,10 @@ public class DonationController {
         }
         return donation;
     }
-    
-    private DonatedItem searchDonatedItemByIndex(int itemNo, Donation donation){
-        SortedListInterface<DonatedItem> donatedItems  = donation.getDonatedItems();
-        DonatedItem donatedItem  = donatedItems.getEntry(itemNo);
+
+    private DonatedItem searchDonatedItemByIndex(int itemNo, Donation donation) {
+        SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
+        DonatedItem donatedItem = donatedItems.getEntry(itemNo);
         return donatedItem;
     }
 

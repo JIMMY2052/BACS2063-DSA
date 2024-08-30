@@ -23,8 +23,9 @@ public class DonationUI {
         System.out.println("\t\t2. View Donation");
         System.out.println("\t\t3. Update Donation");
         System.out.println("\t\t4. Delete Donation");
-        System.out.println("\t\t5. Search Donation");
-        System.out.println("\t\t6. Generate Summary Report");
+        System.out.println("\t\t5. Delete Donated Item");
+        System.out.println("\t\t6. Search Donation");
+        System.out.println("\t\t7. Generate Summary Report");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
 
@@ -184,7 +185,36 @@ public class DonationUI {
         newItemName = sc.nextLine().trim();
         return newItemName;
     }
+    
+    public double inputNewItemQty(String string) {
+        System.out.printf("Enter new quantity for [%s](Exit = 0) -> ", string);
+        double qty = sc.nextDouble();
+        sc.nextLine();
+        return qty;
+    }
+    
+    public String inputNewItemUnit(String string) {
+        String newItemUnit;
+        System.out.printf("Enter new item unit for [%s](Exit = 0) -> ", string);
+        newItemUnit = sc.nextLine().trim();
+        return newItemUnit;
+    }
+    
+    public int areYouSure(String string) {
+        System.out.printf("Are you sure to update %s (Y = 1/N = 0) -> ", string);
+        int choice = sc.nextInt();
+        sc.nextLine();
+        while (choice < 0 || choice > 1) {
+            System.out.printf("Invalid option! Please select a number range (0 to 1) : ");
+            choice = sc.nextInt();
+        }
+        return choice;
+    }
+    
+    //---------DELETE DONATION---------------------
+    
 
+    // sub function
     public int askToContinue() {
         System.out.print("Do you want to continue ? (Yes = 1 / N = 0): ");
         int choice = sc.nextInt();
@@ -204,17 +234,6 @@ public class DonationUI {
             }
         }
         System.out.println();
-    }
-
-    public int areYouSure(String string) {
-        System.out.printf("Are you sure to update %s (Y = 1/N = 0) -> ", string);
-        int choice = sc.nextInt();
-        sc.nextLine();
-        while (choice < 0 || choice > 1) {
-            System.out.printf("Invalid option! Please select a number range (0 to 1) : ");
-            choice = sc.nextInt();
-        }
-        return choice;
     }
 
     public void displayHeader(String string) {
