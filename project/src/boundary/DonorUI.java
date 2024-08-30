@@ -119,13 +119,13 @@ public class DonorUI {
             System.out.print("Choose one to update (1-4): ");
             option = scanner.nextInt();
             scanner.nextLine();
-            if (option < 1 || option > 4) {
+            if (option < 0 || option > 4) {
                 System.out.print("Invalid option! Please select a number between 1 and 4 : ");
                 option = scanner.nextInt();
                 scanner.nextLine();
             }
 
-        }while(option < 1 || option > 4);
+        }while(option < 0 || option > 4);
         
         return option;
     }

@@ -135,6 +135,9 @@ public class DonorController {
                 return exit = 1;
             }
             option = donorUI.updateMenu();
+            if(option == 0){
+                return exit = 1;
+            }
             switch(option){
                 case 1: {
                     name = donorUI.inputDonorName();
@@ -207,7 +210,7 @@ public class DonorController {
     }
     
     public void filterDonor(){
-        int exit, option, count = 0;
+        int exit, option;
         String category, gender;
         do {
             donorUI.filterDonorMenu();
@@ -218,7 +221,6 @@ public class DonorController {
             }else{
                 Iterator<Donor> getDonor = donor.getIterator();
                 while(getDonor.hasNext()){
-                    ++count;
                     Donor donorObject = getDonor.next();
                     if(option == 1){
                         System.out.print("Enter the donor category that wanted to list: ");
@@ -228,6 +230,17 @@ public class DonorController {
                         while (itDonor.hasNext()) {
                              System.out.println(itDonor.next().toString());
                         }
+                        break;
+                    }
+                    if(option == 2){
+                        System.out.print("Enter the donor gender that wanted to list: ");
+                        gender = scanner.nextLine();
+                        SortedListInterface<Donor> filterByGender = filterByGender(gender);
+                        Iterator<Donor> itDonor = filterByGender.getIterator();
+                        while (itDonor.hasNext()) {
+                             System.out.println(itDonor.next().toString());
+                        }
+                        break;
                     }
                 }
             }
@@ -264,6 +277,11 @@ public class DonorController {
 
     public void menu() {
         int option, exit;
+        
+        donor.add(new Donor("Alice", "9999999999", "public", "female"));
+        donor.add(new Donor("Jack", "8888888888", "public", "male"));
+        donor.add(new Donor("John", "7777777777", "private", "male"));
+        donor.add(new Donor("Janice", "6666666666", "private", "female"));
         do {
             exit = 0;
             option = donorUI.donorMenu();
@@ -296,7 +314,8 @@ public class DonorController {
 
     public static void main(String[] args) {
         DonorController d = new DonorController();
-
+        
         d.menu();
+        
     }
 }
