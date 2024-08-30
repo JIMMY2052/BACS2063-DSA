@@ -491,12 +491,12 @@ public class Initializer {
 
         SortedListInterface<Donor> donors = new SortedArrayList<>();
 
-        donors.add(new Donor("JIMMY", "0105772052", "c", "m"));
-        donors.add(new Donor("JIE YANG", "0105284838", "c", "m"));
-        donors.add(new Donor("CHUN YIN", "0106655478", "c", "m"));
-        donors.add(new Donor("STEVEN", "010", "c", "m"));
-        donors.add(new Donor("KENGKEONG", "010", "c", "m"));
-        donors.add(new Donor("JIAQIAN", "010", "c", "m"));
+        donors.add(new Donor("JIMMY", "0105772052", "public", "male"));
+        donors.add(new Donor("JIE YANG", "0105284838", "private", "male"));
+        donors.add(new Donor("CHUN YIN", "0106655478", "public", "female"));
+        donors.add(new Donor("STEVEN", "0101111111", "private", "female"));
+        donors.add(new Donor("KENGKEONG", "0102222222", "government", "male"));
+        donors.add(new Donor("JIAQIAN", "0103333333", "government", "female"));
 
         return donors;
     }
@@ -516,12 +516,12 @@ public class Initializer {
     public SortedListInterface<Donation> initializeDonation() {
 
         SortedListInterface<Donation> donations = new SortedArrayList<>();
-        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"), "F");
-        Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "c", "m"), "F");
-        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "c", "m"), "F");
-        Donation d4 = new Donation(new Donor("JIMMY", "0105772052", "c", "m"), "C");
+        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "public", "male"), "F");
+        Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "private", "male"), "F");
+        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "public", "female"), "F");
+        Donation d4 = new Donation(new Donor("STEVEN", "0101111111", "private", "female"), "C");
         
-        d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "KG"));
+        d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "L"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));

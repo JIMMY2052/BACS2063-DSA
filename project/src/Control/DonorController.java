@@ -9,6 +9,8 @@ import entity.Donor;
 import entity.Donation;
 import adt.SortedListInterface;
 import adt.SortedArrayList;
+import dao.Initializer;
+import entity.DonatedItem;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -20,7 +22,9 @@ public class DonorController {
 
     private DonorUI donorUI = new DonorUI();
     SortedListInterface<Donor> donor = new SortedArrayList<>();
+    SortedListInterface<Donation> donation = new SortedArrayList<>();
     private Scanner scanner = new Scanner(System.in);
+    private Initializer init = new Initializer();
 
     public int addDonor() {
         int exit = 0;
@@ -209,6 +213,22 @@ public class DonorController {
         return exit;
     }
     
+    public void listDonor(){
+        int option;
+        
+        do{
+            option = donorUI.listMenu();
+            switch(option){
+                case 1:
+                    break;
+                case 2:
+                    filterDonor();
+                case 0:
+                    break;
+            }
+        }while(option != 0);
+    }
+    
     public void filterDonor(){
         int exit, option;
         String category, gender;
@@ -274,16 +294,84 @@ public class DonorController {
         }
         return result;
     }
+    
+    public void generateReport(){
+        int exit;
+        int publicTotalRM = 0, publicTotalKG = 0, publicTotalL = 0;
+        int privateTotalRM = 0, privateTotalKG = 0, privateTotalL = 0;
+        int governmentTotalRM = 0, govermentTotalKG = 0, governmentTotalL = 0;
+        
+        do {
+            donorUI.reportDonorMenu();
+            
+            if(donor.isEmpty()){
+                System.out.println("Opps!! There is no donor in the list.");
+            }else {
+                Iterator<Donor> getDonor = donor.getIterator();
+                Iterator<Donation> getDonation = donation.getIterator();
+                while(getDonor.hasNext()){
+                    Donor donorObject = getDonor.next();
+                    
+                    while (getDonation.hasNext()) {
+                        Donation donationObject = getDonation.next();
+                        if(donationObject.getDonor().getCategory().equals("public")){
+                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+                            while (itDonatedItem.hasNext()) {
+                                DonatedItem item = itDonatedItem.next();
+                                if (item.getUnit().equals("KG")) {
+                                    publicTotalKG += item.getQuantity();
+                                } else if (item.getUnit().equals("L")) {
+                                    publicTotalL += item.getQuantity();
+                                } else if (item.getUnit().equals("RM")) {
+                                    publicTotalRM += item.getQuantity();
+                                }
+                            }
+                        }
+                        if(donationObject.getDonor().getCategory().equals("private")){
+                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+                            while (itDonatedItem.hasNext()) {
+                                DonatedItem item = itDonatedItem.next();
+                                if (item.getUnit().equals("KG")) {
+                                    privateTotalKG += item.getQuantity();
+                                } else if (item.getUnit().equals("L")) {
+                                    privateTotalL += item.getQuantity();
+                                } else if (item.getUnit().equals("RM")) {
+                                    privateTotalRM += item.getQuantity();
+                                }
+                            }
+                        }
+                        if(donationObject.getDonor().getCategory().equals("government")){
+                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+                            while (itDonatedItem.hasNext()) {
+                                DonatedItem item = itDonatedItem.next();
+                                if (item.getUnit().equals("KG")) {
+                                    govermentTotalKG += item.getQuantity();
+                                } else if (item.getUnit().equals("L")) {
+                                    governmentTotalL += item.getQuantity();
+                                } else if (item.getUnit().equals("RM")) {
+                                    governmentTotalRM += item.getQuantity();
+                                }
+                            }
+                        }
+                    }
+                    System.out.println("Public:\n" + "KG: " + publicTotalKG + "\n" + "L: " + publicTotalL + "\n" + "RM: " + publicTotalRM + "\n\n");
+                        System.out.println("Private:\n" + "KG: " + privateTotalKG + "\n" + "L: " + privateTotalL + "\n" + "RM: " + privateTotalRM + "\n\n");
+                        System.out.println("Government:\n" + "KG: " + govermentTotalKG + "\n" + "L: " + governmentTotalL + "\n" + "RM: " + governmentTotalRM + "\n\n");
+                        break;
+                }
+            }
+            
+            exit = donorUI.inputExitPage();
+        }while(exit == 0);
+    }
 
     public void menu() {
-        int option, exit;
+        int option;
         
-        donor.add(new Donor("Alice", "9999999999", "public", "female"));
-        donor.add(new Donor("Jack", "8888888888", "public", "male"));
-        donor.add(new Donor("John", "7777777777", "private", "male"));
-        donor.add(new Donor("Janice", "6666666666", "private", "female"));
+        donor = init.initializeDonor();
+        donation = init.initializeDonation();
+        
         do {
-            exit = 0;
             option = donorUI.donorMenu();
             switch (option) {
                 case 1:
@@ -299,9 +387,11 @@ public class DonorController {
                 case 4:
                     searchDonor();
                     break;
-                case 6:
-                    filterDonor();
+                case 5:
+                    listDonor();
                     break;
+                case 6:
+                    generateReport();
                 case 0:
                     System.out.println("Bye Bye. ^_^");
                     break;

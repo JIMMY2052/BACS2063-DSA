@@ -21,20 +21,39 @@ public class DonorUI {
                                "|  2. Remove Donor                             |\n" +
                                "|  3. Update Donor Details                     |\n" +
                                "|  4. Search Donor Details                     |\n" +
-                               "|  5. List Donors With All the Donations made  |\n" +
-                               "|  6. Filter Donor based On Criteria           |\n" +
-                               "|  7. Categories Donors                        |\n" +
-                               "|  8. Generate Donor Summary Report            |\n" +
+                               "|  5. List Donor                               |\n" +
+                               "|  6. Donor Summary Report                     |\n" +
                                "|  0. Exit                                     |\n" +
                                "+----------------------------------------------+\n\n");
 
-            System.out.print("Enter your option (0 - 8): ");
+            System.out.print("Enter your option (0 - 6): ");
             option = scanner.nextInt();
             scanner.nextLine();
-            if(option < 0 || option > 8) {
-                System.out.println("You entered an invalid input!! Please enter only from 0 to 8.");
+            if(option < 0 || option > 6) {
+                System.out.println("You entered an invalid input!! Please enter only from 0 to 6.");
             }
-        }while(option < 0 || option > 8);
+        }while(option < 0 || option > 6);
+        
+        return option;
+    }
+    
+    public int listMenu() {
+        int option;
+        
+        do {
+            System.out.println("+----------------------------------------------+\n" +
+                               "|  1. List Donors With All the Donations made  |\n" +
+                               "|  2. Categories Donors                        |\n" +
+                               "|  0. Exit                                     |\n" +
+                               "+----------------------------------------------+\n\n");
+
+            System.out.print("Enter your option (1 - 2): ");
+            option = scanner.nextInt();
+            scanner.nextLine();
+            if(option < 0 || option > 2) {
+                System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
+            }
+        }while(option < 0 || option > 2);
         
         return option;
     }
@@ -100,7 +119,7 @@ public class DonorUI {
     public void reportDonorMenu() {
         System.out.println("+----------------------------------------------+\n" +
                            "|                                              |\n" +
-                           "|         Generate Donor Summary Report        |\n" +
+                           "|             Donor Summary Report             |\n" +
                            "|                                              |\n" +
                            "+----------------------------------------------+\n");
     }
