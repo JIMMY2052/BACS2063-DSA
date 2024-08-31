@@ -44,13 +44,17 @@ public class DonorController {
             if (category.equals("0")) {
                 return exit;
             }
+            String type = donorUI.inputDonorType();
+            if (type.equals("0")) {
+                return exit;
+            }
             String gender = donorUI.inputDonorGender();
             if (gender.equals("0")) {
                 return exit;
             }
 
             if (donorUI.inputConfirmation("add a new donor")) {
-                Donor dr = new Donor(name, contactNo, category, gender);
+                Donor dr = new Donor(name, contactNo, category, type, gender);
                 isSuccess = donor.add(dr);
                 System.out.println("You have successfully added a new donor!!");
             } else {
@@ -220,6 +224,7 @@ public class DonorController {
             option = donorUI.listMenu();
             switch(option){
                 case 1:
+                    listWithDonation();
                     break;
                 case 2:
                     filterDonor();
@@ -227,6 +232,10 @@ public class DonorController {
                     break;
             }
         }while(option != 0);
+    }
+    
+    public void listWithDonation() {
+        
     }
     
     public void filterDonor(){

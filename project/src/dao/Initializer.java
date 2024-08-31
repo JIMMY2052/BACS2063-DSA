@@ -495,24 +495,24 @@ public class Initializer {
 
     private SortedListInterface<Donor> initializeDonor() {
 
-        donors.add(new Donor("JIMMY", "0105772052", "public", "male"));
-        donors.add(new Donor("JIE YANG", "0105284838", "private", "male"));
-        donors.add(new Donor("CHUN YIN", "0106655478", "public", "female"));
-        donors.add(new Donor("STEVEN", "0101111111", "private", "female"));
-        donors.add(new Donor("KENGKEONG", "0102222222", "government", "male"));
-        donors.add(new Donor("JIAQIAN", "0103333333", "government", "female"));
+        donors.add(new Donor("JIMMY", "0105772052", "public", "individual", "male", "April"));
+        donors.add(new Donor("JIE YANG", "0105284838", "private", "organization","male", "March"));
+        donors.add(new Donor("CHUN YIN", "0106655478", "public", "individual","female", "March"));
+        donors.add(new Donor("STEVEN", "0101111111", "private", "organization","female", "May"));
+        donors.add(new Donor("KENGKEONG", "0102222222", "government", "individual","male", "January"));
+        donors.add(new Donor("JIAQIAN", "0103333333", "government", "organization","female", "Febuary"));
 
         return donors;
     }
 
     private SortedListInterface<Donation> initializeDonation() {
 
-        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "public", "male"), "F");
-        Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "private", "male"), "F");
-        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "public", "female"), "F");
-        Donation d4 = new Donation(new Donor("STEVEN", "0101111111", "private", "female"), "C");
-        Donation d5 = new Donation(new Donor("STEVEN", "0101111111", "private", "female"), "C", new Date(2024, 7, 1));
-
+        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "public", "individual","male", "April"), "F");
+        Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "private", "organization","male", "March"), "F");
+        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "public", "individual","female", "March"), "F");
+        Donation d4 = new Donation(new Donor("STEVEN", "0101111111", "private", "organization","female", "May"), "C");
+        Donation d5 = new Donation(new Donor("STEVEN", "0101111111", "private", "organization","female", "May"), "C", new Date(2024, 7, 1));
+        
         d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "L"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));

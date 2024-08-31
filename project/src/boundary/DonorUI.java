@@ -235,6 +235,22 @@ public class DonorUI {
         return category;
     }
     
+    public String inputDonorType() {
+        String type;
+        
+        do{
+            System.out.print("Enter new donor in what type (individual, organization) (Exit = 0): ");
+            type = scanner.nextLine().toLowerCase();
+            if(type.equals("0")) {
+                return type;
+            } else if(!type.equals("individual") && !type.equals("organization")) {
+                System.out.println("Opps!! The category must enter individual or organization only.");
+            }
+        }while(!type.equals("individual") && !type.equals("organization"));
+        
+        return type;
+    }
+    
     public String inputDonorGender() {
         String gender;
         
@@ -279,6 +295,7 @@ public class DonorUI {
         System.out.println();
         System.out.print("Do you want to EXIT this page? (Yes = 1 / No = 0) : ");
         exit = scanner.nextInt();
+        scanner.nextLine();
         while (exit < 0 || exit > 1) {
             System.out.println("Invalid Input! Please enter 0 or 1 (Yes=1/No=0) : ");
             exit = scanner.nextInt();

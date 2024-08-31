@@ -6,6 +6,8 @@ package entity;
 
 import adt.SortedArrayList;
 import adt.SortedListInterface;
+import java.time.LocalDate;
+import java.time.Month;
 
 /**
  *
@@ -16,16 +18,36 @@ public class Donor implements Comparable<Donor> {
     private String name;
     private String contactNo;
     private String category;
+    private String type;
     private String gender;
     private String donorId;
+    private String date;
+
     private SortedListInterface<Donation> donorDonationList;
     private static int numberOfDonor = 0;
-
-    public Donor(String name, String contactNo, String category, String gender) {
+    LocalDate currentDate = LocalDate.now();
+    
+    public Donor(String name, String contactNo, String category, String type, String gender) {
+        Month date = currentDate.getMonth();
+        
         this.name = name;
         this.contactNo = contactNo;
         this.category = category;
+        this.type = type;
         this.gender = gender;
+        this.date = date.toString();
+        this.donorDonationList = new SortedArrayList<Donation>();
+        numberOfDonor++;
+        this.donorId = String.format("D%03d", numberOfDonor);
+    }
+    
+    public Donor(String name, String contactNo, String category, String type, String gender, String date) {
+        this.name = name;
+        this.contactNo = contactNo;
+        this.category = category;
+        this.type = type;
+        this.gender = gender;
+        this.date = date;
         this.donorDonationList = new SortedArrayList<Donation>();
         numberOfDonor++;
         this.donorId = String.format("D%03d", numberOfDonor);
@@ -33,6 +55,22 @@ public class Donor implements Comparable<Donor> {
 
     public Donor() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+    
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+    
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getDate() {
+        return date;
     }
 
     public String getName() {
@@ -102,7 +140,7 @@ public class Donor implements Comparable<Donor> {
 
     @Override
     public String toString() {
-        return "\ndonorId = " + donorId + "\nname = " + name + "\ncontactNo = " + contactNo + "\ncategory = " + category + "\ngender = " + gender;
+        return "\ndonorId = " + donorId + "\nname = " + name + "\ncontactNo = " + contactNo + "\ncategory = " + category + "\ntype = " + type + "\ngender = " + gender + "\ndate = " + date;
     }
 
 }
