@@ -16,6 +16,7 @@ public class Initializer {
 
     public Initializer() {
         initializeDonation();
+        initializeDonor();
         Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
         Event event2 = new Event("EV002", "Food Drive", "Collecting non-perishable food items for the community.");
         Event event3 = new Event("EV003", "Blood Donation", "Organizing a blood donation drive in collaboration with the Red Cross.");
@@ -490,7 +491,7 @@ public class Initializer {
         return volunteerList;
     }
 
-    public SortedListInterface<Donor> initializeDonor() {
+    private SortedListInterface<Donor> initializeDonor() {
 
         donors.add(new Donor("JIMMY", "0105772052", "public", "male"));
         donors.add(new Donor("JIE YANG", "0105284838", "private", "male"));
@@ -502,7 +503,7 @@ public class Initializer {
         return donors;
     }
 
-    public SortedListInterface<Donation> initializeDonation() {
+    private SortedListInterface<Donation> initializeDonation() {
 
         Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "public", "male"), "F");
         Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "private", "male"), "F");

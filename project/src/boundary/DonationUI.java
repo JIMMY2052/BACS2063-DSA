@@ -225,6 +225,17 @@ public class DonationUI {
     }
     
     //---------DELETE DONATED ITEM--------------------  
+    public int inputToRemoveAllItems(){
+        int opt;
+        System.out.printf("1. Remove All Items\n2. Remove One Item\n0. Exit\nEnter your choice: ");
+        opt = sc.nextInt();
+        sc.nextLine();
+        while (opt < 0 || opt > 2) {
+            System.out.print("Invalid option! Please select a number between 0 and 2 : ");
+            opt = sc.nextInt();
+        }
+        return opt;
+    }
     public int inputChoiceDonatedItem(int noOfItems) {
         int opt;
         System.out.print("Choose the item No. to remove (Exit = 0): ");

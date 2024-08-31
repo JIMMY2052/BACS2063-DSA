@@ -365,6 +365,9 @@ public class DonationController {
         clearScreen();
         donationUI.displayHeader("DELETE DONATION BY ID");
         Donation donation = searchDonationByID();
+        if (donation == null) {
+            return;
+        }
         System.out.println(donation);
         displayDonatedItems(donation);
         int opt = donationUI.askToDeleteDonation(donation.getDonationId());
@@ -383,22 +386,50 @@ public class DonationController {
         SortedListInterface<DonatedItem> donatedItemList;
         int itemNo;
         int opt;
+        int choice;
         clearScreen();
         donationUI.displayHeader("REMOVE DONATED ITEM");
         Donation donation = searchDonationByID();
+        if (donation == null) {
+            return;
+        }
         System.out.println(donation);
         displayDonatedItems(donation);
         donatedItemList = donation.getDonatedItems();
-        do {
-            itemNo = donationUI.inputChoiceDonatedItem(donatedItemList.getNumberOfEntries());
-            if (itemNo == 0) {
-                return;
+        choice = donationUI.inputToRemoveAllItems();
+        if (choice == 0) {
+            return;
+        }
+        if (choice == 1) {
+            int option;
+            clearScreen();
+            System.out.println(donation);
+            displayDonatedItems(donation);
+            System.out.println("WARNING: REMOVE ALL ITEMS !!!");
+            option = donationUI.askToContinue();
+            if(option == 0){
+                System.out.println("Exit To Main Page...");
             }
-            opt = donationUI.areYouSureDonatedItem(itemNo);
+            donatedItemList.clear();
+            System.out.println("Successfully Removed ALL items.");
+        }
 
-        } while (opt == 0);
+        if (choice == 2) {
+            do {
+                clearScreen();
+                System.out.println(donation);
+                displayDonatedItems(donation);
+                itemNo = donationUI.inputChoiceDonatedItem(donatedItemList.getNumberOfEntries());
+                if (itemNo == 0) {
+                    return;
+                }
+                opt = donationUI.areYouSureDonatedItem(itemNo);
 
-        donatedItemList.remove(opt -1);
+            } while (opt == 0);
+            donatedItemList.remove(opt - 1);
+            System.out.printf("Successfully removed item [%d]\n", itemNo);
+        }
+
         pressEnterContinue();
     }
 //------------- Search Donated Item ------------------------------
@@ -407,14 +438,14 @@ public class DonationController {
         clearScreen();
         donationUI.displayHeader("SEARCH DONATION");
         Donation donation = searchDonationByID();
-        System.out.println("Donation");
+        System.out.println(donation);
         displayDonatedItems(donation);
-
+        pressEnterContinue();
     }
 //------------- Search Donated Item ------------------------------    
 
     private void generateReport() {
-        
+
     }
 
 //Sub Function
@@ -471,7 +502,7 @@ public class DonationController {
         return donatedItem;
     }
 
-    public void clearScreen() {
+    private static void clearScreen() {
         try {
             Robot rob = new Robot();
             try {
