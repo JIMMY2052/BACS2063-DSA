@@ -507,11 +507,11 @@ public class Initializer {
 
     private SortedListInterface<Donation> initializeDonation() {
 
-        Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "public", "male"), "F");
-        Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "private", "male"), "F");
-        Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "public", "female"), "F");
-        Donation d4 = new Donation(new Donor("STEVEN", "0101111111", "private", "female"), "C");
-        Donation d5 = new Donation(new Donor("STEVEN", "0101111111", "private", "female"), "C", new Date(2024, 7, 1));
+        Donation d1 = new Donation(donors.getEntry(0), "F");
+        Donation d2 = new Donation(donors.getEntry(1), "F");
+        Donation d3 = new Donation(donors.getEntry(2), "F");
+        Donation d4 = new Donation(donors.getEntry(3), "C");
+        Donation d5 = new Donation(donors.getEntry(4), "C", new Date(2024, 7, 1));
 
         d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "L"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
