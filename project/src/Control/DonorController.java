@@ -26,6 +26,11 @@ public class DonorController {
     private Scanner scanner = new Scanner(System.in);
     private Initializer init = new Initializer();
 
+    public DonorController(SortedListInterface<Donor> donor, SortedListInterface<Donation> donation) {
+        this.donation = donation;
+        this.donor = donor;
+    }
+
     public int addDonor() {
         int exit = 0;
         boolean isSuccess = false;
@@ -162,7 +167,6 @@ public class DonorController {
                     }
                     break;
                 }
-                
 
             }
             if (donorUI.inputConfirmation("update the donor detail")) {
@@ -339,34 +343,34 @@ public class DonorController {
                 System.out.println("Opps!! There is no donor in the list.");
             } else {
                 Iterator<Donor> getDonor = donor.getIterator();
-                while (getDonor.hasNext()){
+                while (getDonor.hasNext()) {
                     Donor donorObject = getDonor.next();
-                    if(donorObject.getDate().equals("January")){
+                    if (donorObject.getDate().equals("January")) {
                         january++;
-                    }else if(donorObject.getDate().equals("February")){
+                    } else if (donorObject.getDate().equals("February")) {
                         february++;
-                    }else if(donorObject.getDate().equals("March")){
+                    } else if (donorObject.getDate().equals("March")) {
                         march++;
-                    }else if(donorObject.getDate().equals("April")){
+                    } else if (donorObject.getDate().equals("April")) {
                         april++;
-                    }else if(donorObject.getDate().equals("May")){
+                    } else if (donorObject.getDate().equals("May")) {
                         may++;
-                    }else if(donorObject.getDate().equals("June")){
+                    } else if (donorObject.getDate().equals("June")) {
                         june++;
-                    }else if(donorObject.getDate().equals("July")){
+                    } else if (donorObject.getDate().equals("July")) {
                         july++;
-                    }else if(donorObject.getDate().equals("August")){
+                    } else if (donorObject.getDate().equals("August")) {
                         august++;
-                    }else if(donorObject.getDate().equals("September")){
+                    } else if (donorObject.getDate().equals("September")) {
                         september++;
-                    }else if(donorObject.getDate().equals("Octobor")){
+                    } else if (donorObject.getDate().equals("Octobor")) {
                         octobor++;
-                    }else if(donorObject.getDate().equals("November")){
+                    } else if (donorObject.getDate().equals("November")) {
                         november++;
-                    }else if(donorObject.getDate().equals("December")){
+                    } else if (donorObject.getDate().equals("December")) {
                         december++;
                     }
-                    
+
                 }
                 System.out.println("January: " + january);
                 System.out.println("February: " + february);
@@ -430,9 +434,6 @@ public class DonorController {
 
     public void menu() {
         int option;
-
-        donor = init.donors;
-        donation = init.donations;
 
         do {
             option = donorUI.donorMenu();

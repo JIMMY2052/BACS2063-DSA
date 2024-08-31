@@ -8,7 +8,7 @@ package client;
  *
  * @author JIMMY
  */
-import Control.DonationController;
+import Control.*;
 import adt.*;
 import boundary.*;
 import control.EventCtrl;
@@ -22,13 +22,14 @@ import java.util.Scanner;
 
 public class Main {
 
-    DonationController donationCrt = new DonationController();
-
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         MainSystemUI mainSystemUI = new MainSystemUI(scanner);
-        Initializer initializer = new Initializer();
-
+        Initializer init = new Initializer();
+        SortedListInterface<Volunteer> volunteerList = init.getVolunteerList();
+        SortedListInterface<Event> eventList = init.getEventList();
+        SortedListInterface<Donation> donationList = init.getDonation();
+        SortedListInterface<Donor> donorList = init.getDonor();
         String choice;
         do {
             clearScreen();
@@ -36,18 +37,20 @@ public class Main {
             switch (choice) {
                 case "1": {
                     clearScreen();
-                    SortedListInterface<Volunteer> volunteerList = initializer.getVolunteerList();
-                    SortedListInterface<Event> eventList = initializer.getEventList();
-
                     EventCtrl eventCtrl = new EventCtrl(volunteerList, eventList);
                     eventCtrl.runEventCtrl();
                     break;
                 }
                 case "2": {
                     clearScreen();
+                    DonationController donationCrt = new DonationController(donorList, donationList);
                     donationCrt.DonationManagement();
-
                     break;
+                }
+                case "3": {
+                    clearScreen();
+                    DonorController donorCrt = new DonorController(donorList, donationList);
+                    donorCrt.menu();
                 }
                 default: {
 

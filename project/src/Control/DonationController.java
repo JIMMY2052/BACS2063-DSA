@@ -26,14 +26,17 @@ import java.util.Scanner;
 public class DonationController {
 
     private Scanner sc = new Scanner(System.in);
+
     private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
     private SortedListInterface<Donation> allDonations = new SortedArrayList<>();
-    private final DonationUI donationUI;
-    private Initializer init = new Initializer();
+    private DonationUI donationUI;
 
-    public DonationController() {
-        allDonors = init.donors;
-        allDonations = init.donations;
+    public DonationController(SortedListInterface<Donor> allDonors, SortedListInterface<Donation> allDonations) {
+        this.allDonations = allDonations;
+        this.allDonors = allDonors;
+    }
+
+    public void DonationManagement() {
         donationUI = new DonationUI();
 
         int choice;
@@ -555,7 +558,7 @@ public class DonationController {
         donationUI.displayHeader("ITEM DONATION");
         System.out.println(donation);
         displayDonatedItems(donation);
-        System.out.printf("Succesfully Added Donated Item to %s", donation.getDonationId());
+        System.out.printf("Succesfully Added Donated Item to %s\n", donation.getDonationId());
 
     }
 
@@ -579,7 +582,7 @@ public class DonationController {
         donationUI.displayHeader("CASH DONATION");
         System.out.println(donation);
         displayDonatedItems(donation);
-        System.out.printf("Succesfully Added Cash to %s", donation.getDonationId());
+        System.out.printf("Succesfully Added Cash to %s\n", donation.getDonationId());
     }
 
 //------------- Generate Report ------------------------------ 
@@ -754,8 +757,4 @@ public class DonationController {
         clearScreen();
     }
 
-    public static void main(String[] args) {
-
-        DonationController dc = new DonationController();
-    }
 }

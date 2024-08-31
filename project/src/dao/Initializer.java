@@ -12,13 +12,10 @@ public class Initializer {
 
     private SortedListInterface<Event> eventList = new SortedArrayList<>();
     private SortedListInterface<Volunteer> volunteerList = new SortedArrayList<>();
-    public SortedListInterface<Donation> donations = new SortedArrayList<>();
-    public SortedListInterface<Donor> donors = new SortedArrayList<>();
+    private SortedListInterface<Donation> donations = new SortedArrayList<>();
+    private SortedListInterface<Donor> donors = new SortedArrayList<>();
 
     public Initializer() {
-        initializeDonor();
-        initializeDonation();
-
         Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
         Event event2 = new Event("EV002", "Food Drive", "Collecting non-perishable food items for the community.");
         Event event3 = new Event("EV003", "Blood Donation", "Organizing a blood donation drive in collaboration with the Red Cross.");
@@ -483,23 +480,12 @@ public class Initializer {
         volunteerList.add(volunteer198);
         volunteerList.add(volunteer199);
         volunteerList.add(volunteer200);
-    }
-
-    public SortedListInterface<Event> getEventList() {
-        return eventList;
-    }
-
-    public SortedListInterface<Volunteer> getVolunteerList() {
-        return volunteerList;
-    }
-
-    private SortedListInterface<Donor> initializeDonor() {
 
         donors.add(new Donor("JIE YANG", "0105284838", "private", "organization", "March"));
-        donors.add(new Donor("CHUN YIN", "0106655478", "public", "individual",  "March"));
-        donors.add(new Donor("STEVEN", "0101111111", "private", "organization",  "May"));
-        donors.add(new Donor("KENGKEONG", "0102222222", "government", "individual",  "January"));
-        donors.add(new Donor("JIAQIAN", "0103333333", "government", "organization",  "February"));
+        donors.add(new Donor("CHUN YIN", "0106655478", "public", "individual", "March"));
+        donors.add(new Donor("STEVEN", "0101111111", "private", "organization", "May"));
+        donors.add(new Donor("KENGKEONG", "0102222222", "government", "individual", "January"));
+        donors.add(new Donor("JIAQIAN", "0103333333", "government", "organization", "February"));
         donors.add(new Donor("LI MING", "0104444444", "public", "individual", "June"));
         donors.add(new Donor("TAN WEI", "0105555555", "private", "individual", "July"));
         donors.add(new Donor("HO YEN", "0106666666", "public", "organization", "August"));
@@ -529,24 +515,18 @@ public class Initializer {
         donors.add(new Donor("FIONA", "0130000000", "private", "organization", "September"));
         donors.add(new Donor("ANDREW", "0131111111", "government", "individual", "August"));
 
-        
-        return donors;
-    }
-
-    private SortedListInterface<Donation> initializeDonation() {
-
         Donation d1 = new Donation(donors.getEntry(0), "F");
         Donation d2 = new Donation(donors.getEntry(1), "F");
         Donation d3 = new Donation(donors.getEntry(2), "F");
         Donation d4 = new Donation(donors.getEntry(3), "C");
-        Donation d5 = new Donation(donors.getEntry(4),"C", new Date(2024-1900, 7, 1));
-        
+        Donation d5 = new Donation(donors.getEntry(4), "C", new Date(2024 - 1900, 7, 1));
+
         donors.getEntry(0).addDonation(d1);
         donors.getEntry(1).addDonation(d2);
         donors.getEntry(2).addDonation(d3);
         donors.getEntry(3).addDonation(d4);
         donors.getEntry(4).addDonation(d5);
-        
+
         d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "KG"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
@@ -561,11 +541,22 @@ public class Initializer {
         donations.add(d3);
         donations.add(d4);
         donations.add(d5);
-        
-        
-        return donations;
-
     }
 
+    public SortedListInterface<Event> getEventList() {
+        return eventList;
+    }
+
+    public SortedListInterface<Volunteer> getVolunteerList() {
+        return volunteerList;
+    }
+
+    public SortedListInterface<Donor> getDonor() {
+        return donors;
+    }
+
+    public SortedListInterface<Donation> getDonation() {
+        return donations;
+    }
 
 }
