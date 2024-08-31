@@ -15,6 +15,7 @@ public class Initializer {
     public SortedListInterface<Donor> donors = new SortedArrayList<>();
 
     public Initializer() {
+        initializeDonation();
         Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
         Event event2 = new Event("EV002", "Food Drive", "Collecting non-perishable food items for the community.");
         Event event3 = new Event("EV003", "Blood Donation", "Organizing a blood donation drive in collaboration with the Red Cross.");
@@ -491,8 +492,6 @@ public class Initializer {
 
     public SortedListInterface<Donor> initializeDonor() {
 
-        SortedListInterface<Donor> donors = new SortedArrayList<>();
-
         donors.add(new Donor("JIMMY", "0105772052", "public", "male"));
         donors.add(new Donor("JIE YANG", "0105284838", "private", "male"));
         donors.add(new Donor("CHUN YIN", "0106655478", "public", "female"));
@@ -505,7 +504,6 @@ public class Initializer {
 
     public SortedListInterface<Donation> initializeDonation() {
 
-        SortedListInterface<Donation> donations = new SortedArrayList<>();
         Donation d1 = new Donation(new Donor("JIMMY", "0105772052", "public", "male"), "F");
         Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "private", "male"), "F");
         Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "public", "female"), "F");

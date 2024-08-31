@@ -404,11 +404,17 @@ public class DonationController {
 //------------- Search Donated Item ------------------------------
 
     private void searchDonation() {
+        clearScreen();
+        donationUI.displayHeader("SEARCH DONATION");
+        Donation donation = searchDonationByID();
+        System.out.println("Donation");
+        displayDonatedItems(donation);
 
     }
 //------------- Search Donated Item ------------------------------    
 
     private void generateReport() {
+        
     }
 
 //Sub Function
