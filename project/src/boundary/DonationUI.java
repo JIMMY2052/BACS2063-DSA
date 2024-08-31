@@ -166,11 +166,18 @@ public class DonationUI {
         return opt;
     }
 
-    public String inputDonationId() {
-        System.out.print("Enter DONATION ID (Exit = 0) -> ");
+    public String inputItemDonationId(String string) {
+        System.out.printf("Enter %s DONATION ID (Exit = 0) -> ", string);
         String donationId = sc.nextLine();
         return donationId;
     }
+    
+    public String inputDonationId() {
+        System.out.print("Enter %s DONATION ID (Exit = 0) -> ");
+        String donationId = sc.nextLine();
+        return donationId;
+    }
+    
 
     public int inputChoice(int noOfItems) {
         int opt;

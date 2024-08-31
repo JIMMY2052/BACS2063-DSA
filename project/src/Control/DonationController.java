@@ -361,12 +361,12 @@ public class DonationController {
         SortedListInterface<DonatedItem> donatedItemList;
         int itemNo;
         int opt;
-        Donation donation = searchItemDonation("F");
+        Donation donation = searchDonationByCategory("F", "ITEM");
         if (donation == null) {
             return;
         }
         clearScreen();
-        donationUI.displayEditDonationHeader();
+        donationUI.displayHeader("ITEM DONATION");
         System.out.println(donation);
         displayDonatedItems(donation);
         donatedItemList = donation.getDonatedItems();
@@ -399,7 +399,21 @@ public class DonationController {
     }
 
     private void updateCashDonation() {
-
+        SortedListInterface<DonatedItem> donatedItemList;
+        int itemNo;
+        Donation donation = searchDonationByCategory("C", "CASH");
+        if (donation == null) {
+            return;
+        }
+        clearScreen();
+        donationUI.displayHeader("CASH DONATION");
+        System.out.println(donation);
+        displayDonatedItems(donation);
+        donatedItemList = donation.getDonatedItems();
+        itemNo = donationUI.inputChoice(donatedItemList.getNumberOfEntries());
+        if (itemNo == 0) {
+            return;
+        }
     }
 
 //------------- Delete Donation ------------------------------
@@ -491,17 +505,17 @@ public class DonationController {
     }
 
 //Sub Function
-    private Donation searchItemDonation(String string) {
+    private Donation searchDonationByCategory(String string, String string2) {
         Donation donation = null;
         boolean found = false;
-        String donationId = donationUI.inputDonationId();
+        String donationId = donationUI.inputItemDonationId(string2);
         if (donationId.equals("0")) {
             return null;
         }
         Iterator<Donation> iterator = allDonations.getIterator();
         while (iterator.hasNext()) {
             donation = iterator.next();
-            if (donation.getDonationId().equals(donationId)) {
+            if (donation.getDonationId().equals(donationId.toUpperCase())) {
                 if (donation.getCategory().equals(string)) {
                     found = true;
                     break;
@@ -513,7 +527,6 @@ public class DonationController {
 
         if (found == false) {
             System.out.println("Donation ID does not exists.");
-            pressEnterContinue();
             return null;
         }
         return donation;
