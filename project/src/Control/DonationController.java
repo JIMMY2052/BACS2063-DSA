@@ -25,7 +25,7 @@ import java.util.Scanner;
  * @author JIMMY
  */
 public class DonationController {
-
+    
     private Scanner sc = new Scanner(System.in);
     private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
     private SortedListInterface<Donation> allDonations = new SortedArrayList<>();
@@ -36,6 +36,13 @@ public class DonationController {
         allDonors = init.donors;
         allDonations = init.donations;
         donationUI = new DonationUI();
+        Donor d1 = allDonors.getEntry(0);
+        System.out.println(d1);
+        SortedListInterface<Donation> donationList = new SortedArrayList<>();
+        
+        donationList = d1.getDonorDonationList();
+        Donation donation = donationList.getEntry(0);
+        System.out.println(donation);
         int choice;
         do {
             clearScreen();
@@ -573,10 +580,11 @@ public class DonationController {
 //------------- Generate Report ------------------------------ 
     private void generateReport() {
         clearScreen();
+
         donationUI.displayHeader("GENERATE MONTHLY REPORT");
 
-        int month = donationUI.inputMonth(); 
-        int year = donationUI.inputYear(); 
+        int month = donationUI.inputMonth();
+        int year = donationUI.inputYear();
 
         if (month < 1 || month > 12 || year < 0) {
             System.out.println("Invalid month or year.");
@@ -588,14 +596,12 @@ public class DonationController {
         int totalFoodItems = 0;
         int totalDonations = 0;
 
-        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
         Iterator<Donation> donationIterator = allDonations.getIterator();
-
+        SortedListInterface<Donation> donationForReport = new SortedArrayList<>();
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
             Calendar cal = Calendar.getInstance();
-            cal.setTime(donation.getDate()); 
-            System.out.println(donation.getDate());
+            cal.setTime(donation.getDate());
 
             int donationMonth = cal.get(Calendar.MONTH) + 1; // Calendar.MONTH is 0-based, so add 1
             int donationYear = cal.get(Calendar.YEAR);
@@ -617,16 +623,24 @@ public class DonationController {
                 if (donation.getCategory().equals("F")) {
                     totalFoodItems += donation.getDonatedItems().getNumberOfEntries();
                 }
+
+                donationForReport.add(donation);
             }
         }
 
- 
+        clearScreen();
         System.out.printf("Monthly Report for %02d-%d\n", month, year);
-        System.out.println("==============================");
+        System.out.println("========================================================");
+        for (int i = 0; i < donationForReport.getNumberOfEntries(); i++) {
+            Donation donationReport = donationForReport.getEntry(i);
+            System.out.printf("%d)", i+1);
+            System.out.println(donationReport);
+        }
+        donationUI.printLine(1, 55);
         System.out.printf("Total Donations: %d\n", totalDonations);
         System.out.printf("Total Cash Donations: RM %.2f\n", totalCash);
         System.out.printf("Total Food Items Donated: %d\n", totalFoodItems);
-        donationUI.printLine(1, 30);
+        
 
         pressEnterContinue();
     }
@@ -737,6 +751,7 @@ public class DonationController {
     }
 
     public static void main(String[] args) {
+        
         DonationController dc = new DonationController();
     }
 }

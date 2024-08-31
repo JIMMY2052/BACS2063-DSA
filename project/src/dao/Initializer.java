@@ -513,6 +513,12 @@ public class Initializer {
         Donation d4 = new Donation(donors.getEntry(3), "C");
         Donation d5 = new Donation(donors.getEntry(4),"C", new Date(2024-1900, 7, 1));
         
+        donors.getEntry(0).addDonation(d1);
+        donors.getEntry(1).addDonation(d2);
+        donors.getEntry(2).addDonation(d3);
+        donors.getEntry(3).addDonation(d4);
+        donors.getEntry(4).addDonation(d5);
+        
         d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "L"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
@@ -528,20 +534,11 @@ public class Initializer {
         donations.add(d4);
         donations.add(d5);
         donations.add(d5);
+        
+        
         return donations;
 
     }
 
-    //    public SortedListInterface<DonatedItem> initializeDonatedItem() {
-//
-//        SortedListInterface<DonatedItem> donatedItems = new SortedArrayList<>();
-//
-//        donatedItems.add(new DonatedItem("CASH", 2000, "RM"));
-//        donatedItems.add(new DonatedItem("MILO", 200, "KG"));
-//        donatedItems.add(new DonatedItem("RICE", 10, "KG"));
-//        donatedItems.add(new DonatedItem("MILK", 10, "L"));
-//        donatedItems.add(new DonatedItem("OIL", 10, "L"));
-//        donatedItems.add(new DonatedItem("CLOTHES", 100, "unit"));
-//        return donatedItems;
-//    }
+
 }
