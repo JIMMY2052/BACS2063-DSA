@@ -68,31 +68,29 @@ public class DonorController {
     public int searchDonor() {
         int exit, found = 0;
         String id;
-        
-        do{
+
+        do {
             donorUI.searchDonorMenu();
             id = donorUI.inputDonorId();
-            if(id.equals("0")){
+            if (id.equals("0")) {
                 return exit = 0;
             }
             Iterator<Donor> getDonor = donor.getIterator();
-            while(getDonor.hasNext()){
+            while (getDonor.hasNext()) {
                 Donor donorObject = getDonor.next();
-                if(donorObject.getDonorId().equals(id)){
+                if (donorObject.getDonorId().equals(id)) {
                     ++found;
                     System.out.println(donorObject);
                     break;
                 }
             }
-            if(found == 0){
+            if (found == 0) {
                 System.out.println("There is no details for this donor.");
             }
-            
+
             exit = donorUI.inputExitPage();
-        }while(exit == 0);
-        
-            
-        
+        } while (exit == 0);
+
         return exit;
     }
 
@@ -100,34 +98,34 @@ public class DonorController {
         int exit = 0;
         String id;
         boolean isSuccess = false;
-        
-        do{
+
+        do {
             donorUI.removeDonorMenu();
             id = donorUI.inputDonorId();
-            if(id.equals("0")){
+            if (id.equals("0")) {
                 return exit;
             }
-            if(donorUI.inputConfirmation("remove this donor") == true){
+            if (donorUI.inputConfirmation("remove this donor") == true) {
                 Iterator<Donor> getDonor = donor.getIterator();
-                while(getDonor.hasNext()){
+                while (getDonor.hasNext()) {
                     Donor donorObject = getDonor.next();
-                    if(donorObject.getDonorId().equals(id)){
+                    if (donorObject.getDonorId().equals(id)) {
                         donor.remove(donorObject);
                         isSuccess = true;
                         break;
                     }
                 }
-                if(isSuccess == true){
+                if (isSuccess == true) {
                     System.out.println("Remove the donor successfully.");
-                }else {
+                } else {
                     System.out.println("The donor id entered is not in the list.");
                 }
-            }else{
+            } else {
                 System.out.println("Your canceled to remove the donor.");
             }
-            
+
             exit = donorUI.inputExitPage();
-        }while(exit == 0);
+        } while (exit == 0);
         return exit;
     }
 
@@ -135,94 +133,94 @@ public class DonorController {
         int exit, option, count;
         String id, name = "", contactNo = "", category = "", gender = "";
         boolean isSuccess = false;
-        
-        do{
+
+        do {
             donorUI.updateDonorMenu();
             id = donorUI.inputDonorId();
-            if(id.equals("0")){
+            if (id.equals("0")) {
                 return exit = 1;
             }
             option = donorUI.updateMenu();
-            if(option == 0){
+            if (option == 0) {
                 return exit = 1;
             }
-            switch(option){
+            switch (option) {
                 case 1: {
                     name = donorUI.inputDonorName();
-                    if(name.equals("0")){
+                    if (name.equals("0")) {
                         return exit = 1;
                     }
                     break;
                 }
                 case 2: {
                     contactNo = donorUI.inputDonorContactNo();
-                    if(contactNo.equals("0")){
+                    if (contactNo.equals("0")) {
                         return exit = 1;
                     }
                     break;
                 }
                 case 3: {
                     category = donorUI.inputDonorCategory();
-                    if(category.equals("0")){
+                    if (category.equals("0")) {
                         return exit = 1;
                     }
                     break;
                 }
                 case 4: {
                     gender = donorUI.inputDonorGender();
-                    if(gender.equals("0")){
+                    if (gender.equals("0")) {
                         return exit = 1;
                     }
                     break;
                 }
-                    
+
             }
-            if(donorUI.inputConfirmation("update the donor detail")){
+            if (donorUI.inputConfirmation("update the donor detail")) {
                 Iterator<Donor> getDonor = donor.getIterator();
                 count = 0;
-                while(getDonor.hasNext()){
+                while (getDonor.hasNext()) {
                     count++;
                     Donor donorObject = getDonor.next();
-                    if(donorObject.getDonorId().equals(id)){
-                        if(option == 1){
+                    if (donorObject.getDonorId().equals(id)) {
+                        if (option == 1) {
                             donorObject.setName(name);
                             break;
                         }
-                        if(option == 2){
+                        if (option == 2) {
                             donorObject.setContactNo(contactNo);
                             break;
                         }
-                        if(option == 3){
+                        if (option == 3) {
                             donorObject.setCategory(category);
                             break;
                         }
-                        if(option == 4){
+                        if (option == 4) {
                             donorObject.setGender(gender);
                             break;
                         }
                     }
                 }
-                if(isSuccess){
+                if (isSuccess) {
                     System.out.println("You updated the donor detail successfully!!");
-                }else{
+                } else {
                     System.out.println("Opps!! You updated the donor detail unsuccessfully.");
                 }
-            }else{
+            } else {
                 System.out.println("You canceled to update the donor details.");
             }
-            
+
             exit = donorUI.inputExitPage();
-        }while(exit == 0);
-        
+        } while (exit == 0);
+
         return exit;
     }
-    
-    public void listDonor(){
+
+    public void listDonor() {
         int option;
-        
-        do{
+
+        do {
             option = donorUI.listMenu();
-            switch(option){
+            switch (option) {
                 case 1:
                     listWithDonation();
                     break;
@@ -231,29 +229,29 @@ public class DonorController {
                 case 0:
                     break;
             }
-        }while(option != 0);
+        } while (option != 0);
     }
-    
+
     public void listWithDonation() {
         int exit;
         double tempQuantity = 0.0;
         SortedListInterface<Donation> tempDonation = new SortedArrayList<>();
-        
+
         if (donor.isEmpty()) {
             System.out.println("Opps!! There is no donor in the list.");
         } else {
             Iterator<Donor> getDonor = donor.getIterator();
-            while(getDonor.hasNext()){
+            while (getDonor.hasNext()) {
                 Donor donorObject = getDonor.next();
                 tempDonation = donorObject.getDonorDonationList();
                 Iterator<Donation> getDonation = tempDonation.getIterator();
                 while (getDonation.hasNext()) {
                     Donation donationObject = getDonation.next();
-                    if(donationObject == null){
+                    if (donationObject == null) {
                         continue;
                     }
+                    System.out.println("Donor Name: " + donationObject.getDonor().getName());
                     if (donationObject.getCategory().equals("F")) {
-                        System.out.println("Donor Name: " + donationObject.getDonor().getName());
                         donationObject.getDonor().getName();
                         System.out.println("Food Donation: ");
                         Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
@@ -263,109 +261,112 @@ public class DonorController {
                         }
                     }
                     if (donationObject.getCategory().equals("C")) {
-                        System.out.println("Cash Donation: ");
+
                         Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-                        
+
                         while (itDonatedItem.hasNext()) {
                             DonatedItem item = itDonatedItem.next();
                             tempQuantity += item.getQuantity();
-                           
+
                         }
-                        
+
                     }
-                    System.out.println("Cash: " + tempQuantity);
+                    if (donationObject.getCategory().equals("C")) {
+                        System.out.println("Cash Donation: ");
+                        System.out.println("Cash: " + tempQuantity);
+                    }
                 }
             }
-            
+
         }
     }
-    
-    public void filterDonor(){
+
+    public void filterDonor() {
         int exit, option;
         String category, gender;
         do {
             donorUI.filterDonorMenu();
             option = donorUI.filterMenu();
-            
-            if(donor.isEmpty()){
+
+            if (donor.isEmpty()) {
                 System.out.println("Opps!! There is no donor in the list.");
-            }else{
+            } else {
                 Iterator<Donor> getDonor = donor.getIterator();
-                while(getDonor.hasNext()){
+                while (getDonor.hasNext()) {
                     Donor donorObject = getDonor.next();
-                    if(option == 1){
+                    if (option == 1) {
                         System.out.print("Enter the donor category that wanted to list: ");
                         category = scanner.nextLine();
                         SortedListInterface<Donor> filterByCategory = filterByCategory(category);
                         Iterator<Donor> itDonor = filterByCategory.getIterator();
                         while (itDonor.hasNext()) {
-                             System.out.println(itDonor.next().toString());
+                            System.out.println(itDonor.next().toString());
                         }
                         break;
                     }
-                    if(option == 2){
+                    if (option == 2) {
                         System.out.print("Enter the donor gender that wanted to list: ");
                         gender = scanner.nextLine();
                         SortedListInterface<Donor> filterByGender = filterByGender(gender);
                         Iterator<Donor> itDonor = filterByGender.getIterator();
                         while (itDonor.hasNext()) {
-                             System.out.println(itDonor.next().toString());
+                            System.out.println(itDonor.next().toString());
                         }
                         break;
                     }
                 }
             }
-                
+
             exit = donorUI.inputExitPage();
-        }while(exit == 0);
+        } while (exit == 0);
     }
-    
-    private SortedListInterface<Donor> filterByCategory(String category){
+
+    private SortedListInterface<Donor> filterByCategory(String category) {
         SortedListInterface<Donor> result = new SortedArrayList<>();
-        
+
         Iterator<Donor> itDonor = donor.getIterator();
         while (itDonor.hasNext()) {
             Donor tempDonor = itDonor.next();
-            if(tempDonor.getCategory().equals(category)) {
+            if (tempDonor.getCategory().equals(category)) {
                 result.add(tempDonor);
             }
         }
         return result;
     }
-    
-    private SortedListInterface<Donor> filterByGender(String gender){
+
+    private SortedListInterface<Donor> filterByGender(String gender) {
         SortedListInterface<Donor> result = new SortedArrayList<>();
-        
+
         Iterator<Donor> itDonor = donor.getIterator();
         while (itDonor.hasNext()) {
             Donor tempDonor = itDonor.next();
-            if(tempDonor.getGender().equals(gender)) {
+            if (tempDonor.getGender().equals(gender)) {
                 result.add(tempDonor);
             }
         }
         return result;
     }
-    
-    public void generateReport(){
+
+    public void generateReport() {
         int exit;
         int publicTotalRM = 0, publicTotalKG = 0, publicTotalL = 0;
         int privateTotalRM = 0, privateTotalKG = 0, privateTotalL = 0;
         int governmentTotalRM = 0, govermentTotalKG = 0, governmentTotalL = 0;
-        
+
         do {
             donorUI.reportDonorMenu();
-            
-            if(donor.isEmpty()){
+
+            if (donor.isEmpty()) {
                 System.out.println("Opps!! There is no donor in the list.");
-            }else {
+            } else {
                 Iterator<Donor> getDonor = donor.getIterator();
                 Iterator<Donation> getDonation = donation.getIterator();
-                while(getDonor.hasNext()){
+                while (getDonor.hasNext()) {
                     Donor donorObject = getDonor.next();
-                    
+
                     while (getDonation.hasNext()) {
                         Donation donationObject = getDonation.next();
-                        if(donationObject.getDonor().getCategory().equals("public")){
+                        if (donationObject.getDonor().getCategory().equals("public")) {
                             Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
                             while (itDonatedItem.hasNext()) {
                                 DonatedItem item = itDonatedItem.next();
@@ -378,7 +379,7 @@ public class DonorController {
                                 }
                             }
                         }
-                        if(donationObject.getDonor().getCategory().equals("private")){
+                        if (donationObject.getDonor().getCategory().equals("private")) {
                             Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
                             while (itDonatedItem.hasNext()) {
                                 DonatedItem item = itDonatedItem.next();
@@ -391,7 +392,7 @@ public class DonorController {
                                 }
                             }
                         }
-                        if(donationObject.getDonor().getCategory().equals("government")){
+                        if (donationObject.getDonor().getCategory().equals("government")) {
                             Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
                             while (itDonatedItem.hasNext()) {
                                 DonatedItem item = itDonatedItem.next();
@@ -411,17 +412,17 @@ public class DonorController {
                     break;
                 }
             }
-            
+
             exit = donorUI.inputExitPage();
-        }while(exit == 0);
+        } while (exit == 0);
     }
 
     public void menu() {
         int option;
-        
+
         donor = init.donors;
         donation = init.donations;
-        
+
         do {
             option = donorUI.donorMenu();
             switch (option) {
@@ -455,8 +456,8 @@ public class DonorController {
 
     public static void main(String[] args) {
         DonorController d = new DonorController();
-        
+
         d.menu();
-        
+
     }
 }

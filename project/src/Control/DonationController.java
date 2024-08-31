@@ -36,13 +36,8 @@ public class DonationController {
         allDonors = init.donors;
         allDonations = init.donations;
         donationUI = new DonationUI();
-        Donor d1 = allDonors.getEntry(0);
-        System.out.println(d1);
-        SortedListInterface<Donation> donationList = new SortedArrayList<>();
         
-        donationList = d1.getDonorDonationList();
-        Donation donation = donationList.getEntry(0);
-        System.out.println(donation);
+
         int choice;
         do {
             clearScreen();
