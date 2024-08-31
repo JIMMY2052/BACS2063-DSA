@@ -10,7 +10,6 @@ import java.awt.event.KeyEvent;
 
 import adt.SortedListInterface;
 import adt.SortedArrayList;
-import dao.Initializer;
 import boundary.DonationUI;
 import entity.Donation;
 import entity.DonatedItem;

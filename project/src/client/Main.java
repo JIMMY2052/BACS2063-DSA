@@ -8,12 +8,14 @@ package client;
  *
  * @author JIMMY
  */
-import Control.*;
-import adt.*;
-import boundary.*;
-import control.EventCtrl;
+import adt.SortedListInterface;
+import adt.SortedArrayList;
 import entity.*;
 import dao.*;
+import boundary.*;
+import Control.DonorController;
+import Control.DonationController;
+import Control.EventCtrl;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -30,6 +32,7 @@ public class Main {
         SortedListInterface<Event> eventList = init.getEventList();
         SortedListInterface<Donation> donationList = init.getDonation();
         SortedListInterface<Donor> donorList = init.getDonor();
+
         String choice;
         do {
             clearScreen();
@@ -37,9 +40,9 @@ public class Main {
             switch (choice) {
                 case "1": {
                     clearScreen();
-                    EventCtrl eventCtrl = new EventCtrl(volunteerList, eventList);
-                    eventCtrl.runEventCtrl();
-                    break;
+                    DonorController donorCrt = new DonorController(donorList, donationList);
+                    donorCrt.menu();
+                    
                 }
                 case "2": {
                     clearScreen();
@@ -49,11 +52,11 @@ public class Main {
                 }
                 case "3": {
                     clearScreen();
-                    DonorController donorCrt = new DonorController(donorList, donationList);
-                    donorCrt.menu();
+                    EventCtrl eventCtrl = new EventCtrl(volunteerList, eventList);
+                    eventCtrl.runEventCtrl();
+                    break;
                 }
                 default: {
-
                     MessageUI.displayInvalidChoiceMessage();
                 }
             }

@@ -9,7 +9,6 @@ import entity.Donor;
 import entity.Donation;
 import adt.SortedListInterface;
 import adt.SortedArrayList;
-import dao.Initializer;
 import entity.DonatedItem;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -24,7 +23,6 @@ public class DonorController {
     SortedListInterface<Donor> donor = new SortedArrayList<>();
     SortedListInterface<Donation> donation = new SortedArrayList<>();
     private Scanner scanner = new Scanner(System.in);
-    private Initializer init = new Initializer();
 
     public DonorController(SortedListInterface<Donor> donor, SortedListInterface<Donation> donation) {
         this.donation = donation;
@@ -466,10 +464,5 @@ public class DonorController {
         } while (option != 0);
     }
 
-    public static void main(String[] args) {
-        DonorController d = new DonorController();
 
-        d.menu();
-
-    }
 }
