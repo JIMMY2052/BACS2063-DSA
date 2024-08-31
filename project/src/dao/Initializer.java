@@ -511,7 +511,7 @@ public class Initializer {
         Donation d2 = new Donation(donors.getEntry(1), "F");
         Donation d3 = new Donation(donors.getEntry(2), "F");
         Donation d4 = new Donation(donors.getEntry(3), "C");
-        Donation d5 = new Donation(donors.getEntry(4),"C", new Date(2024, 7, 1));
+        Donation d5 = new Donation(donors.getEntry(4),"C", new Date(2024-1900, 7, 1));
         
         d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "L"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
@@ -521,10 +521,12 @@ public class Initializer {
         d2.addDonatedItem(new DonatedItem("OIL", 10, "L"));
         d3.addDonatedItem(new DonatedItem("OIL", 10, "L"));
         d4.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
+        d5.addDonatedItem(new DonatedItem("CASH", 3000, "RM"));
         donations.add(d1);
         donations.add(d2);
         donations.add(d3);
         donations.add(d4);
+        donations.add(d5);
         donations.add(d5);
         return donations;
 

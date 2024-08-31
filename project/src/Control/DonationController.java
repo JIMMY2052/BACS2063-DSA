@@ -575,7 +575,6 @@ public class DonationController {
         clearScreen();
         donationUI.displayHeader("GENERATE MONTHLY REPORT");
 
-
         int month = donationUI.inputMonth(); 
         int year = donationUI.inputYear(); 
 
@@ -596,6 +595,7 @@ public class DonationController {
             Donation donation = donationIterator.next();
             Calendar cal = Calendar.getInstance();
             cal.setTime(donation.getDate()); 
+            System.out.println(donation.getDate());
 
             int donationMonth = cal.get(Calendar.MONTH) + 1; // Calendar.MONTH is 0-based, so add 1
             int donationYear = cal.get(Calendar.YEAR);
