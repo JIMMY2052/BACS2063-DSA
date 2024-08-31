@@ -124,11 +124,25 @@ public class DonorUI {
                            "+----------------------------------------------+\n");
     }
     
-    public void monthlyRegisterMenu(){
+    public void monthlyRegisterMenu(String months[], int counts[]){
+        String[] month = months;
+        int[] count = counts;
         System.out.println("+------------------------------------------------------+\n" +
                            "|             Donor Monthly Registration Report        |\n" +
                            "+------------------------------------------------------+\n" +
-                           "|                                                      |\n");
+                           "|  Month      |  Chart                                 |\n" +
+                           "+------------------------------------------------------+");
+        
+        
+        for (int i = 0; i < counts.length; i++) {
+            System.out.printf("%-3s%-9s%-5s", "|  ", months[i], "  |  ");
+            String output = "";
+            for(int j = 0; j < counts[i]; j++){
+                output += " *";
+            }
+            System.out.printf("%-37s |\n", output);
+        }
+        System.out.println("+------------------------------------------------------+");
     }
     
     public int updateMenu() {

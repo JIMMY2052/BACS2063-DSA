@@ -329,7 +329,7 @@ public class DonorController {
     public void generateReport() {
         int exit;
         int january = 0, february = 0, march = 0, april = 0, may = 0, june = 0, july = 0, august = 0, september = 0, octobor = 0, november = 0, december = 0;
-        int largest;
+        
         
         do {
             donorUI.reportDonorMenu();
@@ -371,25 +371,9 @@ public class DonorController {
                     january, february, march, april, may, june, july, august, september, octobor, november, december
                 };
                 String[] months = {
-                    "January", "February", "March", "April", "May", "June", "August", "September", "October", "November", "December"
+                    "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
                 };
-                
-                int maxValue = counts[0];
-                for (int i = 0; i < counts.length; i++) {
-                    int maxIndex = -1;
-                    
-
-                    // Find the largest unused count
-                    for (int j = 0; j < counts.length; j++) {
-                        if (counts[j] >= maxValue){
-                            maxValue = counts[j];
-                            maxIndex = j;
-                        }
-                    }
-
-                    // Print the month and its count
-                    System.out.println(months[maxIndex] + ": " + counts[maxIndex]);
-                }
+                donorUI.monthlyRegisterMenu(months, counts);
 //                Iterator<Donor> getDonor = donor.getIterator();
 //                Iterator<Donation> getDonation = donation.getIterator();
 //                while (getDonor.hasNext()) {
