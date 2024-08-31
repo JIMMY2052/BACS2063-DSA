@@ -56,9 +56,12 @@ public class DonationController {
                     deleteDonatedItem();
                     break;
                 case 6:
-                    searchDonation();
+                    addDonatedItem();
                     break;
                 case 7:
+                    searchDonation();
+                    break;
+                case 8:
                     generateReport();
                     break;
             }
@@ -294,7 +297,11 @@ public class DonationController {
         SortedListInterface<DonatedItem> donatedItemList = donation.getDonatedItems();
         for (int i = 0; i < donatedItemList.getNumberOfEntries(); i++) {
             DonatedItem donatedItems = donatedItemList.getEntry(i);
-            System.out.printf("%d) %-13s: %11s %s\n", i + 1, donatedItems.getItemName(), donatedItems.getQuantity(), donatedItems.getUnit());
+            if (donatedItems.getUnit().equals("RM")) {
+                System.out.printf("%d) %-13s: %s %.2f \n", i + 1, donatedItems.getItemName(), donatedItems.getUnit(), donatedItems.getQuantity());
+            } else {
+                System.out.printf("%d) %-13s: %11.2f %s\n", i + 1, donatedItems.getItemName(), donatedItems.getQuantity(), donatedItems.getUnit());
+            }
         }
         donationUI.printLine(1, 54);
     }
@@ -400,7 +407,8 @@ public class DonationController {
 
     private void updateCashDonation() {
         SortedListInterface<DonatedItem> donatedItemList;
-        int itemNo;
+        double amount;
+
         Donation donation = searchDonationByCategory("C", "CASH");
         if (donation == null) {
             return;
@@ -410,10 +418,11 @@ public class DonationController {
         System.out.println(donation);
         displayDonatedItems(donation);
         donatedItemList = donation.getDonatedItems();
-        itemNo = donationUI.inputChoice(donatedItemList.getNumberOfEntries());
-        if (itemNo == 0) {
-            return;
-        }
+
+        amount = donationUI.inputNewCash();
+        donatedItemList.getEntry(0).setQuantity(amount);
+        System.out.println("Successfully Update the amount.");
+
     }
 
 //------------- Delete Donation ------------------------------
@@ -498,8 +507,13 @@ public class DonationController {
         displayDonatedItems(donation);
         pressEnterContinue();
     }
-//------------- Search Donated Item ------------------------------    
+//------------- Add Donated Item ------------------------------ 
 
+    private void addDonatedItem() {
+
+    }
+
+//------------- Generate Report ------------------------------ 
     private void generateReport() {
 
     }
@@ -539,7 +553,7 @@ public class DonationController {
         Iterator<Donor> iterator = allDonors.getIterator();
         while (iterator.hasNext()) {
             donor = iterator.next();
-            if (donor.getDonorId().equals(donorId)) {
+            if (donor.getDonorId().equals(donorId.toUpperCase())) {
                 found = true;
                 break;
             }
@@ -564,7 +578,7 @@ public class DonationController {
         Iterator<Donation> iterator = allDonations.getIterator();
         while (iterator.hasNext()) {
             donation = iterator.next();
-            if (donation.getDonationId().equals(donationId)) {
+            if (donation.getDonationId().equals(donationId.toUpperCase())) {
                 found = true;
                 break;
             }

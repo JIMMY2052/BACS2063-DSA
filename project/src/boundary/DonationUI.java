@@ -173,12 +173,18 @@ public class DonationUI {
     }
     
     public String inputDonationId() {
-        System.out.print("Enter %s DONATION ID (Exit = 0) -> ");
+        System.out.print("Enter DONATION ID (Exit = 0) -> ");
         String donationId = sc.nextLine();
         return donationId;
     }
     
-
+    public double inputNewCash() {
+        System.out.print("Enter new amount cash: RM ");
+        double amount = sc.nextDouble();
+        sc.nextLine();
+        return amount;
+    }
+    
     public int inputChoice(int noOfItems) {
         int opt;
         System.out.print("Choose the item No. to edit (Exit = 0): ");
