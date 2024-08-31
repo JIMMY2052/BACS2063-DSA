@@ -525,7 +525,7 @@ public class DonationController {
         if (opt == 2) {
             addCash();
         }
-
+        pressEnterContinue();
     }
 
     private void addItem() {
@@ -547,6 +547,12 @@ public class DonationController {
             donation.addDonatedItem(donatedItem);
             choice = donationUI.askToContinue();
         } while (choice == 1);
+        
+        clearScreen();
+            donationUI.displayHeader("ITEM DONATION");
+            System.out.println(donation);
+            displayDonatedItems(donation);
+            System.out.printf("Succesfully Added Donated Item to %s", donation.getDonationId());
     }
 
     private void addCash() {
