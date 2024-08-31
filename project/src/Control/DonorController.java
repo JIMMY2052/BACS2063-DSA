@@ -340,29 +340,29 @@ public class DonorController {
                 Iterator<Donor> getDonor = donor.getIterator();
                 while (getDonor.hasNext()) {
                     Donor donorObject = getDonor.next();
-                    if (donorObject.getDate().equals("January")) {
+                    if (donorObject.getDate().equals("january")) {
                         january++;
-                    } else if (donorObject.getDate().equals("February")) {
+                    } else if (donorObject.getDate().equals("february")) {
                         february++;
-                    } else if (donorObject.getDate().equals("March")) {
+                    } else if (donorObject.getDate().equals("march")) {
                         march++;
-                    } else if (donorObject.getDate().equals("April")) {
+                    } else if (donorObject.getDate().equals("april")) {
                         april++;
-                    } else if (donorObject.getDate().equals("May")) {
+                    } else if (donorObject.getDate().equals("may")) {
                         may++;
-                    } else if (donorObject.getDate().equals("June")) {
+                    } else if (donorObject.getDate().equals("june")) {
                         june++;
-                    } else if (donorObject.getDate().equals("July")) {
+                    } else if (donorObject.getDate().equals("july")) {
                         july++;
-                    } else if (donorObject.getDate().equals("August")) {
+                    } else if (donorObject.getDate().equals("august")) {
                         august++;
-                    } else if (donorObject.getDate().equals("September")) {
+                    } else if (donorObject.getDate().equals("september")) {
                         september++;
-                    } else if (donorObject.getDate().equals("Octobor")) {
+                    } else if (donorObject.getDate().equals("octobor")) {
                         octobor++;
-                    } else if (donorObject.getDate().equals("November")) {
+                    } else if (donorObject.getDate().equals("november")) {
                         november++;
-                    } else if (donorObject.getDate().equals("December")) {
+                    } else if (donorObject.getDate().equals("december")) {
                         december++;
                     }
                 }

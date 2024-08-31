@@ -34,7 +34,7 @@ public class Donor implements Comparable<Donor> {
         this.contactNo = contactNo;
         this.category = category;
         this.type = type;
-        this.date = date.toString();
+        this.date = date.toString().toLowerCase();
         this.donorDonationList = new SortedArrayList<Donation>();
         numberOfDonor++;
         this.donorId = String.format("D%03d", numberOfDonor);
