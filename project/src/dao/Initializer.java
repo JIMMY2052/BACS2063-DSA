@@ -495,13 +495,41 @@ public class Initializer {
 
     private SortedListInterface<Donor> initializeDonor() {
 
-        donors.add(new Donor("JIMMY", "0105772052", "public", "individual", "male", "April"));
-        donors.add(new Donor("JIE YANG", "0105284838", "private", "organization","male", "March"));
-        donors.add(new Donor("CHUN YIN", "0106655478", "public", "individual","female", "March"));
-        donors.add(new Donor("STEVEN", "0101111111", "private", "organization","female", "May"));
-        donors.add(new Donor("KENGKEONG", "0102222222", "government", "individual","male", "January"));
-        donors.add(new Donor("JIAQIAN", "0103333333", "government", "organization","female", "Febuary"));
+        donors.add(new Donor("JIE YANG", "0105284838", "private", "organization", "male", "March"));
+        donors.add(new Donor("CHUN YIN", "0106655478", "public", "individual", "female", "March"));
+        donors.add(new Donor("STEVEN", "0101111111", "private", "organization", "female", "May"));
+        donors.add(new Donor("KENGKEONG", "0102222222", "government", "individual", "male", "January"));
+        donors.add(new Donor("JIAQIAN", "0103333333", "government", "organization", "female", "February"));
+//        donors.add(new Donor("LI MING", "0104444444", "public", "individual", "male", "June"));
+//        donors.add(new Donor("TAN WEI", "0105555555", "private", "individual", "female", "July"));
+//        donors.add(new Donor("HO YEN", "0106666666", "public", "organization", "female", "August"));
+//        donors.add(new Donor("LEE KAH", "0107777777", "government", "individual", "male", "September"));
+//        donors.add(new Donor("WAN YI", "0108888888", "public", "organization", "female", "February"));
+//        donors.add(new Donor("KHOO MIN", "0109999999", "private", "individual", "male", "June"));
+////        donors.add(new Donor("LEE ANN", "0110000000", "government", "individual", "female", "July"));
+//        donors.add(new Donor("JONATHAN", "0111111111", "public", "individual", "male", "May"));
+//        donors.add(new Donor("SU HUA", "0112222222", "private", "organization", "female", "March"));
+//        donors.add(new Donor("TENG HOCK", "0113333333", "government", "individual", "male", "January"));
+//        donors.add(new Donor("CHEE PENG", "0114444444", "private", "organization", "male", "April"));
+//        donors.add(new Donor("YONG SHENG", "0115555555", "public", "individual", "female", "May"));
+//        donors.add(new Donor("XIANG LIN", "0116666666", "government", "organization", "female", "June"));
+//        donors.add(new Donor("POH LING", "0117777777", "private", "individual", "male", "July"));
+//        donors.add(new Donor("ZHONG HAO", "0118888888", "government", "individual", "female", "August"));
+//        donors.add(new Donor("MEI LING", "0119999999", "public", "organization", "male", "January"));
+//        donors.add(new Donor("HUI MIN", "0120000000", "private", "individual", "female", "March"));
+//        donors.add(new Donor("KAI JUN", "0121111111", "public", "individual", "male", "May"));
+//        donors.add(new Donor("SHU TING", "0122222222", "government", "organization", "female", "April"));
+//        donors.add(new Donor("CHEE YING", "0123333333", "private", "individual", "female", "February"));
+//        donors.add(new Donor("XIN RU", "0124444444", "government", "individual", "male", "March"));
+//        donors.add(new Donor("KAI LEE", "0125555555", "public", "organization", "female", "April"));
+//        donors.add(new Donor("JI HUI", "0126666666", "government", "individual", "male", "May"));
+//        donors.add(new Donor("YI KANG", "0127777777", "private", "organization", "female", "June"));
+//        donors.add(new Donor("JIN FENG", "0128888888", "government", "individual", "male", "July"));
+//        donors.add(new Donor("NICHOLAS", "0129999999", "public", "individual", "male", "August"));
+//        donors.add(new Donor("FIONA", "0130000000", "private", "organization", "female", "September"));
+//        donors.add(new Donor("ANDREW", "0131111111", "government", "individual", "male", "August"));
 
+        
         return donors;
     }
 
@@ -519,7 +547,7 @@ public class Initializer {
         donors.getEntry(3).addDonation(d4);
         donors.getEntry(4).addDonation(d5);
         
-        d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "L"));
+        d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "KG"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));

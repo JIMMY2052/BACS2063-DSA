@@ -235,7 +235,49 @@ public class DonorController {
     }
     
     public void listWithDonation() {
-
+        int exit;
+        double tempQuantity = 0.0;
+        SortedListInterface<Donation> tempDonation = new SortedArrayList<>();
+        
+        if (donor.isEmpty()) {
+            System.out.println("Opps!! There is no donor in the list.");
+        } else {
+            Iterator<Donor> getDonor = donor.getIterator();
+            while(getDonor.hasNext()){
+                Donor donorObject = getDonor.next();
+                tempDonation = donorObject.getDonorDonationList();
+                Iterator<Donation> getDonation = tempDonation.getIterator();
+                while (getDonation.hasNext()) {
+                    Donation donationObject = getDonation.next();
+                    if(donationObject == null){
+                        continue;
+                    }
+                    if (donationObject.getCategory().equals("F")) {
+                        System.out.println("Donor Name: " + donationObject.getDonor().getName());
+                        donationObject.getDonor().getName();
+                        System.out.println("Food Donation: ");
+                        Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+                        while (itDonatedItem.hasNext()) {
+                            DonatedItem item = itDonatedItem.next();
+                            System.out.println(item.getItemName() + ": " + item.getQuantity());
+                        }
+                    }
+                    if (donationObject.getCategory().equals("C")) {
+                        System.out.println("Cash Donation: ");
+                        Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+                        
+                        while (itDonatedItem.hasNext()) {
+                            DonatedItem item = itDonatedItem.next();
+                            tempQuantity += item.getQuantity();
+                           
+                        }
+                        
+                    }
+                    System.out.println("Cash: " + tempQuantity);
+                }
+            }
+            
+        }
     }
     
     public void filterDonor(){

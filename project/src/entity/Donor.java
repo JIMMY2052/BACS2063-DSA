@@ -135,7 +135,7 @@ public class Donor implements Comparable<Donor> {
 
     @Override
     public int compareTo(Donor o) {
-        return name.compareTo(o.name);
+        return donorId.compareTo(o.donorId);
     }
 
     @Override
