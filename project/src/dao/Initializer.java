@@ -561,7 +561,6 @@ public class Initializer {
         donations.add(d3);
         donations.add(d4);
         donations.add(d5);
-        donations.add(d5);
         
         
         return donations;
