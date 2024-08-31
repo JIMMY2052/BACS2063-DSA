@@ -42,7 +42,7 @@ public class DonationUI {
     //---------View Donation---------------------
 
     public void displayDonateFoodHeader() {
-        System.out.println("\t\tDONATE FOOD");
+        System.out.println("\t\tDONATE ITEM / FOOD");
         System.out.println("======================================================");
     }
 
@@ -59,7 +59,7 @@ public class DonationUI {
     }
 
     public void listFoodDonationHeader() {
-        System.out.println("\t\t\t\t\tALL FOOD DONATION LIST");
+        System.out.println("\t\t\t\t\tALL ITEM DONATION LIST");
         printLine(1, 99);
         System.out.printf("|%-18s| %-18s| %-18s| %-18s| %-16s |\n", "Donation ID", "Donation Date", "Donor Name", "Donated Item", "Quantity");
         printLine(1, 99);
@@ -77,7 +77,7 @@ public class DonationUI {
         System.out.println("\t\tVIEW DONATION");
         System.out.println("======================================================");
         System.out.println("\t\t1. View All Donation");
-        System.out.println("\t\t2. View Food Donation");
+        System.out.println("\t\t2. View Item Donation");
         System.out.println("\t\t3. View Cash Donation");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
@@ -97,7 +97,7 @@ public class DonationUI {
         int opt;
         System.out.println("\t\tMAKE DONATION");
         System.out.println("======================================================");
-        System.out.println("\t\t1. Donate Food or Goods");
+        System.out.println("\t\t1. Donate Food or Item");
         System.out.println("\t\t2. Donate Cash");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
