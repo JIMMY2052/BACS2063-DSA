@@ -22,6 +22,8 @@ import java.util.Scanner;
 
 public class Main {
 
+    DonationController donationCrt = new DonationController();
+
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
         MainSystemUI mainSystemUI = new MainSystemUI(scanner);
@@ -43,7 +45,8 @@ public class Main {
                 }
                 case "2": {
                     clearScreen();
-                    DonationController donationCrt = new DonationController();
+                    donationCrt.DonationManagement();
+
                     break;
                 }
                 default: {

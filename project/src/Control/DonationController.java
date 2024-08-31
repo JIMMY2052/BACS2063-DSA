@@ -15,7 +15,6 @@ import boundary.DonationUI;
 import entity.Donation;
 import entity.DonatedItem;
 import entity.Donor;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -25,7 +24,7 @@ import java.util.Scanner;
  * @author JIMMY
  */
 public class DonationController {
-    
+
     private Scanner sc = new Scanner(System.in);
     private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
     private SortedListInterface<Donation> allDonations = new SortedArrayList<>();
@@ -36,7 +35,6 @@ public class DonationController {
         allDonors = init.donors;
         allDonations = init.donations;
         donationUI = new DonationUI();
-        
 
         int choice;
         do {
@@ -570,6 +568,18 @@ public class DonationController {
         donationUI.displayHeader("CASH DONATION");
         System.out.println(donation);
         displayDonatedItems(donation);
+        double amount = donationUI.inputCash();
+        DonatedItem donatedItem = new DonatedItem("CASH", amount, "RM");
+        if (donation.getDonatedItems().isEmpty()) {
+            donation.addDonatedItem(donatedItem);
+        } else {
+            donation.getDonatedItems().replace(0, donatedItem);
+        }
+        clearScreen();
+        donationUI.displayHeader("CASH DONATION");
+        System.out.println(donation);
+        displayDonatedItems(donation);
+        System.out.printf("Succesfully Added Cash to %s", donation.getDonationId());
     }
 
 //------------- Generate Report ------------------------------ 
@@ -628,14 +638,13 @@ public class DonationController {
         System.out.println("========================================================");
         for (int i = 0; i < donationForReport.getNumberOfEntries(); i++) {
             Donation donationReport = donationForReport.getEntry(i);
-            System.out.printf("%d)", i+1);
+            System.out.printf("%d)", i + 1);
             System.out.println(donationReport);
         }
         donationUI.printLine(1, 55);
         System.out.printf("Total Donations: %d\n", totalDonations);
         System.out.printf("Total Cash Donations: RM %.2f\n", totalCash);
         System.out.printf("Total Food Items Donated: %d\n", totalFoodItems);
-        
 
         pressEnterContinue();
     }
@@ -746,7 +755,7 @@ public class DonationController {
     }
 
     public static void main(String[] args) {
-        
+
         DonationController dc = new DonationController();
     }
 }
