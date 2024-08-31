@@ -30,6 +30,19 @@ public class Donation implements Comparable<Donation> {
             this.donationId = String.format("C%03d", numberOfDonation);
         }
     }
+    
+    public Donation(Donor donor, String category, Date date) {
+        numberOfDonation++;
+        this.donor = donor;
+        this.date = date;
+        this.category = category;
+        this.donatedItems = new SortedArrayList<>();
+        if (category.equals("F")) {
+            this.donationId = String.format("F%03d", numberOfDonation);
+        } else {
+            this.donationId = String.format("C%03d", numberOfDonation);
+        }
+    }
 
     public String getDonationId() {
         return donationId;

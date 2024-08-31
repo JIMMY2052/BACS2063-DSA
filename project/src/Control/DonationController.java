@@ -497,8 +497,8 @@ public class DonationController {
 
         pressEnterContinue();
     }
-//------------- Search Donated Item ------------------------------
 
+//------------- Search Donated Item ------------------------------
     private void searchDonation() {
         clearScreen();
         donationUI.displayHeader("SEARCH DONATION");
@@ -507,10 +507,33 @@ public class DonationController {
         displayDonatedItems(donation);
         pressEnterContinue();
     }
+
 //------------- Add Donated Item ------------------------------ 
-
     private void addDonatedItem() {
-
+        int opt;
+        clearScreen();
+        opt = donationUI.addDoantedItemMenu();
+        
+        if(opt == 0){
+            return;
+        }
+        
+        if(opt == 1){
+            addItem();
+        }
+        
+        if(opt == 2){
+            addCash();
+        }
+        
+    }
+    
+    private void addItem(){
+        searchDonationByCategory("F","item");
+    }
+    
+    private void addCash(){
+        
     }
 
 //------------- Generate Report ------------------------------ 

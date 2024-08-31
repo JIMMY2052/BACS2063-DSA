@@ -24,16 +24,17 @@ public class DonationUI {
         System.out.println("\t\t3. Update Donation");
         System.out.println("\t\t4. Delete Donation");
         System.out.println("\t\t5. Delete Donated Item");
-        System.out.println("\t\t6. Search Donation");
-        System.out.println("\t\t7. Generate Summary Report");
+        System.out.println("\t\t6. Add Donated Item to Donation");
+        System.out.println("\t\t7. Search Donation");
+        System.out.println("\t\t8. Generate Summary Report");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
 
         System.out.print("Enter your choice -> ");
         opt = sc.nextInt();
         sc.nextLine();
-        while (opt < 0 || opt > 7) {
-            System.out.print("Invalid option! Please select a number between 0 and 7 : ");
+        while (opt < 0 || opt > 8) {
+            System.out.print("Invalid option! Please select a number between 0 and 8 : ");
             opt = sc.nextInt();
         }
         return opt;
@@ -288,6 +289,26 @@ public class DonationUI {
             choice = sc.nextInt();
         }
         return choice;
+    }
+    
+    //---------ADD DONATED ITEM--------------------  
+    public int addDoantedItemMenu(){
+        int opt;
+        System.out.println("\t\tADD DONATED ITEM / CASH");
+        System.out.println("======================================================");
+        System.out.println("\t\t1. Add Donated Item to Donation");
+        System.out.println("\t\t2. Add Cash to Donation");
+        System.out.println("\t\t0. Return Back to Previous Page");
+        System.out.println("======================================================");
+
+        System.out.print("Enter your choice -> ");
+        opt = sc.nextInt();
+        sc.nextLine();
+        while (opt < 0 || opt > 2) {
+            System.out.print("Invalid option! Please select a number between 0 and 2 : ");
+            opt = sc.nextInt();
+        }
+        return opt;
     }
 
     // sub function

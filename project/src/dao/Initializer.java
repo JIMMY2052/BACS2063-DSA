@@ -6,6 +6,7 @@ package dao;
  */
 import adt.*;
 import entity.*;
+import java.util.Date;
 
 public class Initializer {
 
@@ -17,7 +18,7 @@ public class Initializer {
     public Initializer() {
         initializeDonor();
         initializeDonation();
-        
+
         Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
         Event event2 = new Event("EV002", "Food Drive", "Collecting non-perishable food items for the community.");
         Event event3 = new Event("EV003", "Blood Donation", "Organizing a blood donation drive in collaboration with the Red Cross.");
@@ -510,7 +511,8 @@ public class Initializer {
         Donation d2 = new Donation(new Donor("JIE YANG", "0105284838", "private", "male"), "F");
         Donation d3 = new Donation(new Donor("CHUN YIN", "0106655478", "public", "female"), "F");
         Donation d4 = new Donation(new Donor("STEVEN", "0101111111", "private", "female"), "C");
-        
+        Donation d5 = new Donation(new Donor("STEVEN", "0101111111", "private", "female"), "C", new Date(2024, 7, 1));
+
         d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "L"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
@@ -523,7 +525,7 @@ public class Initializer {
         donations.add(d2);
         donations.add(d3);
         donations.add(d4);
-
+        donations.add(d5);
         return donations;
 
     }
