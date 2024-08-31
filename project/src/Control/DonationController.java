@@ -109,7 +109,7 @@ public class DonationController {
             String foodName = donationUI.inputFoodName();
             double qty = donationUI.inputQuantity();
             String unit = donationUI.inputUnit();
-            DonatedItem donatedItem = new DonatedItem(foodName.toUpperCase(), qty, unit.toUpperCase());
+            DonatedItem donatedItem = new DonatedItem(foodName.toUpperCase(), qty, unit);
             donation.addDonatedItem(donatedItem);
             choice = donationUI.askToContinue();
         } while (choice == 1);
@@ -525,6 +525,7 @@ public class DonationController {
         if (opt == 2) {
             addCash();
         }
+
         pressEnterContinue();
     }
 
@@ -547,12 +548,13 @@ public class DonationController {
             donation.addDonatedItem(donatedItem);
             choice = donationUI.askToContinue();
         } while (choice == 1);
-        
+
         clearScreen();
-            donationUI.displayHeader("ITEM DONATION");
-            System.out.println(donation);
-            displayDonatedItems(donation);
-            System.out.printf("Succesfully Added Donated Item to %s", donation.getDonationId());
+        donationUI.displayHeader("ITEM DONATION");
+        System.out.println(donation);
+        displayDonatedItems(donation);
+        System.out.printf("Succesfully Added Donated Item to %s", donation.getDonationId());
+
     }
 
     private void addCash() {
