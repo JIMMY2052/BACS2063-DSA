@@ -236,6 +236,7 @@ public class DonationUI {
         }
         return opt;
     }
+    
     public int inputChoiceDonatedItem(int noOfItems) {
         int opt;
         System.out.print("Choose the item No. to remove (Exit = 0): ");

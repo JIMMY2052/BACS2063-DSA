@@ -170,6 +170,11 @@ public class DonationController {
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
             donatedItem = donation.getDonatedItems();
+
+            if (donatedItem.isEmpty()) {
+                printOnlyDonationDetails(donation);
+            }
+
             if (donatedItem.getNumberOfEntries() == 1) {
                 printOneDonatedItem(donation, donatedItem);
             }
@@ -193,6 +198,10 @@ public class DonationController {
             Donation donation = donationIterator.next();
             if (donation.getCategory().equals("F")) {
                 donatedItem = donation.getDonatedItems();
+
+                if (donatedItem.isEmpty()) {
+                    printOnlyDonationDetails(donation);
+                }
                 if (donatedItem.getNumberOfEntries() == 1) {
                     printOneDonatedItem(donation, donatedItem);
                 }
@@ -252,6 +261,14 @@ public class DonationController {
 
         }
         return firstTime;
+    }
+
+    private void printOnlyDonationDetails(Donation donation) {
+        System.out.printf("|%-18s| %-18s| %-18s|",
+                donation.getDonationId(),
+                donation.getFormattedDate(),
+                donation.getDonor().getName());
+        System.out.printf(" %-18s|%-18s| \n", "", "");
     }
 //------------- Update Donation ------------------------------
 
@@ -407,7 +424,7 @@ public class DonationController {
             displayDonatedItems(donation);
             System.out.println("WARNING: REMOVE ALL ITEMS !!!");
             option = donationUI.askToContinue();
-            if(option == 0){
+            if (option == 0) {
                 System.out.println("Exit To Main Page...");
             }
             donatedItemList.clear();
