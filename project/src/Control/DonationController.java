@@ -15,6 +15,8 @@ import boundary.DonationUI;
 import entity.Donation;
 import entity.DonatedItem;
 import entity.Donor;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Scanner;
 
@@ -558,12 +560,75 @@ public class DonationController {
     }
 
     private void addCash() {
-
+        Donation donation = searchDonationByCategory("C", "CASH");
+        if (donation == null) {
+            return;
+        }
+        clearScreen();
+        donationUI.displayHeader("CASH DONATION");
+        System.out.println(donation);
+        displayDonatedItems(donation);
     }
 
 //------------- Generate Report ------------------------------ 
     private void generateReport() {
+        clearScreen();
+        donationUI.displayHeader("GENERATE MONTHLY REPORT");
 
+
+        int month = donationUI.inputMonth(); 
+        int year = donationUI.inputYear(); 
+
+        if (month < 1 || month > 12 || year < 0) {
+            System.out.println("Invalid month or year.");
+            pressEnterContinue();
+            return;
+        }
+
+        double totalCash = 0;
+        int totalFoodItems = 0;
+        int totalDonations = 0;
+
+        SimpleDateFormat sdf = new SimpleDateFormat("MM-yyyy");
+        Iterator<Donation> donationIterator = allDonations.getIterator();
+
+        while (donationIterator.hasNext()) {
+            Donation donation = donationIterator.next();
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(donation.getDate()); 
+
+            int donationMonth = cal.get(Calendar.MONTH) + 1; // Calendar.MONTH is 0-based, so add 1
+            int donationYear = cal.get(Calendar.YEAR);
+
+            // Filter donations by the given month and year
+            if (donationMonth == month && donationYear == year) {
+                totalDonations++;
+
+                // Aggregate cash donations
+                if (donation.getCategory().equals("C")) {
+                    SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
+                    for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
+                        DonatedItem item = donatedItems.getEntry(i);
+                        totalCash += item.getQuantity();
+                    }
+                }
+
+                // Aggregate food item donations
+                if (donation.getCategory().equals("F")) {
+                    totalFoodItems += donation.getDonatedItems().getNumberOfEntries();
+                }
+            }
+        }
+
+ 
+        System.out.printf("Monthly Report for %02d-%d\n", month, year);
+        System.out.println("==============================");
+        System.out.printf("Total Donations: %d\n", totalDonations);
+        System.out.printf("Total Cash Donations: RM %.2f\n", totalCash);
+        System.out.printf("Total Food Items Donated: %d\n", totalFoodItems);
+        donationUI.printLine(1, 30);
+
+        pressEnterContinue();
     }
 
 //Sub Function

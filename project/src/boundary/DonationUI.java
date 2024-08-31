@@ -119,7 +119,7 @@ public class DonationUI {
     }
 
     public String inputFoodName() {
-        System.out.print("Enter Food Name: ");
+        System.out.print("Enter item Name: ");
         String foodName = sc.nextLine().trim();
         return foodName;
     }
@@ -336,6 +336,40 @@ public class DonationUI {
     public void displayHeader(String string) {
         System.out.printf("\t\t%s\n", string);
         System.out.println("======================================================");
+    }
+    
+    public int inputMonth() {
+        int month = 0;
+        while (month < 1 || month > 12) {
+            System.out.print("Enter the month (1-12): ");
+            if (sc.hasNextInt()) {
+                month = sc.nextInt();
+                if (month < 1 || month > 12) {
+                    System.out.println("Invalid month. Please enter a number between 1 and 12.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid number.");
+                sc.next(); // Clear the invalid input
+            }
+        }
+        return month;
+    }
+    
+    public int inputYear() {
+        int year = 0;
+        while (year <= 0) {
+            System.out.print("Enter the year: ");
+            if (sc.hasNextInt()) {
+                year = sc.nextInt();
+                if (year <= 0) {
+                    System.out.println("Invalid year. Please enter a positive number.");
+                }
+            } else {
+                System.out.println("Invalid input. Please enter a valid number.");
+                sc.next(); // Clear the invalid input
+            }
+        }
+        return year;
     }
 
     public static void main(String[] args) {
