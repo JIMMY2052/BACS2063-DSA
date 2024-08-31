@@ -27,13 +27,13 @@ public class DonationController {
     private Scanner sc = new Scanner(System.in);
     private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
     private SortedListInterface<Donation> allDonations = new SortedArrayList<>();
-
-    private DonationUI donationUI = new DonationUI();
+    private final DonationUI donationUI;
     private Initializer init = new Initializer();
 
     public DonationController() {
-        allDonors = init.initializeDonor();
-        allDonations = init.initializeDonation();
+        allDonors = init.donors;
+        allDonations = init.donations;
+        donationUI = new DonationUI();
         int choice;
         do {
             clearScreen();
@@ -398,6 +398,7 @@ public class DonationController {
 
         } while (opt == 0);
 
+        donatedItemList.remove(opt -1);
         pressEnterContinue();
     }
 //------------- Search Donated Item ------------------------------
@@ -464,7 +465,7 @@ public class DonationController {
         return donatedItem;
     }
 
-    public static void clearScreen() {
+    public void clearScreen() {
         try {
             Robot rob = new Robot();
             try {
@@ -481,7 +482,7 @@ public class DonationController {
         }
     }
 
-    public static void pressEnterContinue() {
+    public void pressEnterContinue() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Press [Enter] key to continue...");
         sc.nextLine();

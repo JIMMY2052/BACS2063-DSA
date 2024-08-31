@@ -25,11 +25,9 @@ public class MainSystemUI {
         System.out.println();
         return choice;
     }
+    
 
-    public static void clearScreen() {
-    for (int i = 0; i < 50; i++) {
-        System.out.println();
-    }
+    
 }
 
-}
+

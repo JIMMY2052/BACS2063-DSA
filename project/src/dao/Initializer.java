@@ -11,6 +11,8 @@ public class Initializer {
 
     private SortedListInterface<Event> eventList = new SortedArrayList<>();
     private SortedListInterface<Volunteer> volunteerList = new SortedArrayList<>();
+    public SortedListInterface<Donation> donations = new SortedArrayList<>();
+    public SortedListInterface<Donor> donors = new SortedArrayList<>();
 
     public Initializer() {
         Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
@@ -501,18 +503,6 @@ public class Initializer {
         return donors;
     }
 
-//    public SortedListInterface<DonatedItem> initializeDonatedItem() {
-//
-//        SortedListInterface<DonatedItem> donatedItems = new SortedArrayList<>();
-//
-//        donatedItems.add(new DonatedItem("CASH", 2000, "RM"));
-//        donatedItems.add(new DonatedItem("MILO", 200, "KG"));
-//        donatedItems.add(new DonatedItem("RICE", 10, "KG"));
-//        donatedItems.add(new DonatedItem("MILK", 10, "L"));
-//        donatedItems.add(new DonatedItem("OIL", 10, "L"));
-//        donatedItems.add(new DonatedItem("CLOTHES", 100, "unit"));
-//        return donatedItems;
-//    }
     public SortedListInterface<Donation> initializeDonation() {
 
         SortedListInterface<Donation> donations = new SortedArrayList<>();
@@ -537,4 +527,17 @@ public class Initializer {
         return donations;
 
     }
+
+    //    public SortedListInterface<DonatedItem> initializeDonatedItem() {
+//
+//        SortedListInterface<DonatedItem> donatedItems = new SortedArrayList<>();
+//
+//        donatedItems.add(new DonatedItem("CASH", 2000, "RM"));
+//        donatedItems.add(new DonatedItem("MILO", 200, "KG"));
+//        donatedItems.add(new DonatedItem("RICE", 10, "KG"));
+//        donatedItems.add(new DonatedItem("MILK", 10, "L"));
+//        donatedItems.add(new DonatedItem("OIL", 10, "L"));
+//        donatedItems.add(new DonatedItem("CLOTHES", 100, "unit"));
+//        return donatedItems;
+//    }
 }

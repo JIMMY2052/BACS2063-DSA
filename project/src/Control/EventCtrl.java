@@ -1,4 +1,5 @@
 package control;
+
 /**
  *
  * @author KK
@@ -6,6 +7,9 @@ package control;
 import adt.*;
 import boundary.*;
 import entity.*;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.Scanner;
 import utility.MessageUI;
 
@@ -29,44 +33,44 @@ public class EventCtrl {
             String choice = eventUI.getEventMenu();
 
             switch (choice) {
-                case "1" :
+                case "1":
                     displayAllVolunteersByEvents();
                     break;
-                case "2" :
+                case "2":
                     listAllVolunteersByID();
                     break;
-                case "3" :
+                case "3":
                     displayAllFilterGender();
                     break;
-                case "4" :
+                case "4":
                     searchVolunteerByID();
                     break;
-                case "5" :
+                case "5":
                     deleteVolunteerByID();
                     break;
-                case "6" :
+                case "6":
                     addVolunteer();
                     break;
-                case "7" :
+                case "7":
                     displayAllEvents();
                     break;
-                case "8" :
+                case "8":
                     displayAllEventofVolunteerNumber();
                     break;
-                case "9" :
+                case "9":
                     addEvent();
                     break;
-                case "10" :
+                case "10":
                     addVolunteerToEvent();
                     break;
-                case "0" :
+                case "0":
                     running = false;
                     break;
-                default :
+                default:
                     MessageUI.displayInvalidChoiceMessage();
             }
         }
-        MainSystemUI.clearScreen();
+        clearScreen();
     }
 
     public void displayAllVolunteersByEvents() {
@@ -199,7 +203,7 @@ public class EventCtrl {
             }
         }
 
-        MainSystemUI.clearScreen();
+        clearScreen();
         return volunteer;
     }
 
@@ -390,7 +394,7 @@ public class EventCtrl {
         String eventName = eventUI.inputName();
         String eventDetail = eventUI.inputEventDetail();
         Event event = new Event(eventID, eventName, eventDetail);
-        MainSystemUI.clearScreen();
+        clearScreen();
         return event;
     }
 
@@ -446,4 +450,20 @@ public class EventCtrl {
         System.out.println("Total Volunteers Added: " + addedCount);
     }
 
+    public void clearScreen() {
+        try {
+            Robot rob = new Robot();
+            try {
+                rob.keyPress(KeyEvent.VK_CONTROL); // press "CTRL"
+                rob.keyPress(KeyEvent.VK_L); // press "L"
+                rob.keyRelease(KeyEvent.VK_L); // unpress "L"
+                rob.keyRelease(KeyEvent.VK_CONTROL); // unpress "CTRL"
+                Thread.sleep(50); // add delay in milisecond, if not there will automatically stop after clear
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+    }
 }
