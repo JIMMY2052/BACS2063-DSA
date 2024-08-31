@@ -27,26 +27,24 @@ public class Donor implements Comparable<Donor> {
     private static int numberOfDonor = 0;
     LocalDate currentDate = LocalDate.now();
     
-    public Donor(String name, String contactNo, String category, String type, String gender) {
+    public Donor(String name, String contactNo, String category, String type) {
         Month date = currentDate.getMonth();
         
         this.name = name;
         this.contactNo = contactNo;
         this.category = category;
         this.type = type;
-        this.gender = gender;
         this.date = date.toString();
         this.donorDonationList = new SortedArrayList<Donation>();
         numberOfDonor++;
         this.donorId = String.format("D%03d", numberOfDonor);
     }
     
-    public Donor(String name, String contactNo, String category, String type, String gender, String date) {
+    public Donor(String name, String contactNo, String category, String type, String date) {
         this.name = name;
         this.contactNo = contactNo;
         this.category = category;
         this.type = type;
-        this.gender = gender;
         this.date = date;
         this.donorDonationList = new SortedArrayList<Donation>();
         numberOfDonor++;
@@ -85,20 +83,12 @@ public class Donor implements Comparable<Donor> {
         this.category = category;
     }
 
-    public void setGender(String gender) {
-        this.gender = gender;
-    }
-
     public String getContactNo() {
         return contactNo;
     }
 
     public String getCategory() {
         return category;
-    }
-
-    public String getGender() {
-        return gender;
     }
 
     public void setName(String name) {
@@ -140,7 +130,7 @@ public class Donor implements Comparable<Donor> {
 
     @Override
     public String toString() {
-        return "\ndonorId = " + donorId + "\nname = " + name + "\ncontactNo = " + contactNo + "\ncategory = " + category + "\ntype = " + type + "\ngender = " + gender + "\ndate = " + date;
+        return "\ndonorId = " + donorId + "\nname = " + name + "\ncontactNo = " + contactNo + "\ncategory = " + category + "\ntype = " + type + "\ndate = " + date;
     }
 
 }

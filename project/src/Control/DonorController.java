@@ -48,13 +48,9 @@ public class DonorController {
             if (type.equals("0")) {
                 return exit;
             }
-            String gender = donorUI.inputDonorGender();
-            if (gender.equals("0")) {
-                return exit;
-            }
 
             if (donorUI.inputConfirmation("add a new donor")) {
-                Donor dr = new Donor(name, contactNo, category, type, gender);
+                Donor dr = new Donor(name, contactNo, category, type);
                 isSuccess = donor.add(dr);
                 System.out.println("You have successfully added a new donor!!");
             } else {
@@ -166,13 +162,7 @@ public class DonorController {
                     }
                     break;
                 }
-                case 4: {
-                    gender = donorUI.inputDonorGender();
-                    if (gender.equals("0")) {
-                        return exit = 1;
-                    }
-                    break;
-                }
+                
 
             }
             if (donorUI.inputConfirmation("update the donor detail")) {
@@ -194,16 +184,7 @@ public class DonorController {
                             donorObject.setCategory(category);
                             break;
                         }
-                        if (option == 4) {
-                            donorObject.setGender(gender);
-                            break;
-                        }
                     }
-                }
-                if (isSuccess) {
-                    System.out.println("You updated the donor detail successfully!!");
-                } else {
-                    System.out.println("Opps!! You updated the donor detail unsuccessfully.");
                 }
             } else {
                 System.out.println("You canceled to update the donor details.");
@@ -283,7 +264,7 @@ public class DonorController {
 
     public void filterDonor() {
         int exit, option;
-        String category, gender;
+        String category, type;
         do {
             donorUI.filterDonorMenu();
             option = donorUI.filterMenu();
@@ -306,8 +287,8 @@ public class DonorController {
                     }
                     if (option == 2) {
                         System.out.print("Enter the donor gender that wanted to list: ");
-                        gender = scanner.nextLine();
-                        SortedListInterface<Donor> filterByGender = filterByGender(gender);
+                        type = scanner.nextLine();
+                        SortedListInterface<Donor> filterByGender = filterByType(type);
                         Iterator<Donor> itDonor = filterByGender.getIterator();
                         while (itDonor.hasNext()) {
                             System.out.println(itDonor.next().toString());
@@ -334,13 +315,13 @@ public class DonorController {
         return result;
     }
 
-    private SortedListInterface<Donor> filterByGender(String gender) {
+    private SortedListInterface<Donor> filterByType(String gender) {
         SortedListInterface<Donor> result = new SortedArrayList<>();
 
         Iterator<Donor> itDonor = donor.getIterator();
         while (itDonor.hasNext()) {
             Donor tempDonor = itDonor.next();
-            if (tempDonor.getGender().equals(gender)) {
+            if (tempDonor.getType().equals(gender)) {
                 result.add(tempDonor);
             }
         }
@@ -349,9 +330,7 @@ public class DonorController {
 
     public void generateReport() {
         int exit;
-        int publicTotalRM = 0, publicTotalKG = 0, publicTotalL = 0;
-        int privateTotalRM = 0, privateTotalKG = 0, privateTotalL = 0;
-        int governmentTotalRM = 0, govermentTotalKG = 0, governmentTotalL = 0;
+        int january = 0, february = 0, march = 0, april = 0, may = 0, june = 0, july = 0, august = 0, september = 0, octobor = 0, november = 0, december = 0;
 
         do {
             donorUI.reportDonorMenu();
@@ -360,57 +339,89 @@ public class DonorController {
                 System.out.println("Opps!! There is no donor in the list.");
             } else {
                 Iterator<Donor> getDonor = donor.getIterator();
-                Iterator<Donation> getDonation = donation.getIterator();
-                while (getDonor.hasNext()) {
+                while (getDonor.hasNext()){
                     Donor donorObject = getDonor.next();
-
-                    while (getDonation.hasNext()) {
-                        Donation donationObject = getDonation.next();
-                        if (donationObject.getDonor().getCategory().equals("public")) {
-                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-                            while (itDonatedItem.hasNext()) {
-                                DonatedItem item = itDonatedItem.next();
-                                if (item.getUnit().equals("KG")) {
-                                    publicTotalKG += item.getQuantity();
-                                } else if (item.getUnit().equals("L")) {
-                                    publicTotalL += item.getQuantity();
-                                } else if (item.getUnit().equals("RM")) {
-                                    publicTotalRM += item.getQuantity();
-                                }
-                            }
-                        }
-                        if (donationObject.getDonor().getCategory().equals("private")) {
-                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-                            while (itDonatedItem.hasNext()) {
-                                DonatedItem item = itDonatedItem.next();
-                                if (item.getUnit().equals("KG")) {
-                                    privateTotalKG += item.getQuantity();
-                                } else if (item.getUnit().equals("L")) {
-                                    privateTotalL += item.getQuantity();
-                                } else if (item.getUnit().equals("RM")) {
-                                    privateTotalRM += item.getQuantity();
-                                }
-                            }
-                        }
-                        if (donationObject.getDonor().getCategory().equals("government")) {
-                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-                            while (itDonatedItem.hasNext()) {
-                                DonatedItem item = itDonatedItem.next();
-                                if (item.getUnit().equals("KG")) {
-                                    govermentTotalKG += item.getQuantity();
-                                } else if (item.getUnit().equals("L")) {
-                                    governmentTotalL += item.getQuantity();
-                                } else if (item.getUnit().equals("RM")) {
-                                    governmentTotalRM += item.getQuantity();
-                                }
-                            }
-                        }
+                    if(donorObject.getDate().equals("January")){
+                        january++;
+                    }else if(donorObject.getDate().equals("February")){
+                        february++;
+                    }else if(donorObject.getDate().equals("March")){
+                        march++;
+                    }else if(donorObject.getDate().equals("April")){
+                        april++;
+                    }else if(donorObject.getDate().equals("May")){
+                        may++;
+                    }else if(donorObject.getDate().equals("June")){
+                        june++;
+                    }else if(donorObject.getDate().equals("July")){
+                        july++;
+                    }else if(donorObject.getDate().equals("August")){
+                        august++;
+                    }else if(donorObject.getDate().equals("September")){
+                        september++;
+                    }else if(donorObject.getDate().equals("Octobor")){
+                        octobor++;
+                    }else if(donorObject.getDate().equals("November")){
+                        november++;
+                    }else if(donorObject.getDate().equals("December")){
+                        december++;
                     }
-                    System.out.println("Public:\n" + "KG: " + publicTotalKG + "\n" + "L: " + publicTotalL + "\n" + "RM: " + publicTotalRM + "\n\n");
-                    System.out.println("Private:\n" + "KG: " + privateTotalKG + "\n" + "L: " + privateTotalL + "\n" + "RM: " + privateTotalRM + "\n\n");
-                    System.out.println("Government:\n" + "KG: " + govermentTotalKG + "\n" + "L: " + governmentTotalL + "\n" + "RM: " + governmentTotalRM + "\n\n");
-                    break;
+                    
                 }
+                System.out.println("January: " + january);
+                System.out.println("February: " + february);
+//                Iterator<Donor> getDonor = donor.getIterator();
+//                Iterator<Donation> getDonation = donation.getIterator();
+//                while (getDonor.hasNext()) {
+//                    Donor donorObject = getDonor.next();
+//
+//                    while (getDonation.hasNext()) {
+//                        Donation donationObject = getDonation.next();
+//                        if (donationObject.getDonor().getCategory().equals("public")) {
+//                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+//                            while (itDonatedItem.hasNext()) {
+//                                DonatedItem item = itDonatedItem.next();
+//                                if (item.getUnit().equals("KG")) {
+//                                    publicTotalKG += item.getQuantity();
+//                                } else if (item.getUnit().equals("L")) {
+//                                    publicTotalL += item.getQuantity();
+//                                } else if (item.getUnit().equals("RM")) {
+//                                    publicTotalRM += item.getQuantity();
+//                                }
+//                            }
+//                        }
+//                        if (donationObject.getDonor().getCategory().equals("private")) {
+//                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+//                            while (itDonatedItem.hasNext()) {
+//                                DonatedItem item = itDonatedItem.next();
+//                                if (item.getUnit().equals("KG")) {
+//                                    privateTotalKG += item.getQuantity();
+//                                } else if (item.getUnit().equals("L")) {
+//                                    privateTotalL += item.getQuantity();
+//                                } else if (item.getUnit().equals("RM")) {
+//                                    privateTotalRM += item.getQuantity();
+//                                }
+//                            }
+//                        }
+//                        if (donationObject.getDonor().getCategory().equals("government")) {
+//                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
+//                            while (itDonatedItem.hasNext()) {
+//                                DonatedItem item = itDonatedItem.next();
+//                                if (item.getUnit().equals("KG")) {
+//                                    govermentTotalKG += item.getQuantity();
+//                                } else if (item.getUnit().equals("L")) {
+//                                    governmentTotalL += item.getQuantity();
+//                                } else if (item.getUnit().equals("RM")) {
+//                                    governmentTotalRM += item.getQuantity();
+//                                }
+//                            }
+//                        }
+//                    }
+//                    System.out.println("Public:\n" + "KG: " + publicTotalKG + "\n" + "L: " + publicTotalL + "\n" + "RM: " + publicTotalRM + "\n\n");
+//                    System.out.println("Private:\n" + "KG: " + privateTotalKG + "\n" + "L: " + privateTotalL + "\n" + "RM: " + privateTotalRM + "\n\n");
+//                    System.out.println("Government:\n" + "KG: " + govermentTotalKG + "\n" + "L: " + governmentTotalL + "\n" + "RM: " + governmentTotalRM + "\n\n");
+//                    break;
+//                }
             }
 
             exit = donorUI.inputExitPage();

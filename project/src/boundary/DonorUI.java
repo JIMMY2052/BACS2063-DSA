@@ -132,19 +132,18 @@ public class DonorUI {
                                "|  1. Donor Name                               |\n" +
                                "|  2. Donor Contact Number                     |\n" +
                                "|  3. Donor Category                           |\n" +
-                               "|  4. Donor Gender                             |\n" +
                                "|  0. Exit                                     |\n" +
                                "+----------------------------------------------+\n");
-            System.out.print("Choose one to update (1-4): ");
+            System.out.print("Choose one to update (1-3): ");
             option = scanner.nextInt();
             scanner.nextLine();
-            if (option < 0 || option > 4) {
-                System.out.print("Invalid option! Please select a number between 1 and 4 : ");
+            if (option < 0 || option > 3) {
+                System.out.print("Invalid option! Please select a number between 1 and 3 : ");
                 option = scanner.nextInt();
                 scanner.nextLine();
             }
 
-        }while(option < 0 || option > 4);
+        }while(option < 0 || option > 3);
         
         return option;
     }
@@ -156,7 +155,7 @@ public class DonorUI {
             System.out.println();
             System.out.println("+----------------------------------------------+\n" +
                                "|  1. Donor Category                           |\n" +
-                               "|  2. Donor Gender                             |\n" +
+                               "|  2. Donor Type                             |\n" +
                                "|  0. Exit                                     |\n" +
                                "+----------------------------------------------+\n");
             System.out.print("Choose one to list (1-2): ");
@@ -249,22 +248,6 @@ public class DonorUI {
         }while(!type.equals("individual") && !type.equals("organization"));
         
         return type;
-    }
-    
-    public String inputDonorGender() {
-        String gender;
-        
-        do{
-            System.out.print("Enter new donor's gender (Exit = 0): ");
-            gender = scanner.nextLine().toLowerCase();
-            if(gender.equals("0")){
-                return gender;
-            }else if(!gender.equals("male") && !gender.equals("female")){
-                System.out.println("Opps!! The gender must enter male or female only.");
-            }
-        }while(!gender.equals("male") && !gender.equals("female"));
-        
-        return gender;
     }
     
     public boolean inputConfirmation(String str) {
