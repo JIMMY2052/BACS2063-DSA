@@ -495,12 +495,12 @@ public class Initializer {
 
     private SortedListInterface<Donor> initializeDonor() {
 
-        donors.add(new Donor("JIMMY", "0105772052", "public", "male"));
-        donors.add(new Donor("JIE YANG", "0105284838", "private", "male"));
-        donors.add(new Donor("CHUN YIN", "0106655478", "public", "female"));
-        donors.add(new Donor("STEVEN", "0101111111", "private", "female"));
-        donors.add(new Donor("KENGKEONG", "0102222222", "government", "male"));
-        donors.add(new Donor("JIAQIAN", "0103333333", "government", "female"));
+        donors.add(new Donor("JIMMY", "0105772052", "public", "individual", "male", "April"));
+        donors.add(new Donor("JIE YANG", "0105284838", "private", "organization","male", "March"));
+        donors.add(new Donor("CHUN YIN", "0106655478", "public", "individual","female", "March"));
+        donors.add(new Donor("STEVEN", "0101111111", "private", "organization","female", "May"));
+        donors.add(new Donor("KENGKEONG", "0102222222", "government", "individual","male", "January"));
+        donors.add(new Donor("JIAQIAN", "0103333333", "government", "organization","female", "Febuary"));
 
         return donors;
     }
