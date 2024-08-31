@@ -368,8 +368,8 @@ public class DonorController {
     public void menu() {
         int option;
         
-        donor = init.initializeDonor();
-        donation = init.initializeDonation();
+        donor = init.donors;
+        donation = init.donations;
         
         do {
             option = donorUI.donorMenu();

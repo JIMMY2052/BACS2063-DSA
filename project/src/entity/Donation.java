@@ -24,7 +24,11 @@ public class Donation implements Comparable<Donation> {
         this.date = new Date();
         this.category = category;
         this.donatedItems = new SortedArrayList<>();
-        this.donationId = String.format("K%03d", numberOfDonation);
+        if (category.equals("F")) {
+            this.donationId = String.format("F%03d", numberOfDonation);
+        } else {
+            this.donationId = String.format("C%03d", numberOfDonation);
+        }
     }
 
     public String getDonationId() {
@@ -92,6 +96,7 @@ public class Donation implements Comparable<Donation> {
 
     @Override
     public int compareTo(Donation o) {
-        return this.donationId.compareTo(o.donationId);
+        return this.donationId.substring(1).compareTo(o.donationId.substring(1));
+
     }
 }

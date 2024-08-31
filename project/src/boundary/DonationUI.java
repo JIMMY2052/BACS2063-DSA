@@ -149,6 +149,23 @@ public class DonationUI {
         System.out.println("======================================================");
     }
 
+    public int displayUpdateMenu() {
+        int opt;
+        System.out.println("\t\t1. Update Item Donation");
+        System.out.println("\t\t2. Update Cash Donation");
+        System.out.println("\t\t0. Return Back to Previous Page");
+        System.out.println("======================================================");
+
+        System.out.print("Enter your choice -> ");
+        opt = sc.nextInt();
+        sc.nextLine();
+        while (opt < 0 || opt > 2) {
+            System.out.print("Invalid option! Please select a number between 0 and 2 : ");
+            opt = sc.nextInt();
+        }
+        return opt;
+    }
+
     public String inputDonationId() {
         System.out.print("Enter DONATION ID (Exit = 0) -> ");
         String donationId = sc.nextLine();
@@ -185,21 +202,21 @@ public class DonationUI {
         newItemName = sc.nextLine().trim();
         return newItemName;
     }
-    
+
     public double inputNewItemQty(String string) {
         System.out.printf("Enter new quantity for [%s](Exit = 0) -> ", string);
         double qty = sc.nextDouble();
         sc.nextLine();
         return qty;
     }
-    
+
     public String inputNewItemUnit(String string) {
         String newItemUnit;
         System.out.printf("Enter new item unit for [%s](Exit = 0) -> ", string);
         newItemUnit = sc.nextLine().trim();
         return newItemUnit;
     }
-    
+
     public int areYouSure(String string) {
         System.out.printf("Are you sure to update %s (Y = 1/N = 0) -> ", string);
         int choice = sc.nextInt();
@@ -210,7 +227,7 @@ public class DonationUI {
         }
         return choice;
     }
-    
+
     //---------DELETE DONATION---------------------
     public int askToDeleteDonation(String string) {
         System.out.printf("Are you sure to delete this donation [%s]? (Yes = 1 / N = 0): ", string);
@@ -223,9 +240,9 @@ public class DonationUI {
         }
         return choice;
     }
-    
+
     //---------DELETE DONATED ITEM--------------------  
-    public int inputToRemoveAllItems(){
+    public int inputToRemoveAllItems() {
         int opt;
         System.out.printf("1. Remove All Items\n2. Remove One Item\n0. Exit\nEnter your choice: ");
         opt = sc.nextInt();
@@ -236,7 +253,7 @@ public class DonationUI {
         }
         return opt;
     }
-    
+
     public int inputChoiceDonatedItem(int noOfItems) {
         int opt;
         System.out.print("Choose the item No. to remove (Exit = 0): ");
@@ -248,7 +265,7 @@ public class DonationUI {
         }
         return opt;
     }
-    
+
     public int areYouSureDonatedItem(int itemNo) {
         System.out.printf("Are you sure to remove Item %d (Yes = 1/No = 0) -> ", itemNo);
         int choice = sc.nextInt();

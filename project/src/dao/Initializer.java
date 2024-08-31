@@ -15,8 +15,9 @@ public class Initializer {
     public SortedListInterface<Donor> donors = new SortedArrayList<>();
 
     public Initializer() {
-        initializeDonation();
         initializeDonor();
+        initializeDonation();
+        
         Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
         Event event2 = new Event("EV002", "Food Drive", "Collecting non-perishable food items for the community.");
         Event event3 = new Event("EV003", "Blood Donation", "Organizing a blood donation drive in collaboration with the Red Cross.");

@@ -276,10 +276,20 @@ public class DonationController {
         clearScreen();
         int opt;
         int itemNo;
+        int optType;
         Donation donation;
         SortedListInterface<DonatedItem> donatedItemList;
         donationUI.displayEditDonationHeader();
-
+        optType = donationUI.displayUpdateMenu();
+        
+        if(optType == 1){
+            updateItemDonation();
+        }
+        
+        if(optType == 2){
+            updateCashDonation();
+        }
+        
         donation = searchDonationByID();
 
         if (donation == null) {
@@ -376,6 +386,14 @@ public class DonationController {
         donatedItem.setUnit(newUnit);
         System.out.printf("Sucessfully Updated Item Quantity & Unit for Item No. [%d]\n", itemNo);
     }
+    
+    private void updateItemDonation(){
+        
+    }
+    
+    private void updateCashDonation(){
+        
+    }
 
 //------------- Delete Donation ------------------------------
     private void deleteDonation() {
@@ -466,6 +484,31 @@ public class DonationController {
     }
 
 //Sub Function
+    private Donation searchItemDonation() {
+        Donation donation = null;
+        boolean found = false;
+        String donationId = donationUI.inputDonationId();
+        if (donationId.equals("0")) {
+            return null;
+        }
+        Iterator<Donation> iterator = allDonations.getIterator();
+        while (iterator.hasNext()) {
+            donation = iterator.next();
+            if (donation.getDonationId().equals(donationId)) {
+                found = true;
+                break;
+            }
+
+        }
+
+        if (found == false) {
+            System.out.println("Donation ID does not exists.");
+            pressEnterContinue();
+            return null;
+        }
+        return donation;
+    }
+    
     private Donor searchDonorByID() {
         Donor donor = null;
         boolean found = false;
