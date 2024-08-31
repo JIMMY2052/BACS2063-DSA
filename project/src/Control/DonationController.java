@@ -81,7 +81,7 @@ public class DonationController {
                     if (donor == null) {
                         break;
                     } else {
-                        foodDonation(donor);
+                        itemDonation(donor);
                     }
                     break;
                 case 2:
@@ -98,7 +98,7 @@ public class DonationController {
         } while (choice != 0);
     }
 
-    private void foodDonation(Donor donor) {
+    private void itemDonation(Donor donor) {
         Donation donation = new Donation(donor, "F");
         int choice;
 
@@ -106,13 +106,13 @@ public class DonationController {
             String foodName = donationUI.inputFoodName();
             double qty = donationUI.inputQuantity();
             String unit = donationUI.inputUnit();
-            DonatedItem donatedItem = new DonatedItem(foodName, qty, unit);
+            DonatedItem donatedItem = new DonatedItem(foodName.toUpperCase(), qty, unit);
             donation.addDonatedItem(donatedItem);
             choice = donationUI.askToContinue();
         } while (choice == 1);
         donor.addDonation(donation);
         allDonations.add(donation);
-        System.out.printf("%s (%s) succesful make a food donation.\n", donor.getName(), donor.getDonorId());
+        System.out.printf("%s (%s) succesful make a item donation.\n", donor.getName(), donor.getDonorId());
         System.out.println(donation);
         displayDonatedItems(donation);
         pressEnterContinue();
@@ -274,57 +274,17 @@ public class DonationController {
 
     private void updateDonation() {
         clearScreen();
-        int opt;
-        int itemNo;
         int optType;
-        Donation donation;
-        SortedListInterface<DonatedItem> donatedItemList;
+
         donationUI.displayEditDonationHeader();
         optType = donationUI.displayUpdateMenu();
-        
-        if(optType == 1){
+
+        if (optType == 1) {
             updateItemDonation();
         }
-        
-        if(optType == 2){
+
+        if (optType == 2) {
             updateCashDonation();
-        }
-        
-        donation = searchDonationByID();
-
-        if (donation == null) {
-            return;
-        }
-        clearScreen();
-        donationUI.displayEditDonationHeader();
-        System.out.println(donation);
-        displayDonatedItems(donation);
-        donatedItemList = donation.getDonatedItems();
-        itemNo = donationUI.inputChoice(donatedItemList.getNumberOfEntries());
-        if (itemNo == 0) {
-            return;
-        }
-
-        opt = donationUI.inputUpdateType();
-        if (opt == 0) {
-            return;
-        }
-
-        switch (opt) {
-            case 1:
-                clearScreen();
-                donationUI.displayHeader("UPDATE ITEM NAME");
-                System.out.println(donation);
-                displayDonatedItems(donation);
-                updateItemName(itemNo, donation);
-                break;
-            case 2:
-                clearScreen();
-                donationUI.displayHeader("UPDATE ITEM QUANTITY");
-                System.out.println(donation);
-                displayDonatedItems(donation);
-                updateItemQuantiy(itemNo, donation);
-                break;
         }
 
         pressEnterContinue();
@@ -341,13 +301,23 @@ public class DonationController {
 
     private void updateItemName(int itemNo, Donation donation) {
         int opt;
+        boolean opt2 = true;
         String newItemName;
         String string = "Item Number " + itemNo;
         do {
-            newItemName = donationUI.inputNewItemName(string);
-            if (newItemName.equals("0")) {
-                return;
-            }
+            do {
+                opt2 = true;
+                newItemName = donationUI.inputNewItemName(string);
+                if (newItemName.equals("0")) {
+                    return;
+                }
+
+                if (newItemName.toLowerCase().equals("cash")) {
+                    System.out.println("This is item donation cannot enter \"CASH\" as item name.");
+                    System.out.println("Please re-enter the item name. ");
+                    opt2 = false;
+                }
+            } while (opt2 == false);
             opt = donationUI.areYouSure("item name.");
 
         } while (opt == 0);
@@ -386,13 +356,50 @@ public class DonationController {
         donatedItem.setUnit(newUnit);
         System.out.printf("Sucessfully Updated Item Quantity & Unit for Item No. [%d]\n", itemNo);
     }
-    
-    private void updateItemDonation(){
-        
+
+    private void updateItemDonation() {
+        SortedListInterface<DonatedItem> donatedItemList;
+        int itemNo;
+        int opt;
+        Donation donation = searchItemDonation("F");
+        if (donation == null) {
+            return;
+        }
+        clearScreen();
+        donationUI.displayEditDonationHeader();
+        System.out.println(donation);
+        displayDonatedItems(donation);
+        donatedItemList = donation.getDonatedItems();
+        itemNo = donationUI.inputChoice(donatedItemList.getNumberOfEntries());
+        if (itemNo == 0) {
+            return;
+        }
+
+        opt = donationUI.inputUpdateType();
+        if (opt == 0) {
+            return;
+        }
+
+        switch (opt) {
+            case 1:
+                clearScreen();
+                donationUI.displayHeader("UPDATE ITEM NAME");
+                System.out.println(donation);
+                displayDonatedItems(donation);
+                updateItemName(itemNo, donation);
+                break;
+            case 2:
+                clearScreen();
+                donationUI.displayHeader("UPDATE ITEM QUANTITY");
+                System.out.println(donation);
+                displayDonatedItems(donation);
+                updateItemQuantiy(itemNo, donation);
+                break;
+        }
     }
-    
-    private void updateCashDonation(){
-        
+
+    private void updateCashDonation() {
+
     }
 
 //------------- Delete Donation ------------------------------
@@ -484,7 +491,7 @@ public class DonationController {
     }
 
 //Sub Function
-    private Donation searchItemDonation() {
+    private Donation searchItemDonation(String string) {
         Donation donation = null;
         boolean found = false;
         String donationId = donationUI.inputDonationId();
@@ -495,8 +502,11 @@ public class DonationController {
         while (iterator.hasNext()) {
             donation = iterator.next();
             if (donation.getDonationId().equals(donationId)) {
-                found = true;
-                break;
+                if (donation.getCategory().equals(string)) {
+                    found = true;
+                    break;
+                }
+
             }
 
         }
@@ -508,7 +518,7 @@ public class DonationController {
         }
         return donation;
     }
-    
+
     private Donor searchDonorByID() {
         Donor donor = null;
         boolean found = false;
