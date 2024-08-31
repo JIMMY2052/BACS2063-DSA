@@ -124,6 +124,13 @@ public class DonorUI {
                            "+----------------------------------------------+\n");
     }
     
+    public void monthlyRegisterMenu(){
+        System.out.println("+------------------------------------------------------+\n" +
+                           "|             Donor Monthly Registration Report        |\n" +
+                           "+------------------------------------------------------+\n" +
+                           "|                                                      |\n");
+    }
+    
     public int updateMenu() {
         int option;
         do{

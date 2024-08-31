@@ -246,19 +246,15 @@ public class DonorController {
                         }
                     }
                     if (donationObject.getCategory().equals("C")) {
-
+                        donationObject.getDonor().getName();
                         Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-
+                        System.out.println("Cash Donation: ");
                         while (itDonatedItem.hasNext()) {
                             DonatedItem item = itDonatedItem.next();
-                            tempQuantity += item.getQuantity();
+                            System.out.println(item.getItemName() + ": " + item.getQuantity());
 
                         }
 
-                    }
-                    if (donationObject.getCategory().equals("C")) {
-                        System.out.println("Cash Donation: ");
-                        System.out.println("Cash: " + tempQuantity);
                     }
                 }
             }
@@ -335,7 +331,8 @@ public class DonorController {
     public void generateReport() {
         int exit;
         int january = 0, february = 0, march = 0, april = 0, may = 0, june = 0, july = 0, august = 0, september = 0, octobor = 0, november = 0, december = 0;
-
+        int largest;
+        
         do {
             donorUI.reportDonorMenu();
 
@@ -370,10 +367,31 @@ public class DonorController {
                     } else if (donorObject.getDate().equals("December")) {
                         december++;
                     }
-
                 }
-                System.out.println("January: " + january);
-                System.out.println("February: " + february);
+                
+                int[] counts = {
+                    january, february, march, april, may, june, july, august, september, octobor, november, december
+                };
+                String[] months = {
+                    "January", "February", "March", "April", "May", "June", "August", "September", "October", "November", "December"
+                };
+                
+                int maxValue = counts[0];
+                for (int i = 0; i < counts.length; i++) {
+                    int maxIndex = -1;
+                    
+
+                    // Find the largest unused count
+                    for (int j = 0; j < counts.length; j++) {
+                        if (counts[j] >= maxValue){
+                            maxValue = counts[j];
+                            maxIndex = j;
+                        }
+                    }
+
+                    // Print the month and its count
+                    System.out.println(months[maxIndex] + ": " + counts[maxIndex]);
+                }
 //                Iterator<Donor> getDonor = donor.getIterator();
 //                Iterator<Donation> getDonation = donation.getIterator();
 //                while (getDonor.hasNext()) {
@@ -456,6 +474,7 @@ public class DonorController {
                     break;
                 case 6:
                     generateReport();
+                    break;
                 case 0:
                     System.out.println("Bye Bye. ^_^");
                     break;
@@ -464,12 +483,5 @@ public class DonorController {
                     break;
             }
         } while (option != 0);
-    }
-
-    public static void main(String[] args) {
-        DonorController d = new DonorController();
-
-        d.menu();
-
     }
 }
