@@ -14,18 +14,12 @@ public class EventCtrl {
 
     Scanner scanner = new Scanner(System.in);
     private EventUI eventUI;
-    private SortedListInterface<Event> eventList;
-    private SortedListInterface<Volunteer> volunteerList;
+    private SortedListInterface<Event> eventList = new SortedArrayList<>();
+    private SortedListInterface<Volunteer> volunteerList = new SortedArrayList<>();
 
     public EventCtrl(SortedListInterface<Volunteer> volunteer, SortedListInterface<Event> event) {
         this.volunteerList = volunteer;
         this.eventList = event;
-
-    }
-
-    public EventCtrl(SortedListInterface<Event> event) {
-        this.eventList = event;
-
     }
 
     public void runEventCtrl() {
@@ -445,7 +439,7 @@ public class EventCtrl {
                     volunteerList.remove(deleteID);
                 }
 
-                //Delete The Volunter In The Event
+                //Delete The Volunteer In The Event
                 for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
                     Event event = eventList.getEntry(i);
                     int position = event.getVolunteerList().search(foundVolunteer);
@@ -624,7 +618,7 @@ public class EventCtrl {
         }
 
     }
-    
+
     //------------ Delete Event Also Will Delete The Volunteer In The Event --------------------------
     public void deleteEvent() {
         boolean eventFound = false;
@@ -632,7 +626,7 @@ public class EventCtrl {
         int deleteID = -1;
         Event foundEvent = null;
         displayAllEvents();
-        
+
         // Do While For Find Exist Event
         do {
             String removeID = eventUI.inputEventID();
@@ -655,7 +649,7 @@ public class EventCtrl {
 
                 boolean has = false;
                 SortedListInterface<Volunteer> hasVolunteer = foundEvent.getVolunteerList();
-                
+
                 // Show The Volunteer Detail In This Event
                 for (int i = 0; i < hasVolunteer.getNumberOfEntries(); i++) {
                     Volunteer volunteer = hasVolunteer.getEntry(i);
@@ -673,15 +667,15 @@ public class EventCtrl {
             }
 
         } while (!done);
-        
+
         // If The Event Has Found
         if (foundEvent != null) {
-            
+
             // Confirmation To Delete
             boolean confirm = eventUI.addConfirm();
 
             if (confirm) {
-                
+
                 // If The deleteID Not Equals -1
                 if (deleteID != -1) {
                     eventList.remove(deleteID); // Delete The Event
