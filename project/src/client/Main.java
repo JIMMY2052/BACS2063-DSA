@@ -8,6 +8,7 @@ package client;
  *
  * @author JIMMY
  */
+import entity.DonationDistribution;
 import adt.SortedListInterface;
 import dao.Initializer;
 import boundary.*;
@@ -16,6 +17,7 @@ import Control.DonorController;
 import Control.DonationController;
 import Control.EventCtrl;
 import Control.DoneeController;
+import control.DonationDistributionController;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -54,6 +56,8 @@ public class Main {
                 }
                 case "3": {
                     clearScreen();
+                    DonationDistributionController donationDisCrt=new DonationDistributionController(doneeList,donationList,donationdistributionList);
+                    donationDisCrt.DonationDistributionManagement();
                 }
                 case "4": {
                     clearScreen();

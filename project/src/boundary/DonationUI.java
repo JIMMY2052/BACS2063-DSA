@@ -358,6 +358,18 @@ public class DonationUI {
         return year;
     }
 
+    public void reportHeader(String charityName,String generatedDate) {
+        System.out.println("==========================================================================");
+        System.out.println("                          " + charityName.toUpperCase());
+        System.out.println("                          TOP DONATED ITEMS REPORT");
+        System.out.println("==========================================================================");
+        System.out.println("Generated at: " + generatedDate);
+        System.out.println("**************************************************************************\n");
+
+        System.out.println("Top Donated Items Report");
+        System.out.println("========================");
+    }
+
     // sub function
     public int askToContinue() {
         System.out.print("Do you want to continue ? (Yes = 1 / N = 0): ");
