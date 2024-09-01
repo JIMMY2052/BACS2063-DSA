@@ -191,7 +191,7 @@ public class DonationController {
             pressEnterContinue();
             return;
         }
-        
+
         clearScreen();
         donationUI.displayDonateCashHeader();
         donation.addDonatedItem(donatedItem);
@@ -396,7 +396,7 @@ public class DonationController {
         } while (opt == 0);
 
         DonatedItem donatedItem = searchDonatedItemByIndex(itemNo - 1, donation);
-        donatedItem.setItemName(newItemName);
+        donatedItem.setItemName(newItemName.toUpperCase());
         System.out.printf("Sucessfully Updated Item Name for Item No. [%d]\n", itemNo);
 
     }
@@ -426,7 +426,7 @@ public class DonationController {
 
         DonatedItem donatedItem = searchDonatedItemByIndex(itemNo - 1, donation);
         donatedItem.setQuantity(qty);
-        donatedItem.setUnit(newUnit);
+        donatedItem.setUnit(newUnit.toUpperCase());
         System.out.printf("Sucessfully Updated Item Quantity & Unit for Item No. [%d]\n", itemNo);
     }
 
@@ -741,32 +741,31 @@ public class DonationController {
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
 
-//            if (donation.getCategory().equals("F")) {
-                SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
+            SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
 
-                for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
-                    DonatedItem currentItem = donatedItems.getEntry(i);
-                    String currentItemName = currentItem.getItemName();
-                    double currentQuantity = currentItem.getQuantity();
-                    String currentItemUnit = currentItem.getUnit();
+            for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
+                DonatedItem currentItem = donatedItems.getEntry(i);
+                String currentItemName = currentItem.getItemName();
+                double currentQuantity = currentItem.getQuantity();
+                String currentItemUnit = currentItem.getUnit();
 
-                    boolean itemFound = false;
-                    for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
-                        DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
-                        if (aggregatedItem.getItemName().equalsIgnoreCase(currentItemName)) {
+                boolean itemFound = false;
+                for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
+                    DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
+                    if (aggregatedItem.getItemName().equalsIgnoreCase(currentItemName)) {
 
-                            aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
-                            itemFound = true;
-                            break;
-                        }
-                    }
-
-                    if (!itemFound) {
-                        DonatedItem newItem = new DonatedItem(currentItemName, currentQuantity, currentItemUnit);
-                        aggregatedItems.add(newItem);
+                        aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
+                        itemFound = true;
+                        break;
                     }
                 }
-//            }
+
+                if (!itemFound) {
+                    DonatedItem newItem = new DonatedItem(currentItemName, currentQuantity, currentItemUnit);
+                    aggregatedItems.add(newItem);
+                }
+            }
+
         }
 
         for (int i = 0; i < aggregatedItems.getNumberOfEntries() - 1; i++) {
