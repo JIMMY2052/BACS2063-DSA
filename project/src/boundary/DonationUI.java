@@ -26,15 +26,16 @@ public class DonationUI {
         System.out.println("\t\t5. Delete Donated Item");
         System.out.println("\t\t6. Add Donated Item to Donation");
         System.out.println("\t\t7. Search Donation");
-        System.out.println("\t\t8. Generate Summary Report");
+        System.out.println("\t\t8. Generate Monthly Report");
+        System.out.println("\t\t9. Generate Top Donated Items Report");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");
 
         System.out.print("Enter your choice -> ");
         opt = sc.nextInt();
         sc.nextLine();
-        while (opt < 0 || opt > 8) {
-            System.out.print("Invalid option! Please select a number between 0 and 8 : ");
+        while (opt < 0 || opt > 9) {
+            System.out.print("Invalid option! Please select a number between 0 and 9 : ");
             opt = sc.nextInt();
         }
         return opt;
@@ -321,9 +322,7 @@ public class DonationUI {
         }
         return opt;
     }
-    
- 
-    
+
     //---------GENERATE REPORT-------------------  
     public int inputMonth() {
         int month = 0;

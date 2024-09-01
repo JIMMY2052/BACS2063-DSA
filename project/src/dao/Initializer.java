@@ -14,6 +14,8 @@ public class Initializer {
     private SortedListInterface<Volunteer> volunteerList = new SortedArrayList<>();
     private SortedListInterface<Donation> donations = new SortedArrayList<>();
     private SortedListInterface<Donor> donors = new SortedArrayList<>();
+    private SortedListInterface<Donee> doneeList = new SortedArrayList<>();
+    private SortedListInterface<DonationDistribution> donationDistribution = new SortedArrayList<>();
 
     public Initializer() {
         Event event1 = new Event("EV001", "Book Donation", "Gathering books for underserved schools and libraries.");
@@ -541,6 +543,24 @@ public class Initializer {
         donations.add(d3);
         donations.add(d4);
         donations.add(d5);
+        
+        doneeList.add(new Donee("CHEE JIA QIAN", "0123456799"));
+        doneeList.add(new Donee("CHOO JIA WEI", "0123456788"));
+        doneeList.add(new Donee("LOO ZHI XUAN", "0123456700"));
+        doneeList.add(new Donee("AHLI", "9876543210"));
+        doneeList.add(new Donee("AHKAO", "1234567890"));
+        doneeList.add(new Donee("MUTHU", "1234567960"));
+        
+        donationDistribution.add(new DonationDistribution(1, new Date(), donations, doneeList));
+
+    }
+    
+    public SortedListInterface<Donee> getDonees() {
+        return doneeList;
+    }
+    
+    public SortedListInterface<DonationDistribution> getinitializeDonationDistributions() {
+        return donationDistribution;
     }
 
     public SortedListInterface<Event> getEventList() {
@@ -558,5 +578,7 @@ public class Initializer {
     public SortedListInterface<Donation> getDonation() {
         return donations;
     }
+
+
 
 }
