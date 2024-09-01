@@ -50,22 +50,34 @@ public class DonorUI {
     }
     
     public int listMenu() {
-        int option;
+        int option = 0;
+        boolean isValid = false;
         
-        do {
-            System.out.println("+----------------------------------------------+\n" +
-                               "|  1. List Donors With All the Donations made  |\n" +
-                               "|  2. Categories Donors                        |\n" +
-                               "|  0. Exit                                     |\n" +
-                               "+----------------------------------------------+\n\n");
+        while(!isValid){
+            do {
+                System.out.println("+----------------------------------------------+\n"
+                        + "|  1. List Donors With All the Donations made  |\n"
+                        + "|  2. Categories Donors                        |\n"
+                        + "|  0. Exit                                     |\n"
+                        + "+----------------------------------------------+\n\n");
 
-            System.out.print("Enter your option (1 - 2): ");
-            option = scanner.nextInt();
-            scanner.nextLine();
-            if(option < 0 || option > 2) {
-                System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
-            }
-        }while(option < 0 || option > 2);
+                System.out.print("Enter your option (0 - 2): ");
+                
+                if(scanner.hasNextInt()){
+                    option = scanner.nextInt();
+                    scanner.nextLine();
+                    isValid = true;
+                }else{
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
+                    scanner.next();
+                }
+                
+                if (option < 0 || option > 2) {
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
+                }
+            } while (option < 0 || option > 2);
+        }
+        
         
         return option;
     }
@@ -204,49 +216,70 @@ public class DonorUI {
 //    }
     
     public int updateMenu() {
-        int option;
-        do{
-            System.out.println();
-            System.out.println("+----------------------------------------------+\n" +
-                               "|  1. Donor Name                               |\n" +
-                               "|  2. Donor Contact Number                     |\n" +
-                               "|  3. Donor Category                           |\n" +
-                               "|  0. Exit                                     |\n" +
-                               "+----------------------------------------------+\n");
-            System.out.print("Choose one to update (1-3): ");
-            option = scanner.nextInt();
-            scanner.nextLine();
-            if (option < 0 || option > 3) {
-                System.out.print("Invalid option! Please select a number between 1 and 3 : ");
-                option = scanner.nextInt();
-                scanner.nextLine();
-            }
+        int option = 0;
+        boolean isValid = false;
+        
+        while(!isValid){
+            do {
+                System.out.println();
+                System.out.println("+----------------------------------------------+\n"
+                        + "|  1. Donor Name                               |\n"
+                        + "|  2. Donor Contact Number                     |\n"
+                        + "|  3. Donor Category                           |\n"
+                        + "|  0. Exit                                     |\n"
+                        + "+----------------------------------------------+\n");
+                System.out.print("Choose one to update (0-3): ");
+                
+                if(scanner.hasNextLine()){
+                    option = scanner.nextInt();
+                    scanner.nextLine();
+                    isValid = true;
+                }else{
+                    System.out.print("Invalid option! Please select a number between 0 and 3 : ");
+                    scanner.next();
+                }
+                
+                if (option < 0 || option > 3) {
+                    System.out.print("Invalid option! Please select a number between 0 and 3 : ");
+                }
 
-        }while(option < 0 || option > 3);
+            } while (option < 0 || option > 3);
+        }
+        
         
         return option;
     }
     
     public int filterMenu() {
-        int option;
+        int option = 0;
+        boolean isValid = false;
         
-        do{
-            System.out.println();
-            System.out.println("+----------------------------------------------+\n" +
-                               "|  1. Donor Category                           |\n" +
-                               "|  2. Donor Type                             |\n" +
-                               "|  0. Exit                                     |\n" +
-                               "+----------------------------------------------+\n");
-            System.out.print("Choose one to list (1-2): ");
-            option = scanner.nextInt();
-            scanner.nextLine();
-            if (option < 1 || option > 3) {
-                System.out.print("Invalid option! Please select 1 or 2 : ");
-                option = scanner.nextInt();
-                scanner.nextLine();
-            }
+        while(!isValid){
+            do {
+                System.out.println();
+                System.out.println("+----------------------------------------------+\n"
+                        + "|  1. Donor Category                           |\n"
+                        + "|  2. Donor Type                             |\n"
+                        + "|  0. Exit                                     |\n"
+                        + "+----------------------------------------------+\n");
+                System.out.print("Choose one to list (0-2): ");
+                
+                if(scanner.hasNextLine()){
+                    option = scanner.nextInt();
+                    scanner.nextLine();
+                    isValid = true;
+                }else{
+                    System.out.print("Invalid option! Please select 0 or 2 : ");
+                    scanner.next();
+                }
+                
+                if (option < 0 || option > 2) {
+                    System.out.print("Invalid option! Please select 0 or 2 : ");
+                }
 
-        }while(option < 1 || option > 4);
+            } while (option < 0 || option > 2);
+        }
+        
         
         return option;
     }
@@ -254,9 +287,15 @@ public class DonorUI {
     public void displayDonorDetail(){
         System.out.println("============================================================================================\n" +
                            " Donor Id    |  Name                        | Contact Number  | Category    | Type          \n" +
-                           "=============================================================================================");
+                           "============================================================================================");
         
         
+    }
+    
+    public void displayDonorWithDonation(){
+        System.out.println("============================================================================================\n" +
+                           " Name                        | Donation Type     | ItemName     | Quantity/Amount           \n" +
+                           "============================================================================================");
     }
     
     public String inputDonorId() {
@@ -360,15 +399,26 @@ public class DonorUI {
     }
     
     public int inputExitPage() {
-        int exit;
+        int exit = 0;
+        boolean isValid = false;
+        while(!isValid){
+            do{
+                System.out.println();
+                System.out.print("Do you want to EXIT this page? (Yes = 1 / No = 0) : ");
 
-        System.out.println();
-        System.out.print("Do you want to EXIT this page? (Yes = 1 / No = 0) : ");
-        exit = scanner.nextInt();
-        scanner.nextLine();
-        while (exit < 0 || exit > 1) {
-            System.out.println("Invalid Input! Please enter 0 or 1 (Yes=1/No=0) : ");
-            exit = scanner.nextInt();
+                if (scanner.hasNextLine()) {
+                    exit = scanner.nextInt();
+                    scanner.nextLine();
+                    isValid = true;
+                } else {
+                    scanner.next();
+                }
+                
+                if(exit < 0 || exit > 1){
+                    System.out.println("Invalid Input!!");
+                }
+            }while(exit < 0 || exit > 1);
+            
         }
         System.out.println();
         return exit;

@@ -33,7 +33,6 @@ public class DonorController {
 
     public void addDonor() {
         int exit = 0;
-        boolean isSuccess = false;
 
         do {
             donorUI.addDonorMenu();
@@ -56,7 +55,7 @@ public class DonorController {
 
             if (donorUI.inputConfirmation("add a new donor")) {
                 Donor dr = new Donor(name, contactNo, category, type);
-                isSuccess = donor.add(dr);
+                donor.add(dr);
                 
                 donorUI.displayDonorDetail();
                 System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", dr.getDonorId(), dr.getName(), dr.getContactNo(), dr.getCategory(), dr.getType());
@@ -66,7 +65,8 @@ public class DonorController {
                 System.out.println("You canceled to add a new donor!!");
             }
             
-        } while (!isSuccess);
+            exit = donorUI.inputExitPage();
+        } while (exit == 0);
 
         
     }
@@ -86,7 +86,9 @@ public class DonorController {
                 Donor donorObject = getDonor.next();
                 if (donorObject.getDonorId().equals(id)) {
                     ++found;
-                    System.out.println(donorObject);
+                    donorUI.displayDonorDetail();
+                    System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
+                    System.out.println("============================================================================================\n");
                     break;
                 }
             }
@@ -100,7 +102,7 @@ public class DonorController {
         return exit;
     }
 
-    public int removeDonor() {
+    public void removeDonor() {
         int exit = 0;
         String id;
         boolean isSuccess = false;
@@ -109,30 +111,32 @@ public class DonorController {
             donorUI.removeDonorMenu();
             id = donorUI.inputDonorId();
             if (id.equals("0")) {
-                return exit;
+                break;
             }
-            if (donorUI.inputConfirmation("remove this donor") == true) {
-                Iterator<Donor> getDonor = donor.getIterator();
-                while (getDonor.hasNext()) {
-                    Donor donorObject = getDonor.next();
-                    if (donorObject.getDonorId().equals(id)) {
+            
+            Iterator<Donor> getDonor = donor.getIterator();
+            while (getDonor.hasNext()) {
+                Donor donorObject = getDonor.next();
+                if(donorObject.getDonorId().equals(id)){
+                    donorUI.displayDonorDetail();
+                    System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
+                    System.out.println("============================================================================================\n");
+                    if (donorUI.inputConfirmation("remove this donor") == true) {
                         donor.remove(donorObject);
-                        isSuccess = true;
                         break;
+                    } else {
+                        System.out.println("Your canceled to remove the donor.");
                     }
                 }
-                if (isSuccess == true) {
-                    System.out.println("Remove the donor successfully.");
-                } else {
-                    System.out.println("The donor id entered is not in the list.");
-                }
-            } else {
-                System.out.println("Your canceled to remove the donor.");
+                
             }
+            if (isSuccess == true) {
+                System.out.println("Remove the donor successfully.");
+            }
+
 
             exit = donorUI.inputExitPage();
         } while (exit == 0);
-        return exit;
     }
 
     public int updateDonorDetails() {
@@ -183,14 +187,23 @@ public class DonorController {
                     if (donorObject.getDonorId().equals(id)) {
                         if (option == 1) {
                             donorObject.setName(name);
+                            donorUI.displayDonorDetail();
+                            System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
+                            System.out.println("============================================================================================\n");
                             break;
                         }
                         if (option == 2) {
                             donorObject.setContactNo(contactNo);
+                            donorUI.displayDonorDetail();
+                            System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
+                            System.out.println("============================================================================================\n");
                             break;
                         }
                         if (option == 3) {
                             donorObject.setCategory(category);
+                            donorUI.displayDonorDetail();
+                            System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
+                            System.out.println("============================================================================================\n");
                             break;
                         }
                     }
@@ -224,14 +237,15 @@ public class DonorController {
 
     public void listWithDonation() {
         int exit;
-        double tempQuantity = 0.0;
         SortedListInterface<Donation> tempDonation = new SortedArrayList<>();
 
         if (donor.isEmpty()) {
             System.out.println("Opps!! There is no donor in the list.");
         } else {
+            donorUI.displayDonorWithDonation();
             Iterator<Donor> getDonor = donor.getIterator();
             while (getDonor.hasNext()) {
+                int times = 0;
                 Donor donorObject = getDonor.next();
                 tempDonation = donorObject.getDonorDonationList();
                 Iterator<Donation> getDonation = tempDonation.getIterator();
@@ -240,30 +254,50 @@ public class DonorController {
                     if (donationObject == null) {
                         continue;
                     }
-                    System.out.println("Donor Name: " + donationObject.getDonor().getName());
+                    System.out.printf(" %-28s|", donationObject.getDonor().getName());
                     if (donationObject.getCategory().equals("F")) {
                         donationObject.getDonor().getName();
-                        System.out.println("Food Donation: ");
+                        System.out.print(" Food Donation     |" );
                         Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
                         while (itDonatedItem.hasNext()) {
                             DonatedItem item = itDonatedItem.next();
-                            System.out.println(item.getItemName() + ": " + item.getQuantity());
+                            if(times == 0){
+                                if(!item.getUnit().equals("RM")){
+                                    System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getQuantity(), item.getUnit());
+                                }else{
+                                    System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
+                                }
+                                
+                                times++;
+                            }else{
+                                if(!item.getUnit().equals("RM")){
+                                    System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getQuantity(), item.getUnit());
+                                }else{
+                                    System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
+                                }
+                                
+                            }
+                            
                         }
                     }
                     if (donationObject.getCategory().equals("C")) {
                         donationObject.getDonor().getName();
                         Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-                        System.out.println("Cash Donation: ");
+                        System.out.print(" Cash Donation     |" );
                         while (itDonatedItem.hasNext()) {
                             DonatedItem item = itDonatedItem.next();
-                            System.out.println(item.getItemName() + ": " + item.getQuantity());
-
+                            if(times == 0){
+                                System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
+                                times++;
+                            }else{
+                                System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
+                            }
                         }
 
                     }
                 }
             }
-
+            System.out.println("============================================================================================\n");
         }
     }
 
