@@ -126,22 +126,63 @@ public class DonationUI {
     }
 
     public double inputQuantity() {
-        System.out.print("Enter Quantity: ");
-        double qty = sc.nextDouble();
-        sc.nextLine();
+        double qty = -1;
+
+        while (true) {
+            try {
+                System.out.print("Enter Quantity: ");
+                qty = sc.nextDouble();
+                sc.nextLine();
+
+                if (qty < 0) {
+                    System.out.println("Error: Quantity cannot be negative. Please enter a positive value.");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid numeric quantity.");
+                sc.nextLine();
+            }
+        }
+
         return qty;
     }
 
     public String inputUnit() {
         System.out.print("Enter the Unit(cm,m,kg,g): ");
         String unit = sc.nextLine().trim();
+        while (true) {
+            // Check if input is a number or contains any digits
+            if (unit.matches(".*\\d.*")) {
+                System.out.println("Error: Unit cannot contain numbers. Please enter a valid unit.");
+            } else {
+                // Valid input, exit the loop
+                break;
+            }
+        }
         return unit;
     }
 
     public double inputCash() {
-        System.out.print("Enter amount cash: RM");
-        double amount = sc.nextDouble();
-        sc.nextLine();
+        double amount = -1;
+
+        while (true) {
+            try {
+                System.out.print("Enter amount cash: RM ");
+                amount = sc.nextDouble();
+                sc.nextLine();
+
+                if (amount < 0) {
+                    System.out.println("Error: Cash amount cannot be negative. Please enter a positive value.");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid numeric amount.");
+                sc.nextLine();
+            }
+        }
+
         return amount;
     }
 
@@ -181,10 +222,27 @@ public class DonationUI {
     }
 
     public double inputNewCash() {
-        System.out.print("Enter new amount cash: RM ");
-        double amount = sc.nextDouble();
-        sc.nextLine();
+        double amount = -1;
+
+        while (true) {
+            try {
+                System.out.print("Enter new amount cash: RM ");
+                amount = sc.nextDouble();
+                sc.nextLine();
+
+                if (amount < 0) {
+                    System.out.println("Error: Cash amount cannot be negative. Please enter a positive value.");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid numeric amount.");
+                sc.nextLine();
+            }
+        }
+
         return amount;
+
     }
 
     public int inputChoice(int noOfItems) {
@@ -219,16 +277,42 @@ public class DonationUI {
     }
 
     public double inputNewItemQty(String string) {
-        System.out.printf("Enter new quantity for [%s](Exit = 0) -> ", string);
-        double qty = sc.nextDouble();
-        sc.nextLine();
+        double qty = -1;
+
+        while (true) {
+            try {
+                System.out.printf("Enter new quantity for [%s](Exit = 0) -> ", string);
+                qty = sc.nextDouble();
+                sc.nextLine();
+
+                if (qty < 0) {
+                    System.out.println("Error: Quantity cannot be negative. Please enter a positive value.");
+                } else {
+                    break;
+                }
+            } catch (Exception e) {
+                System.out.println("Invalid input. Please enter a valid numeric quantity.");
+                sc.nextLine();
+            }
+        }
+
         return qty;
+
     }
 
     public String inputNewItemUnit(String string) {
         String newItemUnit;
         System.out.printf("Enter new item unit for [%s](Exit = 0) -> ", string);
         newItemUnit = sc.nextLine().trim();
+        while (true) {
+            // Check if input is a number or contains any digits
+            if (newItemUnit.matches(".*\\d.*")) {
+                System.out.println("Error: Unit cannot contain numbers. Please enter a valid unit.");
+            } else {
+                // Valid input, exit the loop
+                break;
+            }
+        }
         return newItemUnit;
     }
 
@@ -357,23 +441,22 @@ public class DonationUI {
         }
         return year;
     }
-    
-    public void displayReportHeader(String generatedDate){
-    System.out.println("==========================================================================");
-    System.out.println("                        " + "HopeFund Donation Foundation");
-    System.out.println("                        Donation Management Subsystem");
-    System.out.println("==========================================================================");
-    System.out.println("Generated at: " + generatedDate);
-    System.out.println("**************************************************************************\n");
 
+    public void displayReportHeader(String generatedDate) {
+        System.out.println("==========================================================================");
+        System.out.println("                        " + "HopeFund Donation Foundation");
+        System.out.println("                        Donation Management Subsystem");
+        System.out.println("==========================================================================");
+        System.out.println("Generated at: " + generatedDate);
+        System.out.println("**************************************************************************\n");
 
     }
-    
-    public void displayReportFooter(){
+
+    public void displayReportFooter() {
         System.out.println("==========================================================================");
-        System.out.println("                          " +"END OF THE REPORT");
+        System.out.println("                          " + "END OF THE REPORT");
         System.out.println("==========================================================================");
-    
+
     }
 
     // sub function
@@ -403,9 +486,5 @@ public class DonationUI {
         System.out.println("======================================================");
     }
 
-    public static void main(String[] args) {
-        DonationUI ui = new DonationUI();
-        ui.addDonationMenu();
-    }
 
 }
