@@ -304,7 +304,7 @@ public class DonorUI {
         
         do{
             System.out.print("Enter donor id (Exit = 0): ");
-            donorId = scanner.nextLine();
+            donorId = scanner.nextLine().toUpperCase();
             if(donorId.isEmpty()){
                 System.out.println("Opps!! Please do not leave it blank.");
             }

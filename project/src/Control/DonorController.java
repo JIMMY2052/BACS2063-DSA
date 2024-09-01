@@ -59,7 +59,7 @@ public class DonorController {
                 
                 donorUI.displayDonorDetail();
                 System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", dr.getDonorId(), dr.getName(), dr.getContactNo(), dr.getCategory(), dr.getType());
-                System.out.println("============================================================================================\n");
+                System.out.println("=================================================================================================\n");
                 System.out.println("You have successfully added a new donor!!");
             } else {
                 System.out.println("You canceled to add a new donor!!");
