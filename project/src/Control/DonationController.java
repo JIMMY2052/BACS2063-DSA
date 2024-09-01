@@ -762,7 +762,6 @@ public class DonationController {
                     topItem = currentItem;
                     topIndex = j;
                 }
-            }
 
             // Print and remove the top item
             if (topItem != null) {
@@ -770,6 +769,7 @@ public class DonationController {
                 aggregatedItems.remove(topIndex);
             }
         }
+    }
 
         pressEnterContinue();
     }
