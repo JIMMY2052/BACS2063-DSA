@@ -507,7 +507,7 @@ public class DonationController {
         
         String donorId = donation.getDonor().getDonorId();
         Donor donor = searchDonorByID(donorId);
-        donor.getDonorDonationList().clear();
+        donor.getDonorDonationList().remove(donation);
         allDonations.remove(donation);
         
         System.out.printf("Successfully Deleted Donation [%s]\n", donation.getDonationId());
