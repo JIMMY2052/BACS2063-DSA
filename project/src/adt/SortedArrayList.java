@@ -20,6 +20,10 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
 
     @Override
     public boolean add(T newEntry) {
+        if (newEntry == null) {
+            return false;
+        }
+        
         if (isFull()) {
             doubleCapacity();
         }
@@ -80,9 +84,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
 
     }
 
-
-
-    // Clear the list
     @Override
     public boolean clear() {
         if (numberOfEntries == 0) {
@@ -101,7 +102,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
     public Iterator<T> getIterator() {
         return new SortedArrayListIterator();
     }
-
 
     private class SortedArrayListIterator implements Iterator<T> {
 
