@@ -58,24 +58,25 @@ public class DonorUI {
                 System.out.println("+----------------------------------------------+\n"
                         + "|  1. List Donors With All the Donations made  |\n"
                         + "|  2. Categories Donors                        |\n"
+                        + "|  3. List All Donors                          |\n"
                         + "|  0. Exit                                     |\n"
                         + "+----------------------------------------------+\n\n");
 
-                System.out.print("Enter your option (0 - 2): ");
+                System.out.print("Enter your option (0 - 3): ");
                 
                 if(scanner.hasNextInt()){
                     option = scanner.nextInt();
                     scanner.nextLine();
                     isValid = true;
                 }else{
-                    System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 3.");
                     scanner.next();
                 }
                 
-                if (option < 0 || option > 2) {
-                    System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
+                if (option < 0 || option > 3) {
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 3.");
                 }
-            } while (option < 0 || option > 2);
+            } while (option < 0 || option > 3);
         }
         
         
@@ -264,7 +265,7 @@ public class DonorUI {
                         + "+----------------------------------------------+\n");
                 System.out.print("Choose one to list (0-2): ");
                 
-                if(scanner.hasNextLine()){
+                if(scanner.hasNextInt()){
                     option = scanner.nextInt();
                     scanner.nextLine();
                     isValid = true;
@@ -285,9 +286,9 @@ public class DonorUI {
     }
     
     public void displayDonorDetail(){
-        System.out.println("============================================================================================\n" +
+        System.out.println("=================================================================================================\n" +
                            " Donor Id    |  Name                        | Contact Number  | Category    | Type          \n" +
-                           "============================================================================================");
+                           "=================================================================================================");
         
         
     }
