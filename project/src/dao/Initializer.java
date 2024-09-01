@@ -518,6 +518,7 @@ public class Initializer {
         donors.add(new Donor("FIONA", "0130000000", "private", "organization", "september"));
         donors.add(new Donor("ANDREW", "0131111111", "government", "individual", "august")); //33
 
+        // -------------------------DONATION-------------------------------------------
         Donation d1 = new Donation(donors.getEntry(0), "F", "EV002");
         Donation d2 = new Donation(donors.getEntry(1), "F", "EV002");
         Donation d3 = new Donation(donors.getEntry(2), "F", "EV002");
@@ -544,6 +545,7 @@ public class Initializer {
         donations.add(d3);
         donations.add(d4);
         donations.add(d5);
+        // -------------------------DONATION-------------------------------------------
 
         doneeList.add(new Donee("CHEE JIA QIAN", "0123456799"));
         doneeList.add(new Donee("CHOO JIA WEI", "0123456788"));
