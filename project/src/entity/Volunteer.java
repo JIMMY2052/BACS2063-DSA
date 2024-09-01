@@ -55,6 +55,7 @@ public class Volunteer implements Comparable<Volunteer> {
         this.phoneNumber = phoneNumber;
     }
     
+    // Get The Event
     public SortedListInterface<Event> getEventList(){
         return eventList;
     }

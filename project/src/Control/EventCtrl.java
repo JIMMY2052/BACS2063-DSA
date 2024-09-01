@@ -22,7 +22,7 @@ public class EventCtrl {
         this.eventList = event;
 
     }
-    
+
     public EventCtrl(SortedListInterface<Event> event) {
         this.eventList = event;
 
@@ -96,6 +96,7 @@ public class EventCtrl {
         MainSystemUI.clearScreen();
     }
 
+    //-------------------- Display --------------------------
     public void displayAllVolunteersByEvents() {
         for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
             Event event = eventList.getEntry(i);
@@ -156,16 +157,146 @@ public class EventCtrl {
         System.out.printf("Number of Not Join Event Volunteer: %-3d\n", totalNotJoinVolunteer);
     }
 
-    private int findVolunteerIndex(int volunteerID) {
+    public void displayAllFilterGender() {
+        char gender = eventUI.inputGender();
+        eventUI.listAllVolunteerHeader();
         for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
             Volunteer volunteer = volunteerList.getEntry(i);
-            if (volunteer.getVolunteerID() == volunteerID) {
-                return i;
+            if (volunteer.getGender() == gender) {
+                eventUI.listAllVolunteerDetail(volunteer);
             }
         }
-        return -1;
     }
 
+    public void displayAllEvents() {
+        eventUI.displayAllEventsHeader();
+        for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+            Event event = eventList.getEntry(i);
+            eventUI.displayAllEventsDetail(event);
+        }
+    }
+
+    public void displayUnjoinVolunteer() {
+        int l = 0;
+        boolean message = false;
+        eventUI.listAllVolunteerHeader();
+
+        for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+            Volunteer volunteer = volunteerList.getEntry(i);
+
+            boolean hasJoin = false;
+
+            for (int j = 0; j < eventList.getNumberOfEntries(); j++) {
+                Event event = eventList.getEntry(j);
+                if (event.getVolunteerList().search(volunteer) != -1) {
+                    hasJoin = true;
+                    break;
+                }
+            }
+
+            if (!hasJoin) {
+                eventUI.listAllVolunteerDetail(volunteer);
+                l++;
+                message = true;
+            }
+        }
+
+        if (message == true) {
+            System.out.printf("\nNumber of Not Join Event Volunteer: %-3d", l);
+        }
+
+        if (!message) {
+            System.out.println("\nAll Volunteer Have Join At Least One Event.");
+        }
+
+    }
+
+    public void listAllVolunteersByID() {
+        eventUI.listAllVolunteerHeader();
+        int id = 10001;
+        while (true) {
+            boolean found = false;
+            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+                Volunteer volunteer = volunteerList.getEntry(i);
+                if (volunteer.getVolunteerID() == id) {
+                    eventUI.listAllVolunteerDetail(volunteer);
+                    found = true;
+                }
+            }
+            if (!found) {
+                break;
+            }
+            id++;
+        }
+    }
+
+    public void searchVolunteerByID() {
+        boolean done = false;
+
+        // Do While For Find Exist Volunteer
+        do {
+            int searchID = eventUI.inputSearch();
+            Volunteer foundVolunteer = null;
+
+            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+                Volunteer searchVolunteer = volunteerList.getEntry(i);
+                if (searchVolunteer.getVolunteerID() == searchID) {
+                    foundVolunteer = searchVolunteer;
+                    break;
+                }
+            }
+
+            // If Found The Volunteer
+            if (foundVolunteer != null) {
+                eventUI.detailofVolunteerHeader();
+                eventUI.listAllVolunteerDetail(foundVolunteer);
+
+                boolean join = false;
+                System.out.println("\nEvent Join:");
+
+                // For Loop For Find The Volunteer Have Join What Event
+                for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+                    Event event = eventList.getEntry(i);
+                    if (event.getVolunteerList().search(foundVolunteer) != -1) {
+                        System.out.println("Event ID: " + event.getEventID() + ", Event Name: " + event.getEventName());
+                        join = true;
+                    }
+                }
+
+                if (!join) {
+                    System.out.println("This Volunteer Not Join Any Event.");
+                }
+
+                done = true;
+            } else {
+                System.err.println("Volunteer ID Not found. Please Try Again.");
+            }
+
+        } while (!done);
+    }
+
+    public void searchEvent() {
+        boolean found = false;
+        do {
+            String inputEventID = eventUI.inputSearchEvent();
+            for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+                Event event = eventList.getEntry(i);
+                if (inputEventID.equals(event.getEventID())) {
+                    int numberOfVolunteers = event.getVolunteerList().getNumberOfEntries();
+                    eventUI.displayAllEventofDetail();
+                    System.out.printf("%-10s %-20s %-21d %-100s\n", event.getEventID(), event.getEventName(), numberOfVolunteers, event.getEventDetail());
+                    found = true;
+                    break;
+                }
+            }
+
+            if (!found) {
+                System.err.println("Event ID Not Found. Please try again.");
+            }
+        } while (!found);
+    }
+
+    //---------------------- Add Volunteer -----------------------
     public void addVolunteer() {
         listAllVolunteersByID();
         Volunteer newVolunteer = inputAddVolunteer();
@@ -180,30 +311,39 @@ public class EventCtrl {
     }
 
     public Volunteer inputAddVolunteer() {
+        // Input The Volunteer Detail
         int id = generateVolunteerID();
         String name = eventUI.inputName();
         char gender = eventUI.inputGender();
         String phoneNumber = eventUI.inputPhoneNumber();
 
+        // Confirmation To Add
         boolean addconfirm = eventUI.addConfirm();
         if (addconfirm == true) {
             Volunteer volunteer = new Volunteer(id, name, gender, phoneNumber);
-            char choice = eventUI.messageEventChoice();
 
+            // Add Volunteer Into Event
+            char choice = eventUI.messageEventChoice();
             if (choice == 'Y') {
                 boolean continueLoop = false;
                 boolean messagePop = true;
+
+                // While Loop For Join More Event & Find Exist Event
                 while (!continueLoop) {
                     displayAllEventofVolunteerNumber();
                     String eventID = eventUI.inputEventID();
                     boolean found = false;
 
+                    // For loop For Add Volunteer Into Event
                     for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
                         Event event = eventList.getEntry(i);
 
+                        // If Found The Event
                         if (eventID.equals(event.getEventID())) {
                             boolean existAdd = false;
                             SortedListInterface<Volunteer> findvolunteers = event.getVolunteerList();
+
+                            // For Loop For Find The Volunteer Is Already Join The Event
                             for (int j = 0; j < findvolunteers.getNumberOfEntries(); j++) {
                                 Volunteer existingVolunteer = findvolunteers.getEntry(j);
                                 if (existingVolunteer.getVolunteerID() == volunteer.getVolunteerID()) {
@@ -211,6 +351,8 @@ public class EventCtrl {
                                     break;
                                 }
                             }
+
+                            // If The Volunteer Not In The Event Add Into The Event
                             if (!existAdd) {
                                 event.addVolunteer(volunteer);
                                 found = true;
@@ -244,98 +386,15 @@ public class EventCtrl {
 
     }
 
-    public int generateVolunteerID() {
-        int nextVolunteerID = 10001;
-
-        int latestVolunteerID = nextVolunteerID;
-        for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-            Volunteer volunteer = volunteerList.getEntry(i);
-            int volunterID = volunteer.getVolunteerID();
-            if (volunterID > latestVolunteerID) {
-                latestVolunteerID = volunterID;
-            }
-        }
-        int volunterID = latestVolunteerID + 1;
-        return volunterID;
-    }
-
-    public void listAllVolunteersByID() {
-        eventUI.listAllVolunteerHeader();
-        int id = 10001;
-        while (true) {
-            boolean found = false;
-            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-                Volunteer volunteer = volunteerList.getEntry(i);
-                if (volunteer.getVolunteerID() == id) {
-                    eventUI.listAllVolunteerDetail(volunteer);
-                    found = true;
-                }
-            }
-            if (!found) {
-                break;
-            }
-            id++;
-        }
-    }
-
-    public void displayAllFilterGender() {
-        char gender = eventUI.inputGender();
-        eventUI.listAllVolunteerHeader();
-        for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-            Volunteer volunteer = volunteerList.getEntry(i);
-            if (volunteer.getGender() == gender) {
-                eventUI.listAllVolunteerDetail(volunteer);
-            }
-        }
-    }
-
-    public void searchVolunteerByID() {
-        boolean done = false;
-        do {
-            int searchID = eventUI.inputSearch();
-            Volunteer foundVolunteer = null;
-
-            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-                Volunteer searchVolunteer = volunteerList.getEntry(i);
-                if (searchVolunteer.getVolunteerID() == searchID) {
-                    foundVolunteer = searchVolunteer;
-                    break;
-                }
-            }
-
-            if (foundVolunteer != null) {
-                eventUI.detailofVolunteerHeader();
-                eventUI.listAllVolunteerDetail(foundVolunteer);
-
-                boolean join = false;
-                System.out.println("\nEvent Join:");
-
-                for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
-                    Event event = eventList.getEntry(i);
-                    if (event.getVolunteerList().search(foundVolunteer) != -1) {
-                        System.out.println("Event ID: " + event.getEventID() + ", Event Name: " + event.getEventName());
-                        join = true;
-                    }
-                }
-
-                if (!join) {
-                    System.out.println("This Volunteer Not Join Any Event.");
-                }
-
-                done = true;
-            } else {
-                System.err.println("Volunteer ID Not found. Please Try Again.");
-            }
-
-        } while (!done);
-    }
-
+    //------------------- Delete Volunteer -------------------
     public void deleteVolunteerByID() {
         boolean join = false;
         boolean done = false;
         int deleteID = -1;
         Volunteer foundVolunteer = null;
         listAllVolunteersByID();
+
+        // Find Exist Volunteer
         do {
             int removeID = eventUI.inputDelete();
 
@@ -348,6 +407,7 @@ public class EventCtrl {
                 }
             }
 
+            // If Volunteer Found
             if (foundVolunteer != null) {
                 eventUI.detailofVolunteerHeader();
                 eventUI.listAllVolunteerDetail(foundVolunteer);
@@ -355,6 +415,7 @@ public class EventCtrl {
                 join = false;
                 System.out.println("\nEvent Join:");
 
+                // Show The Volunteer Have Join What Event
                 for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
                     Event event = eventList.getEntry(i);
                     if (event.getVolunteerList().search(foundVolunteer) != -1) {
@@ -373,9 +434,9 @@ public class EventCtrl {
             }
 
         } while (!done);
-
+        // If Found The Volunteer Have Join Event
         if (join == true) {
-
+            // Confirmation To Delete
             boolean confirm = eventUI.confirmDelete();
 
             if (confirm == true) {
@@ -384,6 +445,7 @@ public class EventCtrl {
                     volunteerList.remove(deleteID);
                 }
 
+                //Delete The Volunter In The Event
                 for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
                     Event event = eventList.getEntry(i);
                     int position = event.getVolunteerList().search(foundVolunteer);
@@ -399,8 +461,9 @@ public class EventCtrl {
                 System.out.println("Delete Cancel.");
             }
 
-        } else {
-
+        } // If The Volunteer Not Join Event
+        else {
+            // Confirmation To Delete
             boolean confirm = eventUI.confirmDelete();
 
             if (confirm == true) {
@@ -419,156 +482,7 @@ public class EventCtrl {
 
     }
 
-    public void addVolunteerToEvent() {
-        displayAllEvents();
-
-        boolean found = false;
-        String eventID = " ";
-        Event selectEvent = null;
-
-        do {
-            eventID = eventUI.inputEventID();
-            for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
-                Event event = eventList.getEntry(i);
-                if (eventID.equals(event.getEventID())) {
-                    selectEvent = event;
-                    found = true;
-                    break;
-                }
-            }
-            if (!found) {
-                System.err.println("Event ID Not Found. Please Try Again.");
-            }
-        } while (!found);
-        displayAllEventofVolunteerNumber();
-        int quantity = eventUI.inputQuantity(volunteerList.getNumberOfEntries());
-        int addCount = 0;
-
-        for (int j = 0; j < quantity; j++) {
-            boolean add = false;
-
-            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-                Volunteer volunteer = volunteerList.getEntry(i);
-                if (volunteer == null) {
-                    continue;
-                }
-                if (volunteer.getEventList() != null && volunteer.getEventList().search(selectEvent) == -1) {
-                    if (selectEvent.addVolunteers(volunteer)) {
-                        volunteer.getEventList().add(selectEvent);
-                        addCount++;
-                        add = true;
-                        break;
-                    }
-                }
-            }
-
-            if (!add) {
-                System.err.println("Not Enough Available Volunteers To Add.");
-                break;
-            }
-        }
-        MainSystemUI.clearScreen();
-        System.out.println("Total Volunteers Add: " + addCount);
-    }
-
-    public void removeEventFromVolunteer() {
-        boolean confirm = false;
-        boolean join = false;
-        boolean done = false;
-        Volunteer foundVolunteer = null;
-        Event foundEvent = null;
-
-        int totalVolunteer = volunteerList.getNumberOfEntries();
-        boolean[] findAllJoinVolunteer = new boolean[totalVolunteer];
-
-        displayAllVolunteersByEvents();
-
-        do {
-            int findID = eventUI.inputDelete();
-
-            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-                Volunteer findVolunteerID = volunteerList.getEntry(i);
-                if (findVolunteerID.getVolunteerID() == findID) {
-                    foundVolunteer = findVolunteerID;
-                    break;
-                }
-            }
-
-            if (foundVolunteer != null) {
-                MainSystemUI.clearScreen();
-                eventUI.detailofVolunteerHeader();
-                eventUI.listAllVolunteerDetail(foundVolunteer);
-
-                join = false;
-                System.out.println("\nEvents Join:");
-
-                for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
-                    Event event = eventList.getEntry(i);
-                    int volunteerIndex = event.getVolunteerList().search(foundVolunteer);
-
-                    if (volunteerIndex != -1) {
-                        findAllJoinVolunteer[volunteerIndex] = true;
-
-                        System.out.println("Event ID: " + event.getEventID() + ", Event Name: " + event.getEventName());
-                        join = true;
-                    }
-                }
-
-                if (!join) {
-                    System.out.println("This Volunteer Has Not Join Any Event.");
-                }
-
-                done = true;
-            } else {
-                System.err.println("Volunteer ID Not Found. Please Try Again.");
-            }
-
-        } while (!done);
-
-        if (join) {
-            do {
-                done = false;
-                String deleteEventID = eventUI.inputRemoveEventID();
-
-                for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
-                    Event event = eventList.getEntry(i);
-
-                    if (deleteEventID.equals(event.getEventID())) {
-                        int volunteerIndex = event.getVolunteerList().search(foundVolunteer);
-
-                        if (volunteerIndex != -1 && findAllJoinVolunteer[volunteerIndex]) {
-                            foundEvent = event;
-                            confirm = eventUI.confirmDelete();
-                            done = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (!done) {
-                    System.err.println("Event ID Not Found. Please Try Again.");
-                }
-
-            } while (!done);
-
-            if (confirm && foundEvent != null) {
-
-                int position = foundEvent.getVolunteerList().search(foundVolunteer);
-                if (position != -1) {
-                    foundEvent.getVolunteerList().remove(position);
-                    MainSystemUI.clearScreen();
-                    System.out.println("\nEvent Successful Remove From Volunteer.");
-                }
-            } else {
-                MainSystemUI.clearScreen();
-                System.out.println("\nDelete Cancel.");
-            }
-        } else {
-            MainSystemUI.clearScreen();
-            System.out.println("\nDelete Cancel.");
-        }
-    }
-
+    //------------------- Update Volunteer --------------------
     public void updateVolunteer() {
         boolean loop = false;
         boolean confirm = false;
@@ -615,14 +529,7 @@ public class EventCtrl {
 
     }
 
-    public void displayAllEvents() {
-        eventUI.displayAllEventsHeader();
-        for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
-            Event event = eventList.getEntry(i);
-            eventUI.displayAllEventsDetail(event);
-        }
-    }
-
+    //-------------- Add Event ---------------------
     public void addEvent() {
         displayAllEvents();
         Event newEvent = inputAddEvent();
@@ -675,27 +582,7 @@ public class EventCtrl {
 
     }
 
-    public void searchEvent() {
-        boolean found = false;
-        do {
-            String inputEventID = eventUI.inputSearchEvent();
-            for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
-                Event event = eventList.getEntry(i);
-                if (inputEventID.equals(event.getEventID())) {
-                    int numberOfVolunteers = event.getVolunteerList().getNumberOfEntries();
-                    eventUI.displayAllEventofDetail();
-                    System.out.printf("%-10s %-20s %-21d %-100s\n", event.getEventID(), event.getEventName(), numberOfVolunteers, event.getEventDetail());
-                    found = true;
-                    break;
-                }
-            }
-
-            if (!found) {
-                System.err.println("Event ID Not Found. Please try again.");
-            }
-        } while (!found);
-    }
-
+    //-------------- Update Event ---------------------
     public void editEvent() {
         boolean loop = false;
         boolean confirm = false;
@@ -737,13 +624,16 @@ public class EventCtrl {
         }
 
     }
-
+    
+    //------------ Delete Event Also Will Delete The Volunteer In The Event --------------------------
     public void deleteEvent() {
         boolean eventFound = false;
         boolean done = false;
         int deleteID = -1;
         Event foundEvent = null;
         displayAllEvents();
+        
+        // Do While For Find Exist Event
         do {
             String removeID = eventUI.inputEventID();
 
@@ -756,6 +646,7 @@ public class EventCtrl {
                 }
             }
 
+            // If Found The Event
             if (foundEvent != null) {
                 eventUI.displayDetailEventHeader();
                 eventUI.displayAllEventsDetail(foundEvent);
@@ -764,7 +655,8 @@ public class EventCtrl {
 
                 boolean has = false;
                 SortedListInterface<Volunteer> hasVolunteer = foundEvent.getVolunteerList();
-
+                
+                // Show The Volunteer Detail In This Event
                 for (int i = 0; i < hasVolunteer.getNumberOfEntries(); i++) {
                     Volunteer volunteer = hasVolunteer.getEntry(i);
                     eventUI.listAllVolunteerDetail(volunteer);
@@ -781,16 +673,21 @@ public class EventCtrl {
             }
 
         } while (!done);
-
+        
+        // If The Event Has Found
         if (foundEvent != null) {
+            
+            // Confirmation To Delete
             boolean confirm = eventUI.addConfirm();
 
             if (confirm) {
-
+                
+                // If The deleteID Not Equals -1
                 if (deleteID != -1) {
-                    eventList.remove(deleteID);
+                    eventList.remove(deleteID); // Delete The Event
                 }
 
+                // For Loop To Delete The Volunteer In This Event
                 for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
                     Volunteer volunteer = volunteerList.getEntry(i);
                     int position = volunteer.getEventList().search(foundEvent);
@@ -807,6 +704,197 @@ public class EventCtrl {
         }
     }
 
+    //------------ Delete The Exist Volunteer In The Event ---------------------
+    public void removeEventFromVolunteer() {
+        boolean confirm = false;
+        boolean join = false;
+        boolean done = false;
+        Volunteer foundVolunteer = null;
+        Event foundEvent = null;
+
+        int totalVolunteer = volunteerList.getNumberOfEntries();
+        boolean[] findAllJoinVolunteer = new boolean[totalVolunteer];
+
+        displayAllVolunteersByEvents();
+
+        // Do While For Find The Volunteer
+        do {
+            int findID = eventUI.inputDelete();
+
+            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+                Volunteer findVolunteerID = volunteerList.getEntry(i);
+                if (findVolunteerID.getVolunteerID() == findID) {
+                    foundVolunteer = findVolunteerID;
+                    break;
+                }
+            }
+
+            // If The Volunteer Has Found
+            if (foundVolunteer != null) {
+                MainSystemUI.clearScreen();
+                eventUI.detailofVolunteerHeader();
+                eventUI.listAllVolunteerDetail(foundVolunteer);
+
+                join = false;
+                System.out.println("\nEvents Join:");
+
+                // For Loop For Show The Volunteer Have Join What Event
+                for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+                    Event event = eventList.getEntry(i);
+                    int volunteerIndex = event.getVolunteerList().search(foundVolunteer);
+
+                    if (volunteerIndex != -1) {
+                        findAllJoinVolunteer[volunteerIndex] = true;
+
+                        System.out.println("Event ID: " + event.getEventID() + ", Event Name: " + event.getEventName());
+                        join = true;
+                    }
+                }
+
+                if (!join) {
+                    System.out.println("This Volunteer Has Not Join Any Event.");
+                }
+
+                done = true;
+            } else {
+                System.err.println("Volunteer ID Not Found. Please Try Again.");
+            }
+
+        } while (!done);
+
+        // If The Volunteer Have Join Any Event
+        if (join) {
+            do {
+                done = false;
+                String deleteEventID = eventUI.inputRemoveEventID();
+
+                // For Loop For Find The Volunteer In The Event
+                for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+                    Event event = eventList.getEntry(i);
+
+                    // To Find The Volunteer Have Exist In The Event Or Not
+                    if (deleteEventID.equals(event.getEventID())) {
+                        int volunteerIndex = event.getVolunteerList().search(foundVolunteer);
+                        if (volunteerIndex != -1 && findAllJoinVolunteer[volunteerIndex]) {
+                            foundEvent = event;
+                            confirm = eventUI.confirmDelete();
+                            done = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!done) {
+                    System.err.println("Event ID Not Found. Please Try Again.");
+                }
+
+            } while (!done);
+
+            // If The Volunteer Found In The Event & Confirm to Delete Volunteer In The Event
+            if (confirm && foundEvent != null) {
+
+                // Find The Volunteer In The Event & Delete Volunteer In The Event
+                int position = foundEvent.getVolunteerList().search(foundVolunteer);
+                if (position != -1) {
+                    foundEvent.getVolunteerList().remove(position);
+                    MainSystemUI.clearScreen();
+                    System.out.println("\nEvent Successful Remove From Volunteer.");
+                }
+            } else {
+                MainSystemUI.clearScreen();
+                System.out.println("\nDelete Cancel.");
+            }
+        } else {
+            MainSystemUI.clearScreen();
+            System.out.println("\nDelete Cancel.");
+        }
+    }
+
+    //----------- Add The Exist Volunteer Into Event Based On How Many Quantity The User Want --------------
+    public void addVolunteerToEvent() {
+        displayAllEvents();
+
+        boolean found = false;
+        String eventID = " ";
+        Event selectEvent = null;
+
+        // Find Exist Event
+        do {
+            eventID = eventUI.inputEventID();
+            for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+                Event event = eventList.getEntry(i);
+                if (eventID.equals(event.getEventID())) {
+                    selectEvent = event;
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.err.println("Event ID Not Found. Please Try Again.");
+            }
+        } while (!found);
+        displayAllEventofVolunteerNumber();
+
+        // Enter How Many Volunteer Into Event
+        int quantity = eventUI.inputQuantity(volunteerList.getNumberOfEntries());
+        int addCount = 0;
+
+        // For Loop To Add Quantity of Volunteer Into Event
+        for (int j = 0; j < quantity; j++) {
+            boolean add = false;
+
+            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+                Volunteer volunteer = volunteerList.getEntry(i);
+
+                // Check The Volunteer Is Not In The Event
+                if (volunteer.getEventList() != null && volunteer.getEventList().search(selectEvent) == -1) {
+                    if (selectEvent.addVolunteers(volunteer)) {
+                        // If Volunteer Is Not In The Event Add The Volunteer Into Event
+                        volunteer.getEventList().add(selectEvent);
+                        addCount++;
+                        add = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!add) {
+                System.err.println("Not Enough Available Volunteers To Add.");
+                break;
+            }
+        }
+        MainSystemUI.clearScreen();
+        System.out.println("Total Volunteers Add: " + addCount);
+    }
+
+    //-------------------- Find Volunteer Index ----------------
+    private int findVolunteerIndex(int volunteerID) {
+        for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+            Volunteer volunteer = volunteerList.getEntry(i);
+            if (volunteer.getVolunteerID() == volunteerID) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    //-------------------- Auto Generate Volunteer ID --------------
+    public int generateVolunteerID() {
+        int nextVolunteerID = 10001;
+
+        int latestVolunteerID = nextVolunteerID;
+        for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+            Volunteer volunteer = volunteerList.getEntry(i);
+            int volunterID = volunteer.getVolunteerID();
+            if (volunterID > latestVolunteerID) {
+                latestVolunteerID = volunterID;
+            }
+        }
+        int volunterID = latestVolunteerID + 1;
+        return volunterID;
+    }
+
+    //-------------------- Report ---------------------
     public void volunteerReport() {
         int totalVolunteer = volunteerList.getNumberOfEntries();
         int totalJoinVolunteer = 0;
@@ -815,12 +903,12 @@ public class EventCtrl {
         for (int i = 0; i < totalVolunteer; i++) {
             findAllJoinVolunteer[i] = false;
         }
-        
+
         for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
             Event event = eventList.getEntry(i);
             SortedListInterface<Volunteer> eventVolunteerList = event.getVolunteerList();
             int numberOfVolunteers = eventVolunteerList.getNumberOfEntries();
-            
+
             for (int j = 0; j < numberOfVolunteers; j++) {
                 Volunteer volunteer = event.getVolunteerList().getEntry(j);
                 int volunteerID = volunteer.getVolunteerID();
@@ -851,41 +939,6 @@ public class EventCtrl {
         int totalNotJoinVolunteer = totalVolunteer - totalJoinVolunteer;
 
         System.out.printf("\nNumber of Volunteer Have Join Event: %-3d\n", totalJoinVolunteer);
-        System.out.printf("Number of Volunteer Not Join Event (At Least One Event): %-3d\n",totalNotJoinVolunteer);
+        System.out.printf("Number of Volunteer Not Join Event (At Least One Event): %-3d\n", totalNotJoinVolunteer);
     }
-
-    public void displayUnjoinVolunteer() {
-        int l = 0;
-        boolean message = false;
-        eventUI.listAllVolunteerHeader();
-
-        for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-            Volunteer volunteer = volunteerList.getEntry(i);
-
-            boolean hasJoin = false;
-
-            for (int j = 0; j < eventList.getNumberOfEntries(); j++) {
-                Event event = eventList.getEntry(j);
-                if (event.getVolunteerList().search(volunteer) != -1) {
-                    hasJoin = true;
-                    break;
-                }
-            }
-
-            if (!hasJoin) {
-                eventUI.listAllVolunteerDetail(volunteer);
-                l++;
-                message = true;
-            }
-        }
-
-        if (message == true) {
-            System.out.printf("\nNumber of Not Join Event Volunteer: %-3d", l);
-        }
-
-        if (!message) {
-            System.out.println("\nAll Volunteer Have Join At Least One Event.");
-        }
-
-    }   
 }

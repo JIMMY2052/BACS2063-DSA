@@ -521,7 +521,7 @@ public class Initializer {
         Donation d2 = new Donation(donors.getEntry(1), "F","EV002");
         Donation d3 = new Donation(donors.getEntry(2), "F","EV002");
         Donation d4 = new Donation(donors.getEntry(3), "C","EV004");
-        Donation d5 = new Donation(donors.getEntry(4), "C", new Date(2024 - 1900, 7, 1));
+        Donation d5 = new Donation(donors.getEntry(4), "C","EV004", new Date(2024 - 1900, 7, 1));
 
         donors.getEntry(0).addDonation(d1);
         donors.getEntry(1).addDonation(d2);

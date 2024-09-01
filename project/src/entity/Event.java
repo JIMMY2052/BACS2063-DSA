@@ -43,13 +43,15 @@ public class Event implements Comparable<Event> {
     public void setEventDetail(String eventDetail) {
         this.eventDetail = eventDetail;
     }
-
+    
+    // To Add Volunteer Into Event
     public boolean addVolunteer(Volunteer vlounteer) {
         return this.volunteerList.add(vlounteer);
     }
     
+    // Check The Volunteer Is Already In Event
     public boolean addVolunteers(Volunteer volunteer) {
-    if (volunteerList.search(volunteer) == -1) {
+    if (volunteerList.search(volunteer) == -1) { // If Not Found Volunteer In The Event Add Into Event
         return volunteerList.add(volunteer);
     }
     return false;
