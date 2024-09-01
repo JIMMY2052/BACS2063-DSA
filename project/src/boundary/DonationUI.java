@@ -241,6 +241,17 @@ public class DonationUI {
         }
         return choice;
     }
+    
+    public int areYouSure1() {
+        System.out.print("Are you sure? (Y = 1/N = 0) -> ");
+        int choice = sc.nextInt();
+        sc.nextLine();
+        while (choice < 0 || choice > 1) {
+            System.out.printf("Invalid option! Please select a number range (0 to 1) : ");
+            choice = sc.nextInt();
+        }
+        return choice;
+    }
 
     //---------DELETE DONATION---------------------
     public int askToDeleteDonation(String string) {

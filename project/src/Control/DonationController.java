@@ -127,15 +127,21 @@ public class DonationController {
 
     private void cashDonation(Donor donor) {
         Donation donation = new Donation(donor, "C");
+        DonatedItem donatedItem;
         int choice;
+        double amount = donationUI.inputCash();
+        donatedItem = new DonatedItem("CASH", amount, "RM");
+        choice = donationUI.areYouSure1();
 
-        do {
-            double amount = donationUI.inputCash();
-            DonatedItem donatedItem = new DonatedItem("CASH", amount, "RM");
+        if (choice == 0) {
+            System.out.printf("%s (%s) unsuccesful make a cash donation.\n", donor.getName(), donor.getDonorId());
+            pressEnterContinue();
+            return;
+        }
+        if (choice == 1) {
             donation.addDonatedItem(donatedItem);
-            choice = donationUI.askToContinue();
-        } while (choice == 1);
-        donor.addDonation(donation);
+            donor.addDonation(donation);
+        }
         allDonations.add(donation);
         System.out.printf("%s (%s) succesful make a cash donation.\n", donor.getName(), donor.getDonorId());
         System.out.println(donation);
