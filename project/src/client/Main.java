@@ -9,13 +9,13 @@ package client;
  * @author JIMMY
  */
 import adt.SortedListInterface;
-import adt.SortedArrayList;
-import entity.*;
-import dao.*;
+import dao.Initializer;
 import boundary.*;
+import entity.*;
 import Control.DonorController;
 import Control.DonationController;
 import Control.EventCtrl;
+import Control.DoneeController;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -32,6 +32,8 @@ public class Main {
         SortedListInterface<Event> eventList = init.getEventList();
         SortedListInterface<Donation> donationList = init.getDonation();
         SortedListInterface<Donor> donorList = init.getDonor();
+        SortedListInterface<Donee> doneeList = init.getDonees();
+        SortedListInterface<DonationDistribution> donationdistributionList = init.getinitializeDonationDistributions();
 
         String choice;
         do {
@@ -53,10 +55,13 @@ public class Main {
                 case "3": {
                     clearScreen();
                 }
-                case "4":{
+                case "4": {
                     clearScreen();
+                    DoneeController doneeCtr = new DoneeController(doneeList, donationdistributionList);
+                    doneeCtr.runDoneeManagement();
+                    break;
                 }
-                case "5":{
+                case "5": {
                     clearScreen();
                     EventCtrl eventCtrl = new EventCtrl(volunteerList, eventList);
                     eventCtrl.runEventCtrl();
