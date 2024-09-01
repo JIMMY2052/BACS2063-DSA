@@ -529,11 +529,11 @@ public class Initializer {
 
         d1.addDonatedItem(new DonatedItem("SPAHETTI", 2000, "KG"));
         d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
-        d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
-        d1.addDonatedItem(new DonatedItem("MILO", 200, "KG"));
+        d1.addDonatedItem(new DonatedItem("ClOTHES", 55, "UNIT"));
+        d1.addDonatedItem(new DonatedItem("SALT", 200, "KG"));
         d1.addDonatedItem(new DonatedItem("RICE", 10, "KG"));
         d2.addDonatedItem(new DonatedItem("OIL", 10, "L"));
-        d3.addDonatedItem(new DonatedItem("OIL", 10, "L"));
+        d3.addDonatedItem(new DonatedItem("EGGS", 10, "DOZEN"));
         d4.addDonatedItem(new DonatedItem("CASH", 2000, "RM"));
         d5.addDonatedItem(new DonatedItem("CASH", 3000, "RM"));
         donations.add(d1);
