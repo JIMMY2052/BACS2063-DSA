@@ -148,7 +148,7 @@ public class DonationController {
             choice = donationUI.askToContinue();
         } while (choice == 1);
         clearScreen();
-         donationUI.displayDonateFoodHeader();
+        donationUI.displayDonateFoodHeader();
         donor.addDonation(donation);
         allDonations.add(donation);
         System.out.printf("%s (%s) succesful make a item donation.\n", donor.getName(), donor.getDonorId());
@@ -191,7 +191,9 @@ public class DonationController {
             pressEnterContinue();
             return;
         }
-
+        
+        clearScreen();
+        donationUI.displayDonateCashHeader();
         donation.addDonatedItem(donatedItem);
         donor.addDonation(donation);
         allDonations.add(donation);
@@ -504,12 +506,12 @@ public class DonationController {
             System.out.printf("Unsuccessful Remove Donation [%s].\n", donation.getDonationId());
             return;
         }
-        
+
         String donorId = donation.getDonor().getDonorId();
         Donor donor = searchDonorByID(donorId);
         donor.getDonorDonationList().remove(donation);
         allDonations.remove(donation);
-        
+
         System.out.printf("Successfully Deleted Donation [%s]\n", donation.getDonationId());
         pressEnterContinue();
 
@@ -701,12 +703,12 @@ public class DonationController {
         }
 
         clearScreen();
-        
+
         LocalDateTime now = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd yyyy, hh:mm a");
         String generatedDate = now.format(formatter);
         donationUI.displayReportHeader(generatedDate);
-        
+
         System.out.printf("Monthly Report for %02d-%d\n", month, year);
         System.out.println("==========================================================================");
         for (int i = 0; i < donationForReport.getNumberOfEntries(); i++) {
@@ -719,7 +721,7 @@ public class DonationController {
         System.out.printf("Total Cash Donations: RM %.2f\n", totalCash);
         System.out.printf("Total Food Items Donated: %d\n", totalFoodItems);
         donationUI.displayReportFooter();
-        
+
         pressEnterContinue();
     }
 
@@ -739,7 +741,7 @@ public class DonationController {
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
 
-            if (donation.getCategory().equals("F")) {
+//            if (donation.getCategory().equals("F")) {
                 SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
 
                 for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
@@ -764,7 +766,7 @@ public class DonationController {
                         aggregatedItems.add(newItem);
                     }
                 }
-            }
+//            }
         }
 
         for (int i = 0; i < aggregatedItems.getNumberOfEntries() - 1; i++) {
@@ -839,7 +841,7 @@ public class DonationController {
         }
         return donor;
     }
-    
+
     private Donor searchDonorByID(String donorId) {
         Donor donor = null;
         boolean found = false;
