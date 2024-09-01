@@ -141,6 +141,48 @@ public class DonorUI {
                            "+----------------------------------------------+\n");
     }
     
+    public int monthlyDonorReportMenu(){
+        int option = 0;
+        boolean isValid = false;
+        
+        
+        
+        while(!isValid){
+            do{
+                System.out.println("=====================================================================================================================\n"
+                         + "                        1. Donor Monthly Report                                   \n"
+                         + "                        2. Donor Anual Report                                   \n"
+                         + "                        0. Exit                                   \n"
+                         + "=====================================================================================================================\n");
+                
+                System.out.print("Enter your option (0 - 2): ");
+                if(scanner.hasNextInt()){
+                    option = scanner.nextInt();
+                    scanner.nextLine();
+                    isValid = true;
+                }else{
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
+                    scanner.next();
+                }
+                
+                if (option < 0 || option > 2) {
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 2.");
+                }
+            }while(option < 0 || option > 2);
+        }
+        
+        return option;
+    }
+    
+    public void monthlyReportMenu(String month){
+        System.out.printf("\n=====================================================================================================================\n" +
+                           "                                         HopeFund Donation Foundation                             \n" +
+                           "                                          Donor Management Subsystem  \n" +
+                           "\n" +
+                           "                                  2024 Donor %s Registration Report                                                           \n" +
+                           "                               ----------------------------------------------\n\n", month);
+    }
+    
     public void reportDonorMenu() {
         System.out.println("=============================================================================================================================================================\n" +
                            "                                                                 HopeFund Donation Foundation                                                                \n" +
