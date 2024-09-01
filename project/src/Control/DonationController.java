@@ -661,58 +661,71 @@ public class DonationController {
 
     // ------------- Generate Top Donated Items Report ------------------------------
     private void generateTopDonatedItemsReport() {
-        clearScreen();
-        System.out.println("Top Donated Items Report");
-        System.out.println("========================");
+    clearScreen();
+    System.out.println("Top Donated Items Report");
+    System.out.println("========================");
 
-        // Use an ArrayList to store unique DonatedItem objects
-        SortedListInterface<DonatedItem> aggregatedItems = new SortedArrayList<>();
+    // Use a SortedArrayList to store unique DonatedItem objects
+    SortedListInterface<DonatedItem> aggregatedItems = new SortedArrayList<>();
 
-        // Iterate through all donations and aggregate item quantities
-        Iterator<Donation> donationIterator = allDonations.getIterator();
-        while (donationIterator.hasNext()) {
-            Donation donation = donationIterator.next();
-            SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
+    // Iterate through all donations and aggregate item quantities
+    Iterator<Donation> donationIterator = allDonations.getIterator();
+    while (donationIterator.hasNext()) {
+        Donation donation = donationIterator.next();
+        SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
 
-            for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
-                DonatedItem currentItem = donatedItems.getEntry(i);
-                String currentItemName = currentItem.getItemName();
-                double currentQuantity = currentItem.getQuantity();
-                 String currentItemUnit = currentItem.getUnit();
+        for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
+            DonatedItem currentItem = donatedItems.getEntry(i);
+            String currentItemName = currentItem.getItemName();
+            double currentQuantity = currentItem.getQuantity();
+            String currentItemUnit = currentItem.getUnit();
 
-                // Check if the item already exists in aggregatedItems
-                boolean itemExists = false;
-                for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
-                    DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
-                    if (aggregatedItem.getItemName().equals(currentItemName)) {
-                        aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
-                        itemExists = true;
-                        break;
-                    }
+            // Check if the item already exists in aggregatedItems
+            boolean itemExists = false;
+            for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
+                DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
+                if (aggregatedItem.getItemName().equals(currentItemName)) {
+                    aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
+                    itemExists = true;
+                    break;
                 }
+            }
 
-                // If the item does not exist, add it to the list
-                if (!itemExists) {
-                    aggregatedItems.add(new DonatedItem(currentItemName, currentQuantity,currentItemUnit));
-                }
+            // If the item does not exist, add it to the list
+            if (!itemExists) {
+                aggregatedItems.add(new DonatedItem(currentItemName, currentQuantity, currentItemUnit));
+            }
+        }
+    }
+
+    // Find and display the top 10 donated items
+    int topN = 10; // Number of top items to display
+    System.out.printf("%-20s %s\n", "Item Name", "Total Quantity");
+    System.out.println("-------------------- --------------------");
+
+    for (int i = 0; i < topN && i < aggregatedItems.getNumberOfEntries(); i++) {
+        DonatedItem topItem = null;
+        int topIndex = -1;
+
+        // Find the item with the highest quantity
+        for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
+            DonatedItem currentItem = aggregatedItems.getEntry(j);
+            if (topItem == null || currentItem.getQuantity() > topItem.getQuantity()) {
+                topItem = currentItem;
+                topIndex = j;
             }
         }
 
-        // Sort the list by quantity in descending order
-//        aggregatedItems.sort((item1, item2) -> Double.compare(item2.getQuantity(), item1.getQuantity()));
-
-        // Display the top donated items
-        int topN = 10; // Number of top items to display
-        System.out.printf("%-20s %s\n", "Item Name", "Total Quantity");
-        System.out.println("-------------------- --------------------");
-
-        for (int i = 0; i < Math.min(topN, aggregatedItems.getNumberOfEntries()); i++) {
-            DonatedItem item = aggregatedItems.getEntry(i);
-            System.out.printf("%-20s %.2f\n", item.getItemName(), item.getQuantity());
+        // Print and remove the top item
+        if (topItem != null) {
+            System.out.printf("%-20s %.2f\n", topItem.getItemName(), topItem.getQuantity());
+            aggregatedItems.remove(topIndex);
         }
-
-        pressEnterContinue();
     }
+
+    pressEnterContinue();
+}
+
 
 //Sub Function
     private Donation searchDonationByCategory(String string, String string2) {
