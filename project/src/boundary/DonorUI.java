@@ -414,11 +414,12 @@ public class DonorUI {
                 System.out.println();
                 System.out.print("Do you want to EXIT this page? (Yes = 1 / No = 0) : ");
 
-                if (scanner.hasNextLine()) {
+                if (scanner.hasNextInt()) {
                     exit = scanner.nextInt();
                     scanner.nextLine();
                     isValid = true;
                 } else {
+                    System.out.println("Please only enter digit 1 or 2");
                     scanner.next();
                 }
                 

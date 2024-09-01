@@ -93,7 +93,7 @@ public class DonorController {
                 }
             }
             if (found == 0) {
-                System.out.println("There is no details for this donor.");
+                System.out.println("There is no details for this donor. Please Try Again.");
             }
 
             exit = donorUI.inputExitPage();
@@ -132,6 +132,8 @@ public class DonorController {
             }
             if (isSuccess == true) {
                 System.out.println("Remove the donor successfully.");
+            }else {
+                System.out.println("Opps!! Invalid Input. Please Try Again.");
             }
 
 
@@ -399,14 +401,14 @@ public class DonorController {
                         do{
                             System.out.print("Enter the month that donor registered to list (eg. january) : ");
                             month = scanner.nextLine().toLowerCase();
-                            if(!month.equals("january") && !month.equals("febuary") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")){
+                            if(!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")){
                                 System.out.println("Please only input month with required format. (eg. january)\n");
                             }else{
                                 donorUI.displayDonorDetail();
                                 filterByMonth(month);
                                 System.out.println("=================================================================================================\n");
                             }
-                        }while(!month.equals("january") && !month.equals("febuary") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december"));
+                        }while(!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december"));
                         break;
                     }
                 }
