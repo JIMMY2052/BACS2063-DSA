@@ -42,7 +42,7 @@ public class Main {
                     clearScreen();
                     DonorController donorCrt = new DonorController(donorList, donationList);
                     donorCrt.menu();
-                    
+                    break;
                 }
                 case "2": {
                     clearScreen();
