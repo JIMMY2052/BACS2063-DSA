@@ -1,5 +1,8 @@
 package entity;
-
+/**
+ *
+ * @author JIAQIAN
+ */
 import java.time.LocalDateTime;
 
 public class Donee implements Comparable<Donee> {
@@ -7,15 +10,16 @@ public class Donee implements Comparable<Donee> {
     private String doneeName;
     private String doneeContactNo; 
     private LocalDateTime dateAdded;
-    private static int numberOfDonees = 0;
+    private static int numberOfDonees = 1;
 
 
     public Donee(String doneeName, String doneeContactNo) {
-        numberOfDonees++;
+        
         this.doneeId = String.format("E%03d", numberOfDonees);
         this.doneeName = doneeName;
         this.doneeContactNo = doneeContactNo; 
         this.dateAdded = LocalDateTime.now();
+        numberOfDonees++;
         
     }
 

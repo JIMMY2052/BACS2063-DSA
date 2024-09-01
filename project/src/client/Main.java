@@ -16,6 +16,7 @@ import Control.DonorController;
 import Control.DonationController;
 import Control.EventCtrl;
 import Control.DoneeController;
+import control.DonationDistributionController;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.KeyEvent;
@@ -48,12 +49,15 @@ public class Main {
                 }
                 case "2": {
                     clearScreen();
-                    DonationController donationCrt = new DonationController(donorList, donationList ,eventList);
+                    DonationController donationCrt = new DonationController(donorList, donationList, eventList);
                     donationCrt.DonationManagement();
                     break;
                 }
                 case "3": {
                     clearScreen();
+                    DonationDistributionController donationDisCrt = new DonationDistributionController(doneeList, donationList, donationdistributionList);
+                    donationDisCrt.DonationDistributionManagement();
+                    break;
                 }
                 case "4": {
                     clearScreen();

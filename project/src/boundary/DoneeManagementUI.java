@@ -10,7 +10,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 /**
  *
- * @author jiaqi
+ * @author jiaqian
  */
 public class DoneeManagementUI {
         Scanner scanner = new Scanner(System.in);
@@ -50,7 +50,7 @@ public class DoneeManagementUI {
     public void printLine(int length) {
         StringBuilder line = new StringBuilder();
         for (int i = 0; i < length; i++) {
-            line.append("-");
+            line.append("=");
         }
         System.out.println(line.toString());
     }
