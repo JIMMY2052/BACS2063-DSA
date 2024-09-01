@@ -16,6 +16,8 @@ import entity.Donation;
 import entity.DonatedItem;
 import entity.Donor;
 import entity.Event;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -145,6 +147,8 @@ public class DonationController {
             donation.addDonatedItem(donatedItem);
             choice = donationUI.askToContinue();
         } while (choice == 1);
+        clearScreen();
+         donationUI.displayDonateFoodHeader();
         donor.addDonation(donation);
         allDonations.add(donation);
         System.out.printf("%s (%s) succesful make a item donation.\n", donor.getName(), donor.getDonorId());
@@ -500,7 +504,12 @@ public class DonationController {
             System.out.printf("Unsuccessful Remove Donation [%s].\n", donation.getDonationId());
             return;
         }
+        
+        String donorId = donation.getDonor().getDonorId();
+        Donor donor = searchDonorByID(donorId);
+        donor.getDonorDonationList().clear();
         allDonations.remove(donation);
+        
         System.out.printf("Successfully Deleted Donation [%s]\n", donation.getDonationId());
         pressEnterContinue();
 
@@ -692,8 +701,14 @@ public class DonationController {
         }
 
         clearScreen();
+        
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd yyyy, hh:mm a");
+        String generatedDate = now.format(formatter);
+        donationUI.displayReportHeader(generatedDate);
+        
         System.out.printf("Monthly Report for %02d-%d\n", month, year);
-        System.out.println("========================================================");
+        System.out.println("==========================================================================");
         for (int i = 0; i < donationForReport.getNumberOfEntries(); i++) {
             Donation donationReport = donationForReport.getEntry(i);
             System.out.printf("%d)", i + 1);
@@ -703,74 +718,75 @@ public class DonationController {
         System.out.printf("Total Donations: %d\n", totalDonations);
         System.out.printf("Total Cash Donations: RM %.2f\n", totalCash);
         System.out.printf("Total Food Items Donated: %d\n", totalFoodItems);
-
+        donationUI.displayReportFooter();
+        
         pressEnterContinue();
     }
 
-    // ------------- Generate Top Donated Items Report ------------------------------
+// ------------- Generate Top Donated Items Report ------------------------------
     private void generateTopDonatedItemsReport() {
         clearScreen();
-        System.out.println("Top Donated Items Report");
-        System.out.println("========================");
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd yyyy, hh:mm a");
+        String generatedDate = now.format(formatter);
+        donationUI.displayReportHeader(generatedDate);
+        System.out.println("\t\t\t  Top Donated Items Report");
+        System.out.println("==========================================================================");
 
-        // Use a SortedArrayList to store unique DonatedItem objects
         SortedListInterface<DonatedItem> aggregatedItems = new SortedArrayList<>();
 
-        // Iterate through all donations and aggregate item quantities
         Iterator<Donation> donationIterator = allDonations.getIterator();
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
-            SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
 
-            for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
-                DonatedItem currentItem = donatedItems.getEntry(i);
-                String currentItemName = currentItem.getItemName();
-                double currentQuantity = currentItem.getQuantity();
-                String currentItemUnit = currentItem.getUnit();
+            if (donation.getCategory().equals("F")) {
+                SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
 
-                // Check if the item already exists in aggregatedItems
-                boolean itemExists = false;
-                for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
-                    DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
-                    if (aggregatedItem.getItemName().equals(currentItemName)) {
-                        aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
-                        itemExists = true;
-                        break;
+                for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
+                    DonatedItem currentItem = donatedItems.getEntry(i);
+                    String currentItemName = currentItem.getItemName();
+                    double currentQuantity = currentItem.getQuantity();
+                    String currentItemUnit = currentItem.getUnit();
+
+                    boolean itemFound = false;
+                    for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
+                        DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
+                        if (aggregatedItem.getItemName().equalsIgnoreCase(currentItemName)) {
+
+                            aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
+                            itemFound = true;
+                            break;
+                        }
+                    }
+
+                    if (!itemFound) {
+                        DonatedItem newItem = new DonatedItem(currentItemName, currentQuantity, currentItemUnit);
+                        aggregatedItems.add(newItem);
                     }
                 }
-
-                // If the item does not exist, add it to the list
-                if (!itemExists) {
-                    aggregatedItems.add(new DonatedItem(currentItemName, currentQuantity, currentItemUnit));
-                }
             }
         }
 
-        // Find and display the top 10 donated items
-        int topN = 10; // Number of top items to display
-        System.out.printf("%-20s %s\n", "Item Name", "Total Quantity");
-        System.out.println("-------------------- --------------------");
-
-        for (int i = 0; i < topN && i < aggregatedItems.getNumberOfEntries(); i++) {
-            DonatedItem topItem = null;
-            int topIndex = -1;
-
-            // Find the item with the highest quantity
-            for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
+        for (int i = 0; i < aggregatedItems.getNumberOfEntries() - 1; i++) {
+            for (int j = 0; j < aggregatedItems.getNumberOfEntries() - 1 - i; j++) {
                 DonatedItem currentItem = aggregatedItems.getEntry(j);
-                if (topItem == null || currentItem.getQuantity() > topItem.getQuantity()) {
-                    topItem = currentItem;
-                    topIndex = j;
-                }
+                DonatedItem nextItem = aggregatedItems.getEntry(j + 1);
 
-            // Print and remove the top item
-            if (topItem != null) {
-                System.out.printf("%-20s %.2f\n", topItem.getItemName(), topItem.getQuantity());
-                aggregatedItems.remove(topIndex);
+                if (currentItem.getQuantity() < nextItem.getQuantity()) {
+                    aggregatedItems.replace(j, nextItem);
+                    aggregatedItems.replace(j + 1, currentItem);
+                }
             }
         }
-    }
 
+        // Display the sorted top donated items
+        System.out.println("\tItem Name\t\tTotal Quantity\t\tUnit");
+        donationUI.printLine(1, 74);
+        for (int i = 0; i < aggregatedItems.getNumberOfEntries(); i++) {
+            DonatedItem item = aggregatedItems.getEntry(i);
+            System.out.printf("\t%-21s\t%-10.2f\t\t%-12s\n", item.getItemName(), item.getQuantity(), item.getUnit());
+        }
+        donationUI.displayReportFooter();
         pressEnterContinue();
     }
 
@@ -806,6 +822,27 @@ public class DonationController {
         Donor donor = null;
         boolean found = false;
         String donorId = donationUI.inputDonorId();
+        Iterator<Donor> iterator = allDonors.getIterator();
+        while (iterator.hasNext()) {
+            donor = iterator.next();
+            if (donor.getDonorId().equals(donorId.toUpperCase())) {
+                found = true;
+                break;
+            }
+
+        }
+
+        if (found == false) {
+            System.out.println("Donor ID does not exists.");
+            pressEnterContinue();
+            return null;
+        }
+        return donor;
+    }
+    
+    private Donor searchDonorByID(String donorId) {
+        Donor donor = null;
+        boolean found = false;
         Iterator<Donor> iterator = allDonors.getIterator();
         while (iterator.hasNext()) {
             donor = iterator.next();

@@ -357,6 +357,24 @@ public class DonationUI {
         }
         return year;
     }
+    
+    public void displayReportHeader(String generatedDate){
+    System.out.println("==========================================================================");
+    System.out.println("                        " + "HopeFund Donation Foundation");
+    System.out.println("                        Donation Management Subsystem");
+    System.out.println("==========================================================================");
+    System.out.println("Generated at: " + generatedDate);
+    System.out.println("**************************************************************************\n");
+
+
+    }
+    
+    public void displayReportFooter(){
+        System.out.println("==========================================================================");
+        System.out.println("                          " +"END OF THE REPORT");
+        System.out.println("==========================================================================");
+    
+    }
 
     // sub function
     public int askToContinue() {
