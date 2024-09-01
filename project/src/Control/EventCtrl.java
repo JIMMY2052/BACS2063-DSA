@@ -206,21 +206,20 @@ public class EventCtrl {
     }
 
     public void listAllVolunteersByID() {
-        eventUI.listAllVolunteerHeader();
-        int id = 10001;
-        while (true) {
-            boolean found = false;
-            for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
-                Volunteer volunteer = volunteerList.getEntry(i);
-                if (volunteer.getVolunteerID() == id) {
-                    eventUI.listAllVolunteerDetail(volunteer);
-                    found = true;
+        for (int i = 0; i < volunteerList.getNumberOfEntries() - 1; i++) {
+            for (int j = 0; j < volunteerList.getNumberOfEntries() - 1 - i; j++) {
+                Volunteer v1 = volunteerList.getEntry(j);
+                Volunteer v2 = volunteerList.getEntry(j + 1);
+                if (v1.getVolunteerID() > v2.getVolunteerID()) {
+                    volunteerList.replace(j, v2);
+                    volunteerList.replace(j + 1, v1);
                 }
             }
-            if (!found) {
-                break;
-            }
-            id++;
+        }
+        eventUI.listAllVolunteerHeader();
+        for (int i = 0; i < volunteerList.getNumberOfEntries(); i++) {
+            Volunteer volunteer = volunteerList.getEntry(i);
+            eventUI.listAllVolunteerDetail(volunteer);
         }
     }
 
@@ -858,6 +857,7 @@ public class EventCtrl {
             }
         }
         MainSystemUI.clearScreen();
+        displayAllEventofVolunteerNumber();
         System.out.println("Total Volunteers Add: " + addCount);
     }
 
