@@ -146,20 +146,22 @@ public class DonorUI {
                            "                                                                 HopeFund Donation Foundation                                                                \n" +
                            "                                                                  Donor Management Subsystem                                                                 \n" +
                            "\n" +
-                           "                                                            2024 Donor Monthly Registration Report                                                           \n" +
+                           "                                                            2024 Donor Anual Registration Report                                                           \n" +
                            "                                                          ------------------------------------------\n");
         
     }
     
     public void monthlyRegisterMenu(String months[], int counts[]) {
-        System.out.println("No. of Donor");
+        
         int[] count = counts;
-        int maxNum = 0, minNum = 0;
+        int maxNum = 0, minNum = 0, noOfDonor = 0;
         
         for (int i = 0; i < count.length; i++) {
             if (count[i] >= maxNum) {
                 maxNum = count[i];
             }
+            
+            noOfDonor += count[i];
         }
         for(int i = 0; i < count.length; i++){
             minNum = counts[i];
@@ -167,7 +169,11 @@ public class DonorUI {
                 minNum = count[i];
             }
         }
-       
+        
+        System.out.printf("Total Number Of Donor Registered In 2024: %s\n\n", noOfDonor);
+        System.out.println("=============================================================================================================================================================\n\n\n");
+        
+        System.out.println("No. of Donor");
         
         for (int i = maxNum; i >= 1; i--) {
             System.out.printf("%d |", i);
@@ -260,25 +266,26 @@ public class DonorUI {
                 System.out.println();
                 System.out.println("+----------------------------------------------+\n"
                         + "|  1. Donor Category                           |\n"
-                        + "|  2. Donor Type                             |\n"
+                        + "|  2. Donor Type                               |\n"
+                        + "|  3. Month                                    |\n"
                         + "|  0. Exit                                     |\n"
                         + "+----------------------------------------------+\n");
-                System.out.print("Choose one to list (0-2): ");
+                System.out.print("Choose one to list (0-3): ");
                 
                 if(scanner.hasNextInt()){
                     option = scanner.nextInt();
                     scanner.nextLine();
                     isValid = true;
                 }else{
-                    System.out.print("Invalid option! Please select 0 or 2 : ");
+                    System.out.print("Invalid option! Please select 0 or 3 : ");
                     scanner.next();
                 }
                 
-                if (option < 0 || option > 2) {
-                    System.out.print("Invalid option! Please select 0 or 2 : ");
+                if (option < 0 || option > 3) {
+                    System.out.print("Invalid option! Please select 0 or 3 : ");
                 }
 
-            } while (option < 0 || option > 2);
+            } while (option < 0 || option > 3);
         }
         
         
@@ -294,9 +301,9 @@ public class DonorUI {
     }
     
     public void displayDonorWithDonation(){
-        System.out.println("============================================================================================\n" +
-                           " Name                        | Donation Type     | ItemName     | Quantity/Amount           \n" +
-                           "============================================================================================");
+        System.out.println("========================================================================================================\n" +
+                           " Name                        | Donation Type     | ItemName     | Unit      | Quantity/Amount           \n" +
+                           "========================================================================================================");
     }
     
     public String inputDonorId() {

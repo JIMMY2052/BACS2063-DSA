@@ -281,19 +281,11 @@ public class DonorController {
                             while (itDonatedItem.hasNext()) {
                                 DonatedItem item = itDonatedItem.next();
                                 if (times == 0) {
-                                    if (!item.getUnit().equals("RM")) {
-                                        System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getQuantity(), item.getUnit());
-                                    } else {
-                                        System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
-                                    }
+                                    System.out.printf(" %-13s| %-10s| %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
 
                                     times++;
                                 } else {
-                                    if (!item.getUnit().equals("RM")) {
-                                        System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getQuantity(), item.getUnit());
-                                    } else {
-                                        System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
-                                    }
+                                     System.out.printf("%-49s| %-13s| %-10s| %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
 
                                 }
 
@@ -306,10 +298,10 @@ public class DonorController {
                             while (itDonatedItem.hasNext()) {
                                 DonatedItem item = itDonatedItem.next();
                                 if (times == 0) {
-                                    System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
+                                    System.out.printf(" %-13s| %-10s| %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
                                     times++;
                                 } else {
-                                    System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
+                                    System.out.printf("%-49s| %-13s| %-10s| %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
                                 }
                             }
                             
@@ -324,19 +316,11 @@ public class DonorController {
                             while (itDonatedItem.hasNext()) {
                                 DonatedItem item = itDonatedItem.next();
                                 if (times == 0) {
-                                    if (!item.getUnit().equals("RM")) {
-                                        System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getQuantity(), item.getUnit());
-                                    } else {
-                                        System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
-                                    }
+                                    System.out.printf(" %-13s| %-10s| %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
 
                                     times++;
                                 } else {
-                                    if (!item.getUnit().equals("RM")) {
-                                        System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getQuantity(), item.getUnit());
-                                    } else {
-                                        System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
-                                    }
+                                    System.out.printf("%-49s| %-13s| %-10s| %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
 
                                 }
 
@@ -349,10 +333,10 @@ public class DonorController {
                             while (itDonatedItem.hasNext()) {
                                 DonatedItem item = itDonatedItem.next();
                                 if (times == 0) {
-                                    System.out.printf(" %-13s| %s %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
+                                    System.out.printf(" %-13s| %-10s| %s\n", item.getItemName(), item.getUnit(), item.getQuantity());
                                     times++;
                                 } else {
-                                    System.out.printf("%-49s| %-13s| %s %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
+                                    System.out.printf("%-49s| %-13s| %-10s| %s\n", " ", item.getItemName(), item.getUnit(), item.getQuantity());
                                 }
                             }
 
@@ -362,13 +346,13 @@ public class DonorController {
                 }
                 
             }
-            System.out.println("============================================================================================\n");
+            System.out.println("========================================================================================================\n");
         }
     }
 
     public void filterDonor() {
         int exit, option;
-        String category, type;
+        String category, type, month;
         do {
             donorUI.filterDonorMenu();
             option = donorUI.filterMenu();
@@ -411,6 +395,20 @@ public class DonorController {
                         }while(!type.equals("individual") && !type.equals("organization"));
                         break;
                     }
+                    if(option == 3){
+                        do{
+                            System.out.print("Enter the month that donor registered to list (eg. january) : ");
+                            month = scanner.nextLine().toLowerCase();
+                            if(!month.equals("january") && !month.equals("febuary") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")){
+                                System.out.println("Please only input month with required format. (eg. january)\n");
+                            }else{
+                                donorUI.displayDonorDetail();
+                                filterByMonth(month);
+                                System.out.println("=================================================================================================\n");
+                            }
+                        }while(!month.equals("january") && !month.equals("febuary") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december"));
+                        break;
+                    }
                 }
             }
 
@@ -442,6 +440,17 @@ public class DonorController {
             }
         }
     }
+    
+    private void filterByMonth(String month) {
+
+        Iterator<Donor> itDonor = donor.getIterator();
+        while (itDonor.hasNext()) {
+            Donor tempDonor = itDonor.next();
+            if (tempDonor.getDate().equals(month)) {
+                System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", tempDonor.getDonorId(), tempDonor.getName(), tempDonor.getContactNo(), tempDonor.getCategory(), tempDonor.getType());
+            }
+        }
+    }
 
     public void generateReport() {
         int exit;
@@ -453,7 +462,7 @@ public class DonorController {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
         String formattedDateTime = currentDateTime.format(formatter);
         System.out.println("Generated by: " + formattedDateTime);
-        System.out.println("=============================================================================================================================================================\n\n");
+        System.out.println("=============================================================================================================================================================\n");
 
         if (donor.isEmpty()) {
             System.out.println("Opps!! There is no donor in the list.");
