@@ -18,17 +18,17 @@ public class DonorUI {
         
         while(!isValid){
             do {
-                System.out.println("+---------------------------------------------------------+\n"
-                                 + "|                     Donor Management                    |\n"
-                                 + "+---------------------------------------------------------+\n"
-                                 + "|          1. Add Donor                                   |\n"
-                                 + "|          2. Remove Donor                                |\n"
-                                 + "|          3. Update Donor Details                        |\n"
-                                 + "|          4. Search Donor Details                        |\n"
-                                 + "|          5. List Donor                                  |\n"
-                                 + "|          6. Donor Summary Report                        |\n"
-                                 + "|          0. Exit                                        |\n"
-                                 + "+---------------------------------------------------------+");
+                System.out.println("=====================================================================================================================\n"
+                                 + "                                           Donor Management Subsystem                                                                  \n"
+                                 + "=====================================================================================================================\n"
+                                 + "                        1. Add Donor                                   \n"
+                                 + "                        2. Remove Donor                                \n"
+                                 + "                        3. Update Donor Details                        \n"
+                                 + "                        4. Search Donor Details                        \n"
+                                 + "                        5. List Donor                                  \n"
+                                 + "                        6. Donor Summary Report                        \n"
+                                 + "                        0. Exit                                        \n"
+                                 + "=====================================================================================================================");
                         
                 System.out.print("Enter your option (0 - 6): ");
                 
@@ -129,22 +129,32 @@ public class DonorUI {
     }
     
     public void reportDonorMenu() {
-        System.out.println("+----------------------------------------------+\n" +
-                           "|                                              |\n" +
-                           "|             Donor Summary Report             |\n" +
-                           "|                                              |\n" +
-                           "+----------------------------------------------+\n");
+        System.out.println("=============================================================================================================================================================\n" +
+                           "                                                                 HopeFund Donation Foundation                                                                \n" +
+                           "                                                                  Donor Management Subsystem                                                                 \n" +
+                           "\n" +
+                           "                                                            2024 Donor Monthly Registration Report                                                           \n" +
+                           "                                                          ------------------------------------------\n");
+        
     }
     
     public void monthlyRegisterMenu(String months[], int counts[]) {
         System.out.println("No. of Donor");
         int[] count = counts;
-        int maxNum = 0;
+        int maxNum = 0, minNum = 0;
+        
         for (int i = 0; i < count.length; i++) {
             if (count[i] >= maxNum) {
                 maxNum = count[i];
             }
         }
+        for(int i = 0; i < count.length; i++){
+            minNum = counts[i];
+            if(count[i] <= minNum){
+                minNum = count[i];
+            }
+        }
+       
         
         for (int i = maxNum; i >= 1; i--) {
             System.out.printf("%d |", i);
@@ -160,8 +170,15 @@ public class DonorUI {
         }
         System.out.println("--|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|--> Month");
 
-        System.out.printf("%-5s%s%-4s%s%-6s%s%-7s%s%-8s%s%-8s%s%-8s%s%-7s%s%-5s%s%-4s%s%-4s%s%-4s%s", 
+        System.out.printf("%-5s%s%-4s%s%-6s%s%-7s%s%-8s%s%-8s%s%-8s%s%-7s%s%-5s%s%-4s%s%-4s%s%-4s%s\n\n\n", 
                 "     ", "January","    ", "February", "      ", "March","    ", "April","    ", "May","    ", "June","    ", "July","    ", "August","    ", "September" ,"    ", "October" ,"    ", "November","    ", "December");
+        
+        System.out.printf("The most highest number of donor registration (%d) \n", maxNum);
+        System.out.printf("The most lowest number of donor registration (%d) \n\n\n ", minNum);
+        
+        System.out.println("=============================================================================================================================================================\n" +
+                           "                                                                    End of the Report                                                                \n" +
+                           "=============================================================================================================================================================\n");
     }
     
 //    public void monthlyRegisterMenu(String months[], int counts[]){
@@ -235,9 +252,9 @@ public class DonorUI {
     }
     
     public void displayDonorDetail(){
-        System.out.println("+--------------------------------------------------------------------------------+\n" +
-                           "| Donor Id  |  Name              | Contact Number  | Category    | Type          |\n" +
-                           "+--------------------------------------------------------------------------------+");
+        System.out.println("============================================================================================\n" +
+                           " Donor Id    |  Name                        | Contact Number  | Category    | Type          \n" +
+                           "=============================================================================================");
         
         
     }
