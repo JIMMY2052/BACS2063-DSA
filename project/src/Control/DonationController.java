@@ -66,7 +66,7 @@ public class DonationController {
                     searchDonation();
                     break;
                 case 8:
-                    generateTopDonatedItemsReport();
+                    generateReport();
                     break;
             }
         } while (choice != 0);
