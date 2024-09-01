@@ -29,7 +29,7 @@ public class DonorController {
         this.donor = donor;
     }
 
-    public int addDonor() {
+    public void addDonor() {
         int exit = 0;
         boolean isSuccess = false;
 
@@ -37,31 +37,33 @@ public class DonorController {
             donorUI.addDonorMenu();
             String name = donorUI.inputDonorName();
             if (name.equals("0")) {
-                return exit;
+                break;
             }
             String contactNo = donorUI.inputDonorContactNo();
             if (contactNo.equals("0")) {
-                return exit;
+                break;
             }
             String category = donorUI.inputDonorCategory();
             if (category.equals("0")) {
-                return exit;
+                break;
             }
             String type = donorUI.inputDonorType();
             if (type.equals("0")) {
-                return exit;
+                break;
             }
 
             if (donorUI.inputConfirmation("add a new donor")) {
                 Donor dr = new Donor(name, contactNo, category, type);
                 isSuccess = donor.add(dr);
                 System.out.println("You have successfully added a new donor!!");
+                System.out.println("\nYour Donor ID: " + dr.getDonorId());
             } else {
                 System.out.println("You canceled to add a new donor!!");
             }
+            
         } while (!isSuccess);
 
-        return exit;
+        
     }
 
     public int searchDonor() {

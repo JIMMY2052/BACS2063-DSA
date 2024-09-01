@@ -483,7 +483,7 @@ public class Initializer {
         volunteerList.add(volunteer199);
         volunteerList.add(volunteer200);
 
-        donors.add(new Donor("JIE YANG", "0105284838", "private", "organization", "march"));
+        donors.add(new Donor("JIE YANG", "0105284838", "private", "organization", "march")); //1
         donors.add(new Donor("CHUN YIN", "0106655478", "public", "individual", "march"));
         donors.add(new Donor("STEVEN", "0101111111", "private", "organization", "may"));
         donors.add(new Donor("KENGKEONG", "0102222222", "government", "individual", "january"));
@@ -515,7 +515,7 @@ public class Initializer {
         donors.add(new Donor("JIN FENG", "0128888888", "government", "individual", "july"));
         donors.add(new Donor("NICHOLAS", "0129999999", "public", "individual", "august"));
         donors.add(new Donor("FIONA", "0130000000", "private", "organization", "september"));
-        donors.add(new Donor("ANDREW", "0131111111", "government", "individual", "august"));
+        donors.add(new Donor("ANDREW", "0131111111", "government", "individual", "august")); //33
 
         Donation d1 = new Donation(donors.getEntry(0), "F");
         Donation d2 = new Donation(donors.getEntry(1), "F");

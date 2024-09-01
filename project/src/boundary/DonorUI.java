@@ -13,27 +13,39 @@ public class DonorUI {
     Scanner scanner = new Scanner(System.in);
     
     public int donorMenu() {
-        int option;
+        int option = 0;
+        boolean isValid = false;
         
-        do {
-            System.out.println("+----------------------------------------------+\n" +
-                               "|  1. Add Donor                                |\n" +
-                               "|  2. Remove Donor                             |\n" +
-                               "|  3. Update Donor Details                     |\n" +
-                               "|  4. Search Donor Details                     |\n" +
-                               "|  5. List Donor                               |\n" +
-                               "|  6. Donor Summary Report                     |\n" +
-                               "|  0. Exit                                     |\n" +
-                               "+----------------------------------------------+\n\n");
-
-            System.out.print("Enter your option (0 - 6): ");
-            option = scanner.nextInt();
-            scanner.nextLine();
-            if(option < 0 || option > 6) {
-                System.out.println("You entered an invalid input!! Please enter only from 0 to 6.");
-            }
-        }while(option < 0 || option > 6);
-        
+        while(!isValid){
+            do {
+                System.out.println("+---------------------------------------------------------+\n"
+                                 + "|                     Donor Management                    |\n"
+                                 + "+---------------------------------------------------------+\n"
+                                 + "|          1. Add Donor                                   |\n"
+                                 + "|          2. Remove Donor                                |\n"
+                                 + "|          3. Update Donor Details                        |\n"
+                                 + "|          4. Search Donor Details                        |\n"
+                                 + "|          5. List Donor                                  |\n"
+                                 + "|          6. Donor Summary Report                        |\n"
+                                 + "|          0. Exit                                        |\n"
+                                 + "+---------------------------------------------------------+");
+                        
+                System.out.print("Enter your option (0 - 6): ");
+                
+                if(scanner.hasNextInt()){
+                    option = scanner.nextInt();
+                    scanner.nextLine();
+                    isValid = true;
+                }else{
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 6.");
+                    scanner.next();
+                }
+                
+                if (option < 0 || option > 6) {
+                    System.out.println("You entered an invalid input!! Please enter only from 0 to 6.");
+                }
+            } while (option < 0 || option > 6);
+        }
         return option;
     }
     
@@ -124,26 +136,55 @@ public class DonorUI {
                            "+----------------------------------------------+\n");
     }
     
-    public void monthlyRegisterMenu(String months[], int counts[]){
-        String[] month = months;
+    public void monthlyRegisterMenu(String months[], int counts[]) {
+        System.out.println("No. of Donor");
         int[] count = counts;
-        System.out.println("+------------------------------------------------------+\n" +
-                           "|             Donor Monthly Registration Report        |\n" +
-                           "+------------------------------------------------------+\n" +
-                           "|  Month      |  Chart                                 |\n" +
-                           "+------------------------------------------------------+");
-        
-        
-        for (int i = 0; i < counts.length; i++) {
-            System.out.printf("%-3s%-9s%-5s", "|  ", months[i], "  |  ");
-            String output = "";
-            for(int j = 0; j < counts[i]; j++){
-                output += " *";
+        int maxNum = 0;
+        for (int i = 0; i < count.length; i++) {
+            if (count[i] >= maxNum) {
+                maxNum = count[i];
             }
-            System.out.printf("%-37s |\n", output);
         }
-        System.out.println("+------------------------------------------------------+");
+        
+        for (int i = maxNum; i >= 1; i--) {
+            System.out.printf("%d |", i);
+            for (int j = 0; j < count.length; j++) {
+                if (count[j] == i) {
+                    System.out.print("     *      ");
+                    count[j]--;
+                } else {
+                    System.out.print("            ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println("--|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|-----------|--> Month");
+
+        System.out.printf("%-5s%s%-4s%s%-6s%s%-7s%s%-8s%s%-8s%s%-8s%s%-7s%s%-5s%s%-4s%s%-4s%s%-4s%s", 
+                "     ", "January","    ", "February", "      ", "March","    ", "April","    ", "May","    ", "June","    ", "July","    ", "August","    ", "September" ,"    ", "October" ,"    ", "November","    ", "December");
     }
+    
+//    public void monthlyRegisterMenu(String months[], int counts[]){
+//        String[] month = months;
+//        int[] count = counts, highest;
+//        System.out.println("+--------------------------------------------------------------------------+\n" +
+//                           "|                   2024 Donor Monthly Registration Report                 |\n" +
+//                           "+--------------------------------------------------------------------------+\n" +
+//                           "|    Month    |   Chart                                                    |\n" +
+//                           "+--------------------------------------------------------------------------+");
+//        
+//        for (int i = 0; i < counts.length; i++) {
+//            System.out.printf("%-3s%-9s%-5s", "|  ", months[i], "  |  ");
+//            String output = "";
+//            for(int j = 0; j < counts[i]; j++){
+//                output += " *";
+//            }
+//            output += " (" + counts[i] + ")";
+//            System.out.printf("%-57s |\n", output);
+//        }
+//        System.out.println("+--------------------------------------------------------------------------+");
+//        
+//    }
     
     public int updateMenu() {
         int option;
@@ -191,6 +232,14 @@ public class DonorUI {
         }while(option < 1 || option > 4);
         
         return option;
+    }
+    
+    public void displayDonorDetail(){
+        System.out.println("+--------------------------------------------------------------------------------+\n" +
+                           "| Donor Id  |  Name              | Contact Number  | Category    | Type          |\n" +
+                           "+--------------------------------------------------------------------------------+");
+        
+        
     }
     
     public String inputDonorId() {
