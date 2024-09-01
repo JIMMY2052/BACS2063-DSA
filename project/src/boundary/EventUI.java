@@ -13,25 +13,28 @@ public class EventUI {
 
     //Event Menu
     public String getEventMenu() {
-        System.out.println("\nEvent & Volunteer Menu");
-        System.out.println("1. Display All Volunteer By Event");
-        System.out.println("2. Display All Volunteer By ID");
-        System.out.println("3. Display All Volunteer Filter By Gender");
-        System.out.println("4. Search Volunteer");
-        System.out.println("5. Delete Volunteer");
-        System.out.println("6. Add Volunteer");
-        System.out.println("7. Update Volunteer Detail");
-        System.out.println("8. Display All Event");
-        System.out.println("9. Display All Event of Volunteer Number");
-        System.out.println("10. Add Event");
-        System.out.println("11. Add Volunteer to Event");
-        System.out.println("12. Search Event");
-        System.out.println("13. Update Event Detail");
-        System.out.println("14. Delete Event");
-        System.out.println("15. Remove Event From Volunteer");
-        System.out.println("16. Display All Not Join Event Volunteer");
-        System.out.println("17. Generate Summary Reports");
-        System.out.println("0. Exit");
+        System.out.println("\n\n=============================================================================");
+        System.out.println("\t\t\tEvent & Volunteer Menu");
+        System.out.println("=============================================================================");
+        System.out.println("\t\t1. Display All Volunteer By Event");
+        System.out.println("\t\t2. Display All Volunteer By ID");
+        System.out.println("\t\t3. Display All Volunteer Filter By Gender");
+        System.out.println("\t\t4. Search Volunteer");
+        System.out.println("\t\t5. Delete Volunteer");
+        System.out.println("\t\t6. Add Volunteer");
+        System.out.println("\t\t7. Update Volunteer Detail");
+        System.out.println("\t\t8. Display All Event");
+        System.out.println("\t\t9. Display All Event of Volunteer Number");
+        System.out.println("\t\t10. Add Event");
+        System.out.println("\t\t11. Add Volunteer to Event");
+        System.out.println("\t\t12. Search Event");
+        System.out.println("\t\t13. Update Event Detail");
+        System.out.println("\t\t14. Delete Event");
+        System.out.println("\t\t15. Remove Event From Volunteer");
+        System.out.println("\t\t16. Display All Not Join Event Volunteer");
+        System.out.println("\t\t17. Generate Summary Reports");
+        System.out.println("\t\t0. Exit");
+         System.out.println("=============================================================================");
         System.out.print("Enter Choice: ");
         String choice = scanner.nextLine().trim();
         System.out.println();
