@@ -52,6 +52,12 @@ public class Main {
                 }
                 case "3": {
                     clearScreen();
+                }
+                case "4":{
+                    clearScreen();
+                }
+                case "5":{
+                    clearScreen();
                     EventCtrl eventCtrl = new EventCtrl(volunteerList, eventList);
                     eventCtrl.runEventCtrl();
                     break;
