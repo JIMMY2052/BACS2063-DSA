@@ -48,7 +48,7 @@ public class Main {
                 }
                 case "2": {
                     clearScreen();
-                    DonationController donationCrt = new DonationController(donorList, donationList);
+                    DonationController donationCrt = new DonationController(donorList, donationList ,eventList);
                     donationCrt.DonationManagement();
                     break;
                 }

@@ -1,4 +1,5 @@
 package boundary;
+
 /**
  *
  * @author KK
@@ -16,13 +17,20 @@ public class EventUI {
         System.out.println("1. Display All Volunteer By Event");
         System.out.println("2. Display All Volunteer By ID");
         System.out.println("3. Display All Volunteer Filter By Gender");
-        System.out.println("4. Search Volunteer By ID");
+        System.out.println("4. Search Volunteer");
         System.out.println("5. Delete Volunteer");
         System.out.println("6. Add Volunteer");
-        System.out.println("7. Display All Event");
-        System.out.println("8. Display All Event of Volunteer Number");
-        System.out.println("9. Add Event");
-        System.out.println("10. Add Volunteer to Event");
+        System.out.println("7. Update Volunteer Detail");
+        System.out.println("8. Display All Event");
+        System.out.println("9. Display All Event of Volunteer Number");
+        System.out.println("10. Add Event");
+        System.out.println("11. Add Volunteer to Event");
+        System.out.println("12. Search Event");
+        System.out.println("13. Update Event Detail");
+        System.out.println("14. Delete Event");
+        System.out.println("15. Remove Event From Volunteer");
+        System.out.println("16. Display All Not Join Event Volunteer");
+        System.out.println("17. Generate Summary Reports");
         System.out.println("0. Exit");
         System.out.print("Enter Choice: ");
         String choice = scanner.nextLine().trim();
@@ -98,7 +106,7 @@ public class EventUI {
     public String inputEventID() {
         String eventID;
         do {
-            System.out.print("Enter Event ID to Join (e.g. EV001): ");
+            System.out.print("Enter Event ID (e.g. EV001): ");
             eventID = scanner.nextLine().trim().toUpperCase();
             if (eventID.isEmpty()) {
                 System.err.println("Event ID Cannot Empty.");
@@ -138,6 +146,11 @@ public class EventUI {
 
     public void displayAllEventsHeader() {
         System.out.println("List of Event:");
+        System.out.printf("%-10s %-20s %-100s\n", "Event ID", "Event Name", "Description");
+    }
+    
+    public void displayDetailEventHeader() {
+        System.out.println("\nDetail of Event:");
         System.out.printf("%-10s %-20s %-100s\n", "Event ID", "Event Name", "Description");
     }
 
@@ -181,11 +194,11 @@ public class EventUI {
             System.out.print("Enter Volunteer ID (e.g. 10001): ");
             searchID = scanner.nextLine().trim();
             if (searchID.length() < 5 || !searchID.matches("^[0-9]+$")) {
-                System.out.println("Invalid Volunteer ID. Please enter a valid 5-digit ID.");
+                System.err.println("Invalid Volunteer ID. Please Enter A Valid 5-Digit ID.");
             } else {
                 resultID = Integer.parseInt(searchID);
                 if (resultID <= 10000) {
-                    System.out.println("Volunteer ID Not found. Please Try Again.");
+                    System.err.println("Volunteer ID Not found. Please Try Again.");
                 } else {
                     done = true;
                 }
@@ -209,11 +222,11 @@ public class EventUI {
             System.out.print("Enter Volunteer ID to Delete (e.g. 10001): ");
             searchID = scanner.nextLine().trim();
             if (searchID.length() < 5 || !searchID.matches("^[0-9]+$")) {
-                System.out.println("Invalid Volunteer ID. Please enter a valid 5-digit ID.");
+                System.err.println("Invalid Volunteer ID. Please Enter A Valid 5-Digit ID.");
             } else {
                 resultID = Integer.parseInt(searchID);
                 if (resultID <= 10000) {
-                    System.out.println("Volunteer ID Not found. Please Try Again.");
+                    System.err.println("Volunteer ID Not found. Please Try Again.");
                 } else {
                     done = true;
                 }
@@ -257,7 +270,7 @@ public class EventUI {
             detail = scanner.nextLine().trim();
             if (detail.isEmpty()) {
                 System.err.println("Description Cannot Be Empty.");
-            } else if (detail.length() > 20) {
+            } else if (detail.length() > 100) {
                 System.err.println("Description Cannot Be More Than 100 Characters.");
             }
         } while (detail.isEmpty() || detail.length() > 100);
@@ -273,13 +286,13 @@ public class EventUI {
             System.out.print("\nEnter How Many Volunteer to Join: ");
             number = scanner.nextLine().trim();
             if (!number.matches("^[0-9]+$")) {
-                System.out.println("Invalid Input. Please Enter Valid Digit.");
+                System.err.println("Invalid Input. Please Enter Valid Digit.");
             } else {
                 quantity = Integer.parseInt(number);
                 if (quantity < 0) {
-                    System.out.println("Invalid Can't Less Than 0. Please Try Again.");
+                    System.err.println("Invalid Can't Less Than 0. Please Try Again.");
                 } else if (quantity > max) {
-                    System.out.println("Invalid Can't More Than Volunteer Number. Please Try Again.");
+                    System.err.println("Invalid Can't More Than Volunteer Number. Please Try Again.");
                 } else {
                     done = true;
                 }
@@ -289,4 +302,83 @@ public class EventUI {
         return quantity;
     }
 
+    public boolean addConfirm() {
+        boolean confirm = false;
+        boolean loop = false;
+        do {
+            System.out.print("Confirm? (Y/N): ");
+            String choice = scanner.nextLine().trim().toUpperCase();
+
+            if (choice.equals("Y") || choice.equals("N")) {
+
+                if (choice.equals("Y")) {
+                    confirm = true;
+                    loop = true;
+                }
+
+                if (choice.equals("N")) {
+                    confirm = false;
+                    loop = true;
+                }
+
+            } else {
+                System.err.println("Invalid Input. Please Enter 'Y' For Yes or 'N' For No.");
+            }
+        } while (!loop);
+
+        return confirm;
+
+    }
+
+    public String inputSearchEvent() {
+        String eventID;
+        do {
+            System.out.print("Enter Event ID to Search (e.g. EV001): ");
+            eventID = scanner.nextLine().trim().toUpperCase();
+            if (eventID.isEmpty()) {
+                System.err.println("Event ID Cannot Empty.");
+            } else if (!eventID.startsWith("EV")) {
+                System.err.println("Event ID Must Start With 'EV'.");
+            } else if (eventID.length() > 5) {
+                System.err.println("Event ID Cannot Be More Than 5 Characters.");
+            }
+        } while (eventID.isEmpty() || !eventID.startsWith("EV") || eventID.length() > 5);
+        return eventID;
+    }
+
+    public void displayAllEventofDetail() {
+        System.out.printf("%-10s %-20s %-21s %-100s\n", "Event ID", "Event Name", "Number of Volunteers", "Description");
+    }
+
+    public String inputEditEventID() {
+        String eventID;
+        do {
+            System.out.print("Enter Event ID to Join (e.g. EV001): ");
+            eventID = scanner.nextLine().trim().toUpperCase();
+            if (eventID.isEmpty()) {
+                System.err.println("Event ID Cannot Empty.");
+            } else if (!eventID.startsWith("EV")) {
+                System.err.println("Event ID Must Start With 'EV'.");
+            } else if (eventID.length() > 5) {
+                System.err.println("Event ID Cannot Be More Than 5 Characters.");
+            }
+        } while (eventID.isEmpty() || !eventID.startsWith("EV") || eventID.length() > 5);
+        return eventID;
+    }
+
+    public String inputRemoveEventID() {
+        String eventID;
+        do {
+            System.out.print("Enter Event ID to Remove From Volunteer (e.g. EV001): ");
+            eventID = scanner.nextLine().trim().toUpperCase();
+            if (eventID.isEmpty()) {
+                System.err.println("Event ID Cannot Empty.");
+            } else if (!eventID.startsWith("EV")) {
+                System.err.println("Event ID Must Start With 'EV'.");
+            } else if (eventID.length() > 5) {
+                System.err.println("Event ID Cannot Be More Than 5 Characters.");
+            }
+        } while (eventID.isEmpty() || !eventID.startsWith("EV") || eventID.length() > 5);
+        return eventID;
+    }
 }

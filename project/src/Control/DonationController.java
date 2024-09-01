@@ -11,9 +11,11 @@ import java.awt.event.KeyEvent;
 import adt.SortedListInterface;
 import adt.SortedArrayList;
 import boundary.DonationUI;
+import boundary.EventUI;
 import entity.Donation;
 import entity.DonatedItem;
 import entity.Donor;
+import entity.Event;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -28,16 +30,19 @@ public class DonationController {
 
     private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
     private SortedListInterface<Donation> allDonations = new SortedArrayList<>();
+    private SortedListInterface<Event> eventList = new SortedArrayList<>();
+    private EventUI eventUI;
     private DonationUI donationUI;
 
-    public DonationController(SortedListInterface<Donor> allDonors, SortedListInterface<Donation> allDonations) {
+    public DonationController(SortedListInterface<Donor> allDonors, SortedListInterface<Donation> allDonations, SortedListInterface<Event> event) {
         this.allDonations = allDonations;
         this.allDonors = allDonors;
+        this.eventList = event;
     }
 
     public void DonationManagement() {
         donationUI = new DonationUI();
-
+        eventUI = new EventUI();
         int choice;
         do {
             clearScreen();
@@ -109,7 +114,27 @@ public class DonationController {
     }
 
     private void itemDonation(Donor donor) {
-        Donation donation = new Donation(donor, "F");
+        boolean loop = false;
+        String inputEventID = "";
+        System.out.printf("\n");
+        displayAllEvents();
+        System.out.printf("\n");
+        do {
+            boolean found = false;
+            inputEventID = eventUI.inputEditEventID();
+            for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+                Event event = eventList.getEntry(i);
+                if (inputEventID.equals(event.getEventID())) {
+                    found = true;
+                    loop = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.err.println("Event ID Not Found. Please Try Again.");
+            }
+        } while (!loop);
+        Donation donation = new Donation(donor, "F", inputEventID);
         int choice;
 
         do {
@@ -129,7 +154,28 @@ public class DonationController {
     }
 
     private void cashDonation(Donor donor) {
-        Donation donation = new Donation(donor, "C");
+        String inputEventID = "";
+        boolean loop = false;
+        System.out.printf("\n");
+        displayAllEvents();
+        System.out.printf("\n");
+        do {
+            boolean found = false;
+            inputEventID = eventUI.inputEditEventID();
+            for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+                Event event = eventList.getEntry(i);
+                if (inputEventID.equals(event.getEventID())) {
+                    found = true;
+                    loop = true;
+                    break;
+                }
+            }
+            if (!found) {
+                System.err.println("Event ID Not Found. Please Try Again.");
+            }
+        } while (!loop);
+
+        Donation donation = new Donation(donor, "C", inputEventID);
         DonatedItem donatedItem;
         int choice;
         double amount = donationUI.inputCash();
@@ -197,7 +243,7 @@ public class DonationController {
                 firstTime = printMoreThanOneDonatedItem(donation, donatedItem, firstTime);
             }
 
-            donationUI.printLine(1, 99);
+            donationUI.printLine(1, 121);
             firstTime = true;
         }
         pressEnterContinue();
@@ -224,7 +270,7 @@ public class DonationController {
                     firstTime = printMoreThanOneDonatedItem(donation, donatedItem, firstTime);
                 }
 
-                donationUI.printLine(1, 99);
+                donationUI.printLine(1, 121);
                 firstTime = true;
             }
         }
@@ -243,25 +289,27 @@ public class DonationController {
                 if (donatedItem.getNumberOfEntries() == 1) {
                     printOneDonatedItem(donation, donatedItem);
                 }
-                donationUI.printLine(1, 99);
+                donationUI.printLine(1, 121);
             }
         }
         pressEnterContinue();
     }
 
     private void printOneDonatedItem(Donation donation, SortedListInterface<DonatedItem> donatedItem) {
-        System.out.printf("|%-18s| %-18s| %-18s|",
+        System.out.printf("|%-18s| %-18s| %-18s| %-20s|",
                 donation.getDonationId(),
                 donation.getFormattedDate(),
-                donation.getDonor().getName());
+                donation.getDonor().getName(),
+                donation.getEvent());
         System.out.printf(" %-18s|%-18s| \n", donatedItem.getEntry(0).getItemName(), donatedItem.getEntry(0).toString());
     }
 
     private boolean printMoreThanOneDonatedItem(Donation donation, SortedListInterface<DonatedItem> donatedItem, boolean firstTime) {
-        System.out.printf("|%-18s  %-18s  %-18s|",
+        System.out.printf("|%-18s  %-18s  %-18s  %-20s|",
                 donation.getDonationId(),
                 donation.getFormattedDate(),
-                donation.getDonor().getName());
+                donation.getDonor().getName(),
+                donation.getEvent());
         Iterator<DonatedItem> itemIterator = donatedItem.getIterator();
 
         while (itemIterator.hasNext()) {
@@ -271,7 +319,7 @@ public class DonationController {
                 System.out.printf(" %-18s|%-18s| \n", item.getItemName(), item.toString());
                 firstTime = false;
             } else {
-                System.out.printf("|%-18s %-18s  %-18s | %-17s |%-17s | \n", "", "", "", item.getItemName(), item.toString());
+                System.out.printf("|%-18s %-18s  %-18s  %-21s| %-17s |%-17s | \n", "", "", "", "", item.getItemName(), item.toString());
             }
 
         }
@@ -661,71 +709,70 @@ public class DonationController {
 
     // ------------- Generate Top Donated Items Report ------------------------------
     private void generateTopDonatedItemsReport() {
-    clearScreen();
-    System.out.println("Top Donated Items Report");
-    System.out.println("========================");
+        clearScreen();
+        System.out.println("Top Donated Items Report");
+        System.out.println("========================");
 
-    // Use a SortedArrayList to store unique DonatedItem objects
-    SortedListInterface<DonatedItem> aggregatedItems = new SortedArrayList<>();
+        // Use a SortedArrayList to store unique DonatedItem objects
+        SortedListInterface<DonatedItem> aggregatedItems = new SortedArrayList<>();
 
-    // Iterate through all donations and aggregate item quantities
-    Iterator<Donation> donationIterator = allDonations.getIterator();
-    while (donationIterator.hasNext()) {
-        Donation donation = donationIterator.next();
-        SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
+        // Iterate through all donations and aggregate item quantities
+        Iterator<Donation> donationIterator = allDonations.getIterator();
+        while (donationIterator.hasNext()) {
+            Donation donation = donationIterator.next();
+            SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
 
-        for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
-            DonatedItem currentItem = donatedItems.getEntry(i);
-            String currentItemName = currentItem.getItemName();
-            double currentQuantity = currentItem.getQuantity();
-            String currentItemUnit = currentItem.getUnit();
+            for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
+                DonatedItem currentItem = donatedItems.getEntry(i);
+                String currentItemName = currentItem.getItemName();
+                double currentQuantity = currentItem.getQuantity();
+                String currentItemUnit = currentItem.getUnit();
 
-            // Check if the item already exists in aggregatedItems
-            boolean itemExists = false;
+                // Check if the item already exists in aggregatedItems
+                boolean itemExists = false;
+                for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
+                    DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
+                    if (aggregatedItem.getItemName().equals(currentItemName)) {
+                        aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
+                        itemExists = true;
+                        break;
+                    }
+                }
+
+                // If the item does not exist, add it to the list
+                if (!itemExists) {
+                    aggregatedItems.add(new DonatedItem(currentItemName, currentQuantity, currentItemUnit));
+                }
+            }
+        }
+
+        // Find and display the top 10 donated items
+        int topN = 10; // Number of top items to display
+        System.out.printf("%-20s %s\n", "Item Name", "Total Quantity");
+        System.out.println("-------------------- --------------------");
+
+        for (int i = 0; i < topN && i < aggregatedItems.getNumberOfEntries(); i++) {
+            DonatedItem topItem = null;
+            int topIndex = -1;
+
+            // Find the item with the highest quantity
             for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
-                DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
-                if (aggregatedItem.getItemName().equals(currentItemName)) {
-                    aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
-                    itemExists = true;
-                    break;
+                DonatedItem currentItem = aggregatedItems.getEntry(j);
+                if (topItem == null || currentItem.getQuantity() > topItem.getQuantity()) {
+                    topItem = currentItem;
+                    topIndex = j;
                 }
             }
 
-            // If the item does not exist, add it to the list
-            if (!itemExists) {
-                aggregatedItems.add(new DonatedItem(currentItemName, currentQuantity, currentItemUnit));
-            }
-        }
-    }
-
-    // Find and display the top 10 donated items
-    int topN = 10; // Number of top items to display
-    System.out.printf("%-20s %s\n", "Item Name", "Total Quantity");
-    System.out.println("-------------------- --------------------");
-
-    for (int i = 0; i < topN && i < aggregatedItems.getNumberOfEntries(); i++) {
-        DonatedItem topItem = null;
-        int topIndex = -1;
-
-        // Find the item with the highest quantity
-        for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
-            DonatedItem currentItem = aggregatedItems.getEntry(j);
-            if (topItem == null || currentItem.getQuantity() > topItem.getQuantity()) {
-                topItem = currentItem;
-                topIndex = j;
+            // Print and remove the top item
+            if (topItem != null) {
+                System.out.printf("%-20s %.2f\n", topItem.getItemName(), topItem.getQuantity());
+                aggregatedItems.remove(topIndex);
             }
         }
 
-        // Print and remove the top item
-        if (topItem != null) {
-            System.out.printf("%-20s %.2f\n", topItem.getItemName(), topItem.getQuantity());
-            aggregatedItems.remove(topIndex);
-        }
+        pressEnterContinue();
     }
-
-    pressEnterContinue();
-}
-
 
 //Sub Function
     private Donation searchDonationByCategory(String string, String string2) {
@@ -830,6 +877,14 @@ public class DonationController {
         System.out.print("Press [Enter] key to continue...");
         sc.nextLine();
         clearScreen();
+    }
+
+    public void displayAllEvents() {
+        eventUI.displayAllEventsHeader();
+        for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
+            Event event = eventList.getEntry(i);
+            eventUI.displayAllEventsDetail(event);
+        }
     }
 
 }

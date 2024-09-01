@@ -6,7 +6,7 @@ package utility;
 public class MessageUI {
 
   public static void displayInvalidChoiceMessage() {
-        System.out.println("Invalid choice. Please try again.");
+        System.err.println("Invalid choice. Please try again.");
     }       
      
     public static void displayExitMessage() {
@@ -18,7 +18,7 @@ public class MessageUI {
     }
 
     public static void DoneeNotFoundMessage() {
-        System.out.println("\nDonee not found.");
+        System.err.println("\nDonee not found.");
     }
 
     public static void updateDoneeSuccessMessage() {

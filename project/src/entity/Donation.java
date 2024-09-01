@@ -17,8 +17,9 @@ public class Donation implements Comparable<Donation> {
     private String category;
     private Date date;
     private static int numberOfDonation = 0;
+    private String event;
 
-    public Donation(Donor donor, String category) {
+    public Donation(Donor donor, String category, String event) {
         numberOfDonation++;
         this.donor = donor;
         this.date = new Date();
@@ -29,8 +30,9 @@ public class Donation implements Comparable<Donation> {
         } else {
             this.donationId = String.format("C%03d", numberOfDonation);
         }
+        this.event = event;
     }
-    
+
     public Donation(Donor donor, String category, Date date) {
         numberOfDonation++;
         this.donor = donor;
@@ -82,6 +84,14 @@ public class Donation implements Comparable<Donation> {
 
     public static void setNumberOfDonation(int numberOfDonation) {
         Donation.numberOfDonation = numberOfDonation;
+    }
+
+    public String getEvent() {
+        return event;
+    }
+
+    public void setEvent(String event) {
+        this.event = event;
     }
 
     public void addDonatedItem(DonatedItem item) {

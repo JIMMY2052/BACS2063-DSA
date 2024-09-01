@@ -517,10 +517,10 @@ public class Initializer {
         donors.add(new Donor("FIONA", "0130000000", "private", "organization", "september"));
         donors.add(new Donor("ANDREW", "0131111111", "government", "individual", "august")); //33
 
-        Donation d1 = new Donation(donors.getEntry(0), "F");
-        Donation d2 = new Donation(donors.getEntry(1), "F");
-        Donation d3 = new Donation(donors.getEntry(2), "F");
-        Donation d4 = new Donation(donors.getEntry(3), "C");
+        Donation d1 = new Donation(donors.getEntry(0), "F","EV002");
+        Donation d2 = new Donation(donors.getEntry(1), "F","EV002");
+        Donation d3 = new Donation(donors.getEntry(2), "F","EV002");
+        Donation d4 = new Donation(donors.getEntry(3), "C","EV004");
         Donation d5 = new Donation(donors.getEntry(4), "C", new Date(2024 - 1900, 7, 1));
 
         donors.getEntry(0).addDonation(d1);
