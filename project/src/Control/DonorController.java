@@ -120,7 +120,7 @@ public class DonorController {
                 if(donorObject.getDonorId().equals(id)){
                     donorUI.displayDonorDetail();
                     System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
-                    System.out.println("============================================================================================\n");
+                    System.out.println("=================================================================================================\n");
                     if (donorUI.inputConfirmation("remove this donor") == true) {
                         isSuccess = donor.remove(donorObject);
                         break;
