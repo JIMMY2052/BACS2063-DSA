@@ -4,7 +4,6 @@ package dao;
  *
  * @author KK
  */
-import entity.DonationDistribution;
 import adt.*;
 import entity.*;
 import java.util.Date;
@@ -518,10 +517,10 @@ public class Initializer {
         donors.add(new Donor("FIONA", "0130000000", "private", "organization", "september"));
         donors.add(new Donor("ANDREW", "0131111111", "government", "individual", "august")); //33
 
-        Donation d1 = new Donation(donors.getEntry(0), "F", "EV002");
-        Donation d2 = new Donation(donors.getEntry(1), "F", "EV002");
-        Donation d3 = new Donation(donors.getEntry(2), "F", "EV002");
-        Donation d4 = new Donation(donors.getEntry(3), "C", "EV004");
+        Donation d1 = new Donation(donors.getEntry(0), "F","EV002");
+        Donation d2 = new Donation(donors.getEntry(1), "F","EV002");
+        Donation d3 = new Donation(donors.getEntry(2), "F","EV002");
+        Donation d4 = new Donation(donors.getEntry(3), "C","EV004");
         Donation d5 = new Donation(donors.getEntry(4), "C", new Date(2024 - 1900, 7, 1));
 
         donors.getEntry(0).addDonation(d1);
@@ -544,39 +543,22 @@ public class Initializer {
         donations.add(d3);
         donations.add(d4);
         donations.add(d5);
-
+        
         doneeList.add(new Donee("CHEE JIA QIAN", "0123456799"));
         doneeList.add(new Donee("CHOO JIA WEI", "0123456788"));
         doneeList.add(new Donee("LOO ZHI XUAN", "0123456700"));
         doneeList.add(new Donee("AHLI", "9876543210"));
         doneeList.add(new Donee("AHKAO", "1234567890"));
         doneeList.add(new Donee("MUTHU", "1234567960"));
-
-        Donee donee1 = new Donee("CHEE JIA QIAN", "0123456799");
-        Donee donee2 = new Donee("CHOO JIA WEI", "0123456788");
-        Donee donee3 = new Donee("LOO ZHI XUAN", "0123456700");
-        Donee donee4 = new Donee("AHLI", "9876543210");
-        Donee donee5 = new Donee("AHKAO", "1234567890");
-        Donee donee6 = new Donee("MUTHU", "1234567960");
-
-        DonationDistribution distribution1 = new DonationDistribution(d1, "123 Main St", donee1);
-        DonationDistribution distribution2 = new DonationDistribution(d2, "456 Elm St", donee2);
-        DonationDistribution distribution3 = new DonationDistribution(d3, "789 Pine St", donee3);
-        DonationDistribution distribution4 = new DonationDistribution(d4, "101 Maple St", donee4);
-        DonationDistribution distribution5 = new DonationDistribution(d5, "202 Oak St", donee5);
-
-        donationDistribution.add(distribution1);
-        donationDistribution.add(distribution2);
-        donationDistribution.add(distribution3);
-        donationDistribution.add(distribution4);
-        donationDistribution.add(distribution5);
+        
+        donationDistribution.add(new DonationDistribution(1, new Date(), donations, doneeList));
 
     }
-
+    
     public SortedListInterface<Donee> getDonees() {
         return doneeList;
     }
-
+    
     public SortedListInterface<DonationDistribution> getinitializeDonationDistributions() {
         return donationDistribution;
     }
@@ -596,5 +578,7 @@ public class Initializer {
     public SortedListInterface<Donation> getDonation() {
         return donations;
     }
+
+
 
 }

@@ -1,61 +1,28 @@
 package entity;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Iterator;
+import adt.SortedListInterface;
 
 public class DonationDistribution implements Comparable<DonationDistribution> {
 
-    private String distributionId;
-    private Donation donation;
-    private String address;
-    private Donee donee; 
+    private int distributionId;
     private Date date;
-    private static int distributionCount = 0; 
+    private SortedListInterface<Donation> donations;
+    private SortedListInterface<Donee> donees;
 
-    
-    public DonationDistribution(Donation donation, String address, Donee donee) { 
-        this.distributionId = generateDistributionId();
-        this.donation = donation;
-        this.address = address;
-        this.donee = donee; 
-        this.date = new Date(); 
+    public DonationDistribution(int distributionId, Date date, SortedListInterface<Donation> donations, SortedListInterface<Donee> donees) {
+        this.distributionId = distributionId;
+        this.date = date;
+        this.donations = donations;
+        this.donees = donees;
     }
 
-  
-    private String generateDistributionId() {
-     
-        distributionCount++;
-        return String.format("DS%03d", distributionCount);
-    }
-
-    // Getters and setters
-    public String getDistributionId() {
+    public int getDistributionId() {
         return distributionId;
     }
 
-    public Donation getDonation() {
-        return donation;
-    }
-
-    public void setDonation(Donation donation) {
-        this.donation = donation;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public Donee getDonee() {
-        return donee;
-    }
-
-    public void setDonee(Donee donee) {
-        this.donee = donee;
+    public void setDistributionId(int distributionId) {
+        this.distributionId = distributionId;
     }
 
     public Date getDate() {
@@ -66,34 +33,26 @@ public class DonationDistribution implements Comparable<DonationDistribution> {
         this.date = date;
     }
 
-    // Method to return formatted date as a String
-    public String getFormattedDate() {
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yy HH:mm:ss");  // Includes time
-        return sdf.format(date);
+    public SortedListInterface<Donation> getDonations() {
+        return donations;
     }
 
-    @Override
-public String toString() {
-    return String.format(
-        "Distribution ID: %s | Donor: %s | Donation ID: %s | Address: %s | Donee: %s | Date: %s",
-        distributionId,
-        (donation != null && donation.getDonor() != null) ? donation.getDonor().getName() : "N/A",
-        (donation != null) ? donation.getDonationId() : "N/A",
-        (address != null && !address.isEmpty()) ? address : "N/A",
-        (donee != null) ? donee.getDoneeName() : "N/A",
-        getFormattedDate()
-    );
-}
+    public void setDonations(SortedListInterface<Donation> donations) {
+        this.donations = donations;
+    }
 
+    public SortedListInterface<Donee> getDonees() {
+        return donees;
+    }
 
-
-
-
-
+    public void setDonees(SortedListInterface<Donee> donees) {
+        this.donees = donees;
+    }
 
 
     @Override
-    public int compareTo(DonationDistribution o) {
-        return this.distributionId.compareTo(o.distributionId);
+    public int compareTo(DonationDistribution other) {
+        return Integer.compare(this.distributionId, other.distributionId);
     }
+
 }

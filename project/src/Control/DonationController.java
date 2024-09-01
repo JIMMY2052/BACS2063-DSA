@@ -16,8 +16,6 @@ import entity.Donation;
 import entity.DonatedItem;
 import entity.Donor;
 import entity.Event;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Scanner;
@@ -709,76 +707,69 @@ public class DonationController {
         pressEnterContinue();
     }
 
-// ------------- Generate Top Donated Items Report ------------------------------
+    // ------------- Generate Top Donated Items Report ------------------------------
     private void generateTopDonatedItemsReport() {
         clearScreen();
-        String charityName = "HopeFund Donation Foundation";
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("EEEE, MMMM dd yyyy, hh:mm a");
-        String generatedDate = now.format(formatter);
+        System.out.println("Top Donated Items Report");
+        System.out.println("========================");
 
-        donationUI.reportHeader(charityName, generatedDate);
-
-        // List to aggregate unique donated items
+        // Use a SortedArrayList to store unique DonatedItem objects
         SortedListInterface<DonatedItem> aggregatedItems = new SortedArrayList<>();
 
-        // Iterate through all donations to aggregate item quantities
+        // Iterate through all donations and aggregate item quantities
         Iterator<Donation> donationIterator = allDonations.getIterator();
         while (donationIterator.hasNext()) {
             Donation donation = donationIterator.next();
+            SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
 
-            // Only consider food donations for the report
-            if (donation.getCategory().equals("F")) {
-                SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
+            for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
+                DonatedItem currentItem = donatedItems.getEntry(i);
+                String currentItemName = currentItem.getItemName();
+                double currentQuantity = currentItem.getQuantity();
+                String currentItemUnit = currentItem.getUnit();
 
-                for (int i = 0; i < donatedItems.getNumberOfEntries(); i++) {
-                    DonatedItem currentItem = donatedItems.getEntry(i);
-                    String currentItemName = currentItem.getItemName();
-                    double currentQuantity = currentItem.getQuantity();
-                    String currentItemUnit = currentItem.getUnit();
-
-                    // Find the item in the aggregated list
-                    boolean itemFound = false;
-                    for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
-                        DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
-                        if (aggregatedItem.getItemName().equalsIgnoreCase(currentItemName)) {
-                            // Item already exists in the list, so update its quantity
-                            aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
-                            itemFound = true;
-                            break;
-                        }
+                // Check if the item already exists in aggregatedItems
+                boolean itemExists = false;
+                for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
+                    DonatedItem aggregatedItem = aggregatedItems.getEntry(j);
+                    if (aggregatedItem.getItemName().equals(currentItemName)) {
+                        aggregatedItem.setQuantity(aggregatedItem.getQuantity() + currentQuantity);
+                        itemExists = true;
+                        break;
                     }
+                }
 
-                    // If item is not found in the aggregated list, add it
-                    if (!itemFound) {
-                        DonatedItem newItem = new DonatedItem(currentItemName, currentQuantity, currentItemUnit);
-                        aggregatedItems.add(newItem);
-                    }
+                // If the item does not exist, add it to the list
+                if (!itemExists) {
+                    aggregatedItems.add(new DonatedItem(currentItemName, currentQuantity, currentItemUnit));
                 }
             }
         }
 
-        // Manually sort the aggregated items by quantity in descending order using bubble sort
-        for (int i = 0; i < aggregatedItems.getNumberOfEntries() - 1; i++) {
-            for (int j = 0; j < aggregatedItems.getNumberOfEntries() - 1 - i; j++) {
+        // Find and display the top 10 donated items
+        int topN = 10; // Number of top items to display
+        System.out.printf("%-20s %s\n", "Item Name", "Total Quantity");
+        System.out.println("-------------------- --------------------");
+
+        for (int i = 0; i < topN && i < aggregatedItems.getNumberOfEntries(); i++) {
+            DonatedItem topItem = null;
+            int topIndex = -1;
+
+            // Find the item with the highest quantity
+            for (int j = 0; j < aggregatedItems.getNumberOfEntries(); j++) {
                 DonatedItem currentItem = aggregatedItems.getEntry(j);
-                DonatedItem nextItem = aggregatedItems.getEntry(j + 1);
-
-                if (currentItem.getQuantity() < nextItem.getQuantity()) {
-                    // Swap the items
-                    aggregatedItems.replace(j, nextItem);
-                    aggregatedItems.replace(j + 1, currentItem);
+                if (topItem == null || currentItem.getQuantity() > topItem.getQuantity()) {
+                    topItem = currentItem;
+                    topIndex = j;
                 }
+
+            // Print and remove the top item
+            if (topItem != null) {
+                System.out.printf("%-20s %.2f\n", topItem.getItemName(), topItem.getQuantity());
+                aggregatedItems.remove(topIndex);
             }
         }
-
-        // Display the sorted top donated items
-        System.out.println("Item Name\t\tTotal Quantity\t\tUnit");
-        System.out.println("-------------------------------------------------");
-        for (int i = 0; i < aggregatedItems.getNumberOfEntries(); i++) {
-            DonatedItem item = aggregatedItems.getEntry(i);
-            System.out.printf("%-15s\t%-15.2f\t%-10s\n", item.getItemName(), item.getQuantity(), item.getUnit());
-        }
+    }
 
         pressEnterContinue();
     }

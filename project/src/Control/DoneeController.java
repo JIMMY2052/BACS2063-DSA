@@ -15,6 +15,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import utility.MessageUI;
 
+
 /**
  *
  * @author Jia Qian
@@ -24,11 +25,12 @@ public class DoneeController {
     private SortedListInterface<Donee> doneeList;
     private SortedListInterface<DonationDistribution> doneeDDistributionList;
     private final DoneeManagementUI doneeUI = new DoneeManagementUI();
-
+    
     public DoneeController(SortedListInterface<Donee> doneeList, SortedListInterface<DonationDistribution> doneeDDistributionList) {
         this.doneeList = doneeList;
         this.doneeDDistributionList = doneeDDistributionList;
     }
+
 
     public void runDoneeManagement() {
         int choice;
@@ -119,86 +121,90 @@ public class DoneeController {
     }
 
 // Find Donee By ID
-    private Donee findDoneeByID(String doneeID) {
-        for (int i = 0; i < doneeList.getNumberOfEntries(); i++) {
-            Donee donee = doneeList.getEntry(i);
-            if (doneeID.equals(donee.getDoneeId())) { // Compare as Strings
-                return donee;
-            }
+private Donee findDoneeByID(String doneeID) {
+    for (int i = 0; i < doneeList.getNumberOfEntries(); i++) {
+        Donee donee = doneeList.getEntry(i);
+        if (doneeID.equals(donee.getDoneeId())) { // Compare as Strings
+            return donee;
         }
-        return null; // Return null if no matching Donee is found
     }
+    return null; // Return null if no matching Donee is found
+}
 
-    private String getAllDonees() {
-        StringBuilder outputStr = new StringBuilder();
-        for (int i = 0; i < doneeList.getNumberOfEntries(); i++) {
-            Donee donee = doneeList.getEntry(i);
-            String formattedDateAdded = donee.getDateAdded().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
-
-            outputStr.append(String.format("%-10s %-40s %-15s %-20s\n",
-                    donee.getDoneeId(),
-                    donee.getDoneeName(),
-                    donee.getDoneeContactNo(),
-                    formattedDateAdded));
-        }
-        return outputStr.toString();
-    }
-
-    private String getAllDoneesDDistribution() {
-        StringBuilder outputStr = new StringBuilder();
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-
-        // Get the Donee ID from user input
-        String doneeID = doneeUI.inputDoneeID();
-        Donee donee = findDoneeByID(doneeID);
-
-        // Append donee details
-        outputStr.append(String.format("Donee ID: %-10s\nName: %s\nContact Number: %s\n\n",
-                donee.getDoneeId(),
+private String getAllDonees() {
+    StringBuilder outputStr = new StringBuilder();
+    for (int i = 0; i < doneeList.getNumberOfEntries(); i++) {
+        Donee donee = doneeList.getEntry(i);
+        String formattedDateAdded = donee.getDateAdded().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
+        
+        outputStr.append(String.format("%-10s %-40s %-15s %-20s\n",
+                donee.getDoneeId(), 
                 donee.getDoneeName(),
-                donee.getDoneeContactNo()));
-        outputStr.append("History: \n\n");
-        // Retrieve the Donation Distribution for the specific donee
-        DonationDistribution donationDistribution = getDonationDistributionByDoneeID(doneeID); // Add this method to retrieve the distribution
+                donee.getDoneeContactNo(),
+                formattedDateAdded));
+    }
+    return outputStr.toString();
+}
 
-        if (donationDistribution != null) {
-            // Append Donation History
-            for (int i = 0; i < donationDistribution.getDonations().getNumberOfEntries(); i++) {
-                Donation donation = donationDistribution.getDonations().getEntry(i);
-                outputStr.append("Donation ID: ").append(donation.getDonationId()).append("\n")
-                        .append("Date: ").append(formatter.format(donation.getDate())).append("\n");
+private String getAllDoneesDDistribution() {
+    StringBuilder outputStr = new StringBuilder();
+    SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm");
+    
+    // Get the Donee ID from user input
+    String doneeID = doneeUI.inputDoneeID();
+    Donee donee = findDoneeByID(doneeID);
 
-                SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
-                for (int j = 0; j < donatedItems.getNumberOfEntries(); j++) {
-                    DonatedItem item = donatedItems.getEntry(j);
-                    outputStr.append("\tItem: ").append(item.getItemName())
-                            .append(", Quantity: ").append(item.getQuantity())
-                            .append("\n");
-                }
-                outputStr.append("\n");
+
+    // Append donee details
+    outputStr.append(String.format("Donee ID: %-10s\nName: %s\nContact Number: %s\n\n",
+            donee.getDoneeId(),
+            donee.getDoneeName(),
+            donee.getDoneeContactNo()));
+    outputStr.append("History: \n\n");
+    // Retrieve the Donation Distribution for the specific donee
+    DonationDistribution donationDistribution = getDonationDistributionByDoneeID(doneeID); // Add this method to retrieve the distribution
+
+    if (donationDistribution != null) {
+        // Append Donation History
+        for (int i = 0; i < donationDistribution.getDonations().getNumberOfEntries(); i++) {
+            Donation donation = donationDistribution.getDonations().getEntry(i);
+            outputStr.append("Donation ID: ").append(donation.getDonationId()).append("\n")
+                      .append("Date: ").append(formatter.format(donation.getDate())).append("\n");
+                      
+            
+            SortedListInterface<DonatedItem> donatedItems = donation.getDonatedItems();
+            for (int j = 0; j < donatedItems.getNumberOfEntries(); j++) {
+                DonatedItem item = donatedItems.getEntry(j);
+                outputStr.append("\tItem: ").append(item.getItemName())
+                          .append(", Quantity: ").append(item.getQuantity())
+                          .append("\n");
             }
-        } else {
-            outputStr.append("No donations found for this donee.\n");
+            outputStr.append("\n");
         }
-
-        return outputStr.toString();
+    } else {
+        outputStr.append("No donations found for this donee.\n");
     }
 
-    private DonationDistribution getDonationDistributionByDoneeID(String doneeID) {
-        for (int i = 0; i < doneeDDistributionList.getNumberOfEntries(); i++) {
-            DonationDistribution distribution = doneeDDistributionList.getEntry(i);
+    return outputStr.toString();
+}
 
-            // Check if the doneeID exists in the distribution's donees
-            for (int j = 0; j < distribution.getDonees().getNumberOfEntries(); j++) {
-                Donee donee = distribution.getDonees().getEntry(j);
-                if (donee.getDoneeId().equals(doneeID)) { // Use .equals() for String comparison
-                    return distribution; // Return the matching distribution
-                }
+private DonationDistribution getDonationDistributionByDoneeID(String doneeID) {
+    for (int i = 0; i < doneeDDistributionList.getNumberOfEntries(); i++) {
+        DonationDistribution distribution = doneeDDistributionList.getEntry(i);
+        
+        // Check if the doneeID exists in the distribution's donees
+        for (int j = 0; j < distribution.getDonees().getNumberOfEntries(); j++) {
+            Donee donee = distribution.getDonees().getEntry(j);
+            if (donee.getDoneeId().equals(doneeID)) { // Use .equals() for String comparison
+                return distribution; // Return the matching distribution
             }
         }
-
-        return null; // Return null if no distribution is found for the doneeID
     }
+    
+    return null; // Return null if no distribution is found for the doneeID
+}
+
+
 
     public void displayReports() {
         doneeUI.listAllDonee(getAllDonees());
@@ -206,7 +212,7 @@ public class DoneeController {
         Donee recentAddedDonee = getRecentAddedDonee();
         doneeUI.displayReport(totalDonee, recentAddedDonee);
     }
-
+    
     public Donee getRecentAddedDonee() {
         if (doneeList.isEmpty()) {
             return null; // No courses in the list
