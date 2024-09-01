@@ -12,7 +12,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
     private T[] array;
     private int numberOfEntries;
     private static final int DEFAULT_CAPACITY = 10;
-    private static final int MAX_CAPACITY = 1000;
 
     public SortedArrayList() {
         array = (T[]) new Comparable[DEFAULT_CAPACITY];
@@ -185,10 +184,7 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
 
     // Double the capacity of the array if it's full
     private void doubleCapacity() {
-        int newLength = Math.min(array.length * 2, MAX_CAPACITY);
-        if (newLength <= array.length) {
-            throw new IllegalStateException("Cannot create a list larger than " + MAX_CAPACITY);
-        }
+        int newLength = array.length * 2;
         array = Arrays.copyOf(array, newLength);
     }
 }
