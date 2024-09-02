@@ -371,7 +371,7 @@ public class DonorUI {
             name = scanner.nextLine();
             if(name.equals("0")) {
                 return name;
-            }else if(name.length() < 4 && !name.matches("[a-zA-Z]+")) {
+            }else if(name.length() < 4) {
                 System.out.println("Opps!! The donor name entered must be equal or over 4 letters and all characters.");
             }
         }while(name.length() < 4);
