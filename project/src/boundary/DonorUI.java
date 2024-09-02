@@ -39,6 +39,7 @@ public class DonorUI {
                 }else{
                     System.out.println("You entered an invalid input!! Please enter only from 0 to 6.");
                     scanner.next();
+                    
                 }
                 
                 if (option < 0 || option > 6) {
