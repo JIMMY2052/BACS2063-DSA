@@ -275,24 +275,25 @@ public class DonorUI {
                         + "|  1. Donor Name                               |\n"
                         + "|  2. Donor Contact Number                     |\n"
                         + "|  3. Donor Category                           |\n"
+                        + "|  4. Donor Type                               |\n"
                         + "|  0. Exit                                     |\n"
                         + "+----------------------------------------------+\n");
-                System.out.print("Choose one to update (0-3): ");
+                System.out.print("Choose one to update (0-4): ");
                 
                 if(scanner.hasNextLine()){
                     option = scanner.nextInt();
                     scanner.nextLine();
                     isValid = true;
                 }else{
-                    System.out.print("Invalid option! Please select a number between 0 and 3 : ");
+                    System.out.print("Invalid option! Please select a number between 0 and 4 : ");
                     scanner.next();
                 }
                 
-                if (option < 0 || option > 3) {
-                    System.out.print("Invalid option! Please select a number between 0 and 3 : ");
+                if (option < 0 || option > 4) {
+                    System.out.print("Invalid option! Please select a number between 0 and 4 : ");
                 }
 
-            } while (option < 0 || option > 3);
+            } while (option < 0 || option > 4);
         }
         
         
@@ -370,7 +371,7 @@ public class DonorUI {
             name = scanner.nextLine();
             if(name.equals("0")) {
                 return name;
-            }else if(name.length() < 4 || !name.matches("[a-zA-Z]+")) {
+            }else if(name.length() < 4 && !name.matches("[a-zA-Z]+")) {
                 System.out.println("Opps!! The donor name entered must be equal or over 4 letters and all characters.");
             }
         }while(name.length() < 4);

@@ -97,7 +97,7 @@ public class DonorController {
                     ++found;
                     donorUI.displayDonorDetail();
                     System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
-                    System.out.println("============================================================================================\n");
+                    System.out.println("=================================================================================================\n");
                     break;
                 }
             }
@@ -140,10 +140,8 @@ public class DonorController {
                 }
                 
             }
-            if (isSuccess == true) {
+            if (isSuccess) {
                 System.out.println("Remove the donor successfully.");
-            }else {
-                System.out.println("Opps!! Invalid Input. Please Try Again.");
             }
 
 
@@ -154,7 +152,7 @@ public class DonorController {
 
     public void updateDonorDetails() {
         int exit, option, count;
-        String id, name = "", contactNo = "", category = "", gender = "";
+        String id, name = "", contactNo = "", category = "", type = "";
         boolean isSuccess = false;
 
         do {
@@ -194,7 +192,14 @@ public class DonorController {
                     }
                     break;
                 }
-
+                case 4: {
+                    type = donorUI.inputDonorType();
+                    if (type.equals("0")) {
+                        clearScreen();
+                        break;
+                    }
+                    break;
+                }
             }
             if (donorUI.inputConfirmation("update the donor detail")) {
                 Iterator<Donor> getDonor = donor.getIterator();
@@ -207,21 +212,28 @@ public class DonorController {
                             donorObject.setName(name);
                             donorUI.displayDonorDetail();
                             System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
-                            System.out.println("============================================================================================\n");
+                            System.out.println("=================================================================================================\n");
                             break;
                         }
                         if (option == 2) {
                             donorObject.setContactNo(contactNo);
                             donorUI.displayDonorDetail();
                             System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
-                            System.out.println("============================================================================================\n");
+                            System.out.println("=================================================================================================\n");
                             break;
                         }
                         if (option == 3) {
                             donorObject.setCategory(category);
                             donorUI.displayDonorDetail();
                             System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
-                            System.out.println("============================================================================================\n");
+                            System.out.println("=================================================================================================\n");
+                            break;
+                        }
+                        if (option == 4) {
+                            donorObject.setType(type);
+                            donorUI.displayDonorDetail();
+                            System.out.printf(" %-12s|  %-28s| %-16s| %-12s| %-14s\n", donorObject.getDonorId(), donorObject.getName(), donorObject.getContactNo(), donorObject.getCategory(), donorObject.getType());
+                            System.out.println("=================================================================================================\n");
                             break;
                         }
                     }
@@ -579,7 +591,7 @@ public class DonorController {
     }
 
     public void generateAnualReport() {
-        int january = 0, february = 0, march = 0, april = 0, may = 0, june = 0, july = 0, august = 0, september = 0, octobor = 0, november = 0, december = 0;
+        int january = 0, february = 0, march = 0, april = 0, may = 0, june = 0, july = 0, august = 0, september = 0, october = 0, november = 0, december = 0;
         
         LocalDateTime currentDateTime = LocalDateTime.now();
         donorUI.reportDonorMenu();
@@ -613,8 +625,8 @@ public class DonorController {
                     august++;
                 } else if (donorObject.getDate().equals("september")) {
                     september++;
-                } else if (donorObject.getDate().equals("octobor")) {
-                    octobor++;
+                } else if (donorObject.getDate().equals("october")) {
+                    october++;
                 } else if (donorObject.getDate().equals("november")) {
                     november++;
                 } else if (donorObject.getDate().equals("december")) {
@@ -623,7 +635,7 @@ public class DonorController {
             }
 
             int[] counts = {
-                january, february, march, april, may, june, july, august, september, octobor, november, december
+                january, february, march, april, may, june, july, august, september, october, november, december
             };
             String[] months = {
                 "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"
