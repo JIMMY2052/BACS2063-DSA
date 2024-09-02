@@ -41,18 +41,22 @@ public class DonorController {
             donorUI.addDonorMenu();
             String name = donorUI.inputDonorName();
             if (name.equals("0")) {
+                clearScreen();
                 break;
             }
             String contactNo = donorUI.inputDonorContactNo();
             if (contactNo.equals("0")) {
+                clearScreen();
                 break;
             }
             String category = donorUI.inputDonorCategory();
             if (category.equals("0")) {
+                clearScreen();
                 break;
             }
             String type = donorUI.inputDonorType();
             if (type.equals("0")) {
+                clearScreen();
                 break;
             }
 
@@ -75,7 +79,7 @@ public class DonorController {
         
     }
 
-    public int searchDonor() {
+    public void searchDonor() {
         int exit, found = 0;
         String id;
 
@@ -83,7 +87,8 @@ public class DonorController {
             donorUI.searchDonorMenu();
             id = donorUI.inputDonorId();
             if (id.equals("0")) {
-                return exit = 0;
+                clearScreen();
+                break;
             }
             Iterator<Donor> getDonor = donor.getIterator();
             while (getDonor.hasNext()) {
@@ -101,9 +106,9 @@ public class DonorController {
             }
 
             exit = donorUI.inputExitPage();
+            clearScreen();
         } while (exit == 0);
 
-        return exit;
     }
 
     public void removeDonor() {
@@ -115,6 +120,7 @@ public class DonorController {
             donorUI.removeDonorMenu();
             id = donorUI.inputDonorId();
             if (id.equals("0")) {
+                clearScreen();
                 break;
             }
             
@@ -142,10 +148,11 @@ public class DonorController {
 
 
             exit = donorUI.inputExitPage();
+            clearScreen();
         } while (exit == 0);
     }
 
-    public int updateDonorDetails() {
+    public void updateDonorDetails() {
         int exit, option, count;
         String id, name = "", contactNo = "", category = "", gender = "";
         boolean isSuccess = false;
@@ -154,31 +161,36 @@ public class DonorController {
             donorUI.updateDonorMenu();
             id = donorUI.inputDonorId();
             if (id.equals("0")) {
-                return exit = 1;
+                clearScreen();
+                break;
             }
             option = donorUI.updateMenu();
             if (option == 0) {
-                return exit = 1;
+                clearScreen();
+                break;
             }
             switch (option) {
                 case 1: {
                     name = donorUI.inputDonorName();
                     if (name.equals("0")) {
-                        return exit = 1;
+                        clearScreen();
+                        break;
                     }
                     break;
                 }
                 case 2: {
                     contactNo = donorUI.inputDonorContactNo();
                     if (contactNo.equals("0")) {
-                        return exit = 1;
+                        clearScreen();
+                        break;
                     }
                     break;
                 }
                 case 3: {
                     category = donorUI.inputDonorCategory();
                     if (category.equals("0")) {
-                        return exit = 1;
+                        clearScreen();
+                        break;
                     }
                     break;
                 }
@@ -219,9 +231,8 @@ public class DonorController {
             }
 
             exit = donorUI.inputExitPage();
+            clearScreen();
         } while (exit == 0);
-
-        return exit;
     }
 
     public void listDonor() {
@@ -231,14 +242,18 @@ public class DonorController {
             option = donorUI.listMenu();
             switch (option) {
                 case 1:
+                    clearScreen();
                     listWithDonation();
                     break;
                 case 2:
+                    clearScreen();
                     filterDonor();
                     break;
                 case 3:
+                    clearScreen();
                     listAllDonor();
                 case 0:
+                    clearScreen();
                     break;
             }
         } while (option != 0);
@@ -255,6 +270,8 @@ public class DonorController {
             }
         }
         System.out.println("=================================================================================================\n");
+        pressEnterContinue();
+        clearScreen();
     }
 
     public void listWithDonation() {
@@ -353,6 +370,8 @@ public class DonorController {
                 
             }
             System.out.println("========================================================================================================\n");
+            pressEnterContinue();
+            clearScreen();
         }
     }
 
@@ -364,6 +383,7 @@ public class DonorController {
             option = donorUI.filterMenu();
             
             if(option == 0){
+                clearScreen();
                 break;
             }else if (donor.isEmpty()) {
                 System.out.println("Opps!! There is no donor in the list.");
@@ -373,9 +393,12 @@ public class DonorController {
                     Donor donorObject = getDonor.next();
                     if (option == 1) {
                         do{
-                            System.out.print("Enter the donor category that wanted to list: ");
+                            System.out.print("Enter the donor category that wanted to list (Exit = 0): ");
                             category = scanner.nextLine();
-                            if (!category.equals("public") && !category.equals("private") && !category.equals("government")) {
+                            if(category.equals("0")){
+                                clearScreen();
+                                break;
+                            }else if (!category.equals("public") && !category.equals("private") && !category.equals("government")) {
                                 System.out.println("Please only input public, private or government.\n");
                             }else{
                                 donorUI.displayDonorDetail();
@@ -388,9 +411,12 @@ public class DonorController {
                     }
                     if (option == 2) {
                         do{
-                            System.out.print("Enter the donor type that wanted to list: ");
+                            System.out.print("Enter the donor type that wanted to list (Exit = 0): ");
                             type = scanner.nextLine();
-                            if(!type.equals("individual") && !type.equals("organization")){
+                            if(type.equals("0")){
+                                clearScreen();
+                                break;
+                            }else if(!type.equals("individual") && !type.equals("organization")){
                                 System.out.println("Please only input individual or organization.\n");
                             }else{
                                 donorUI.displayDonorDetail();
@@ -403,9 +429,12 @@ public class DonorController {
                     }
                     if(option == 3){
                         do{
-                            System.out.print("Enter the month that donor registered to list (eg. january) : ");
+                            System.out.print("Enter the month that donor registered to list (eg. january) (Exit = 0): ");
                             month = scanner.nextLine().toLowerCase();
-                            if(!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")){
+                            if(month.equals("0")){
+                                clearScreen();
+                                break;
+                            }else if(!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")){
                                 System.out.println("Please only input month with required format. (eg. january)\n");
                             }else{
                                 donorUI.displayDonorDetail();
@@ -419,6 +448,7 @@ public class DonorController {
             }
 
             exit = donorUI.inputExitPage();
+            clearScreen();
         } while (exit == 0);
     }
 
@@ -465,12 +495,15 @@ public class DonorController {
             option = donorUI.monthlyDonorReportMenu();
             switch(option){
                 case 1:
+                    clearScreen();
                     generateMonthlyReport();
                     break;
                 case 2:
+                    clearScreen();
                     generateAnualReport();
                     break;
                 case 0:
+                    clearScreen();
                     break;
                 default:
                     System.out.println("Please enter a valid input!!\n");
@@ -485,9 +518,12 @@ public class DonorController {
         LocalDateTime currentDateTime = LocalDateTime.now();
         
         do{
-            System.out.print("Enter the month that wanted to generate (eg. january): ");
+            System.out.print("Enter the month that wanted to generate (eg. january) (Exit = 0): ");
             month = scanner.nextLine().toLowerCase();
-            if (!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")) {
+            if(month.equals("0")){
+                clearScreen();
+                break;
+            }else if (!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")) {
                 System.out.println("Please only input month with required format. (eg. january)\n");
             }else{
                 donorUI.monthlyReportMenu(month);
@@ -527,6 +563,8 @@ public class DonorController {
                 System.out.printf("Total Number Of Donor In Individual Type Registered: %d \n", totalIndividual);
                 System.out.printf("Total Number Of Donor In Organization Type Registered: %d \n\n", totalOrganization);
                 System.out.println("=====================================================================================================================\n");
+                pressEnterContinue();
+                clearScreen();
             }
         }while(!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december"));
         
@@ -589,62 +627,13 @@ public class DonorController {
             };
 
             donorUI.monthlyRegisterMenu(months, counts);
-//                Iterator<Donor> getDonor = donor.getIterator();
-//                Iterator<Donation> getDonation = donation.getIterator();
-//                while (getDonor.hasNext()) {
-//                    Donor donorObject = getDonor.next();
-//
-//                    while (getDonation.hasNext()) {
-//                        Donation donationObject = getDonation.next();
-//                        if (donationObject.getDonor().getCategory().equals("public")) {
-//                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-//                            while (itDonatedItem.hasNext()) {
-//                                DonatedItem item = itDonatedItem.next();
-//                                if (item.getUnit().equals("KG")) {
-//                                    publicTotalKG += item.getQuantity();
-//                                } else if (item.getUnit().equals("L")) {
-//                                    publicTotalL += item.getQuantity();
-//                                } else if (item.getUnit().equals("RM")) {
-//                                    publicTotalRM += item.getQuantity();
-//                                }
-//                            }
-//                        }
-//                        if (donationObject.getDonor().getCategory().equals("private")) {
-//                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-//                            while (itDonatedItem.hasNext()) {
-//                                DonatedItem item = itDonatedItem.next();
-//                                if (item.getUnit().equals("KG")) {
-//                                    privateTotalKG += item.getQuantity();
-//                                } else if (item.getUnit().equals("L")) {
-//                                    privateTotalL += item.getQuantity();
-//                                } else if (item.getUnit().equals("RM")) {
-//                                    privateTotalRM += item.getQuantity();
-//                                }
-//                            }
-//                        }
-//                        if (donationObject.getDonor().getCategory().equals("government")) {
-//                            Iterator<DonatedItem> itDonatedItem = donationObject.getDonatedItems().getIterator();
-//                            while (itDonatedItem.hasNext()) {
-//                                DonatedItem item = itDonatedItem.next();
-//                                if (item.getUnit().equals("KG")) {
-//                                    govermentTotalKG += item.getQuantity();
-//                                } else if (item.getUnit().equals("L")) {
-//                                    governmentTotalL += item.getQuantity();
-//                                } else if (item.getUnit().equals("RM")) {
-//                                    governmentTotalRM += item.getQuantity();
-//                                }
-//                            }
-//                        }
-//                    }
-//                    System.out.println("Public:\n" + "KG: " + publicTotalKG + "\n" + "L: " + publicTotalL + "\n" + "RM: " + publicTotalRM + "\n\n");
-//                    System.out.println("Private:\n" + "KG: " + privateTotalKG + "\n" + "L: " + privateTotalL + "\n" + "RM: " + privateTotalRM + "\n\n");
-//                    System.out.println("Government:\n" + "KG: " + govermentTotalKG + "\n" + "L: " + governmentTotalL + "\n" + "RM: " + governmentTotalRM + "\n\n");
-//                    break;
-//                }
+            pressEnterContinue();
+            clearScreen();
+
         }
     }
     
-    private static void clearScreen() {
+    public static void clearScreen() {
         try {
             Robot rob = new Robot();
             try {
@@ -676,25 +665,31 @@ public class DonorController {
             clearScreen();
             switch (option) {
                 case 1:
+                    clearScreen();
                     addDonor();
                     break;
                 case 2:
+                    clearScreen();
                     removeDonor();
                     break;
                 case 3:
+                    clearScreen();
                     updateDonorDetails();
                     break;
                 case 4:
+                    clearScreen();
                     searchDonor();
                     break;
                 case 5:
+                    clearScreen();
                     listDonor();
                     break;
                 case 6:
+                    clearScreen();
                     listReport();
                     break;
                 case 0:
-                    
+                    clearScreen();
                     break;
                 default:
                     System.out.println("Please enter a valid input!!\n");
