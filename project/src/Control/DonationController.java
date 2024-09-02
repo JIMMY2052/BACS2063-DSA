@@ -333,10 +333,11 @@ public class DonationController {
     }
 
     private void printOnlyDonationDetails(Donation donation) {
-        System.out.printf("|%-18s| %-18s| %-18s|",
+        System.out.printf("|%-18s| %-18s| %-18s| %-20s|",
                 donation.getDonationId(),
                 donation.getFormattedDate(),
-                donation.getDonor().getName());
+                donation.getDonor().getName(),
+                donation.getEvent());
         System.out.printf(" %-18s|%-18s| \n", "", "");
     }
 //------------- Update Donation ------------------------------
@@ -562,8 +563,7 @@ public class DonationController {
                 opt = donationUI.areYouSureDonatedItem(itemNo);
 
             } while (opt == 0);
-            opt = opt -1;
-            donatedItemList.remove(opt);
+            donatedItemList.remove(itemNo-1);
             System.out.printf("Successfully removed item [%d]\n", itemNo);
         }
 
