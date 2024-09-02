@@ -43,7 +43,7 @@ public class DonationUI {
     //---------View Donation---------------------
 
     public void displayDonateFoodHeader() {
-        System.out.println("\t\tDONATE ITEM / FOOD");
+        System.out.println("\t\tDONATE ITEM");
         System.out.println("======================================================");
     }
 
@@ -98,7 +98,7 @@ public class DonationUI {
         int opt;
         System.out.println("\t\tMAKE DONATION");
         System.out.println("======================================================");
-        System.out.println("\t\t1. Donate Food or Item");
+        System.out.println("\t\t1. Donate Item");
         System.out.println("\t\t2. Donate Cash");
         System.out.println("\t\t0. Return Back to Previous Page");
         System.out.println("======================================================");

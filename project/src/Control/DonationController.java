@@ -151,7 +151,7 @@ public class DonationController {
         donationUI.displayDonateFoodHeader();
         donor.addDonation(donation);
         allDonations.add(donation);
-        System.out.printf("%s (%s) succesful make a item donation.\n", donor.getName(), donor.getDonorId());
+        System.out.printf("%s (%s) successful make a item donation.\n", donor.getName(), donor.getDonorId());
         System.out.println(donation);
         displayDonatedItems(donation);
         pressEnterContinue();
@@ -197,7 +197,7 @@ public class DonationController {
         donation.addDonatedItem(donatedItem);
         donor.addDonation(donation);
         allDonations.add(donation);
-        System.out.printf("%s (%s) succesful make a cash donation.\n", donor.getName(), donor.getDonorId());
+        System.out.printf("%s (%s) successful make a cash donation.\n", donor.getName(), donor.getDonorId());
         System.out.println(donation);
         displayDonatedItems(donation);
         pressEnterContinue();
@@ -562,7 +562,8 @@ public class DonationController {
                 opt = donationUI.areYouSureDonatedItem(itemNo);
 
             } while (opt == 0);
-            donatedItemList.remove(opt - 1);
+            opt = opt -1;
+            donatedItemList.remove(opt);
             System.out.printf("Successfully removed item [%d]\n", itemNo);
         }
 
