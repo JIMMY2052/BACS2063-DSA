@@ -10,17 +10,17 @@ public interface SortedListInterface<T extends Comparable<T>> {
 
     public boolean add(T newEntry); //JIMMY
 
-    public int search(T entry);
+    public int search(T entry);  // JIA QIAN
 
     public T remove(int givenPosition);
 
     public boolean clear(); //JIMMY
 
-    public boolean replace(int givenPosition, T newEntry);
+    public boolean replace(int givenPosition, T newEntry); //JIE YANG
 
     public T getEntry(int givenPosition);
 
-    public int getNumberOfEntries();
+    public int getNumberOfEntries();  // JIA QIAN
 
     public boolean isEmpty();
 
