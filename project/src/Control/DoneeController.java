@@ -422,7 +422,7 @@ public class DoneeController {
         Donee donee = findDoneeByID(doneeID);
 
         if (donee == null) {
-            return "Donee ID not found!";
+            return "Donee ID not found!\n";
         }
 
         // Append donee details
