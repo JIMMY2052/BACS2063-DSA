@@ -898,6 +898,7 @@ public class EventCtrl {
             findAllJoinVolunteer[i] = false;
         }
 
+        System.out.printf("\n================================Report=================================\n");
         for (int i = 0; i < eventList.getNumberOfEntries(); i++) {
             Event event = eventList.getEntry(i);
             SortedListInterface<Volunteer> eventVolunteerList = event.getVolunteerList();
@@ -912,9 +913,10 @@ public class EventCtrl {
                     findAllJoinVolunteer[index] = true;
                 }
             }
-
             if (numberOfVolunteers > 0) {
+                System.out.printf("\n=======================================================================");
                 System.out.println("\nEvent ID: " + event.getEventID() + ", Event Name: " + event.getEventName() + ", \nDeception: " + event.getEventDetail());
+                System.out.printf("-----------------------------------------------------------------------\n");
                 eventUI.listAllVolunteerHeader();
                 for (int j = 0; j < numberOfVolunteers; j++) {
                     Volunteer volunteer = eventVolunteerList.getEntry(j);
@@ -931,8 +933,9 @@ public class EventCtrl {
         }
 
         int totalNotJoinVolunteer = totalVolunteer - totalJoinVolunteer;
-
+        System.out.printf("\n-----------------------------------------------------------------------");
         System.out.printf("\nNumber of Volunteer Have Join Event: %-3d\n", totalJoinVolunteer);
         System.out.printf("Number of Volunteer Not Join Event (At Least One Event): %-3d\n", totalNotJoinVolunteer);
+        System.out.printf("-----------------------------------------------------------------------\n");
     }
 }
