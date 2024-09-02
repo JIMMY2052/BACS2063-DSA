@@ -12,7 +12,7 @@ public interface SortedListInterface<T extends Comparable<T>> {
 
     public int search(T entry);  // JIA QIAN
 
-    public T remove(int givenPosition); // KENG KEONG
+    public boolean remove(int givenPosition); // KENG KEONG
 
     public boolean clear(); //JIMMY
 
