@@ -49,7 +49,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         return -1; // Return -1 if the entry is not found
     }
 
-    // Remove an entry at a given position
     @Override
     public T remove(int givenPosition) {
         if (givenPosition >= 0 && givenPosition < numberOfEntries) {
@@ -136,7 +135,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
     }
 
-    // Replace an entry at a given position
     @Override
     public boolean replace(int givenPosition, T newEntry) {
         if (givenPosition >= 0 && givenPosition < numberOfEntries) {
@@ -147,7 +145,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
     }
 
-    // Get an entry at a given position
     @Override
     public T getEntry(int givenPosition) {
         if (givenPosition >= 0 && givenPosition < numberOfEntries) {
@@ -157,21 +154,17 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
     }
 
-    // Get the number of entries in the list
     @Override
     public int getNumberOfEntries() {
         return numberOfEntries;
     }
 
-    // Check if the list is empty
     @Override
     public boolean isEmpty() {
         return numberOfEntries == 0;
     }
 
-    // Check if the list is full
-    @Override
-    public boolean isFull() {
+    private boolean isFull() {
         return numberOfEntries >= array.length;
     }
 
@@ -184,7 +177,6 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
         }
     }
 
-    // Double the capacity of the array if it's full
     private void doubleCapacity() {
         int newLength = array.length * 2;
         array = Arrays.copyOf(array, newLength);
