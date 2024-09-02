@@ -27,7 +27,7 @@ import java.util.Scanner;
  * @author JIMMY
  */
 public class DonationController {
-j
+
     private Scanner sc = new Scanner(System.in);
 
     private SortedListInterface<Donor> allDonors = new SortedArrayList<>();
