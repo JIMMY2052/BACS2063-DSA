@@ -50,17 +50,15 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
     }
 
     @Override
-    public T remove(int givenPosition) {
+    public boolean remove(int givenPosition) {
         if (givenPosition >= 0 && givenPosition < numberOfEntries) {
-            T result = array[givenPosition];
-
             // Shift the elements to the left to fill the gap
             for (int i = givenPosition; i < numberOfEntries - 1; i++) {
                 array[i] = array[i + 1];
             }
             array[numberOfEntries - 1] = null;
             numberOfEntries--;
-            return result;
+            return true;
         } else {
             throw new IndexOutOfBoundsException("Invalid position given.");
         }
