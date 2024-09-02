@@ -24,8 +24,6 @@ public interface SortedListInterface<T extends Comparable<T>> {
 
     public boolean isEmpty();
 
-    public boolean isFull();
-
     public Iterator<T> getIterator(); //JIMMY
 
     public boolean remove(T entry); // JIE YANG
