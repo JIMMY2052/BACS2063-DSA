@@ -120,8 +120,17 @@ public class DonationUI {
     }
 
     public String inputFoodName() {
-        System.out.print("Enter item Name: ");
-        String foodName = sc.nextLine().trim();
+        String foodName;
+        while (true) {
+            System.out.print("Enter item Name: ");
+            foodName = sc.nextLine().trim();
+            if (foodName.isEmpty()) {
+                System.out.println("Error: Food Name should be empty character");
+            } else {
+                // Valid input, exit the loop
+                break;
+            }
+        }
         return foodName;
     }
 
@@ -149,9 +158,10 @@ public class DonationUI {
     }
 
     public String inputUnit() {
-        System.out.print("Enter the Unit(cm,m,kg,g): ");
-        String unit = sc.nextLine().trim();
+        String unit;
         while (true) {
+            System.out.print("Enter the Unit(cm,m,kg,g): ");
+            unit = sc.nextLine().trim();
             // Check if input is a number or contains any digits
             if (unit.matches(".*\\d.*")) {
                 System.out.println("Error: Unit cannot contain numbers. Please enter a valid unit.");
@@ -277,7 +287,7 @@ public class DonationUI {
     }
 
     public double inputNewItemQty(String string) {
-        double qty = -1;
+        double qty;
 
         while (true) {
             try {
@@ -302,9 +312,10 @@ public class DonationUI {
 
     public String inputNewItemUnit(String string) {
         String newItemUnit;
-        System.out.printf("Enter new item unit for [%s](Exit = 0) -> ", string);
-        newItemUnit = sc.nextLine().trim();
+
         while (true) {
+            System.out.printf("Enter new item unit for [%s](Exit = 0) -> ", string);
+            newItemUnit = sc.nextLine().trim();
             // Check if input is a number or contains any digits
             if (newItemUnit.matches(".*\\d.*")) {
                 System.out.println("Error: Unit cannot contain numbers. Please enter a valid unit.");
@@ -485,6 +496,5 @@ public class DonationUI {
         System.out.printf("\t\t%s\n", string);
         System.out.println("======================================================");
     }
-
 
 }
