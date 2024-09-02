@@ -10,6 +10,9 @@ import entity.Donation;
 import adt.SortedListInterface;
 import adt.SortedArrayList;
 import entity.DonatedItem;
+import java.awt.AWTException;
+import java.awt.Robot;
+import java.awt.event.KeyEvent;
 import java.util.Iterator;
 import java.util.Scanner;
 import java.time.*;
@@ -66,6 +69,7 @@ public class DonorController {
             }
             
             exit = donorUI.inputExitPage();
+            clearScreen();
         } while (exit == 0);
 
         
@@ -639,12 +643,37 @@ public class DonorController {
 //                }
         }
     }
+    
+    private static void clearScreen() {
+        try {
+            Robot rob = new Robot();
+            try {
+                rob.keyPress(KeyEvent.VK_CONTROL); // press "CTRL"
+                rob.keyPress(KeyEvent.VK_L); // press "L"
+                rob.keyRelease(KeyEvent.VK_L); // unpress "L"
+                rob.keyRelease(KeyEvent.VK_CONTROL); // unpress "CTRL"
+                Thread.sleep(50); // add delay in milisecond, if not there will automatically stop after clear
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
+    }
+    
+    public void pressEnterContinue() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Press [Enter] key to continue...");
+        sc.nextLine();
+        clearScreen();
+    }
 
     public void menu() {
         int option;
 
         do {
             option = donorUI.donorMenu();
+            clearScreen();
             switch (option) {
                 case 1:
                     addDonor();
