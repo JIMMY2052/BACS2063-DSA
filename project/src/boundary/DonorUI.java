@@ -319,12 +319,12 @@ public class DonorUI {
                     scanner.nextLine();
                     isValid = true;
                 }else{
-                    System.out.print("Invalid option! Please select 0 or 3 : ");
+                    System.out.print("Invalid option! Please select Again ");
                     scanner.next();
                 }
                 
                 if (option < 0 || option > 3) {
-                    System.out.print("Invalid option! Please select 0 or 3 : ");
+                    System.out.print("Invalid option! Please select Again ");
                 }
 
             } while (option < 0 || option > 3);
@@ -371,7 +371,7 @@ public class DonorUI {
             if(name.equals("0")) {
                 return name;
             }else if(name.length() < 4 || !name.matches("[a-zA-Z]+")) {
-                System.out.println("Opps!! The donor name must be equal or over 4 letters.");
+                System.out.println("Opps!! The donor name entered must be equal or over 4 letters and all characters.");
             }
         }while(name.length() < 4);
          

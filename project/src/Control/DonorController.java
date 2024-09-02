@@ -401,6 +401,7 @@ public class DonorController {
                             }else if (!category.equals("public") && !category.equals("private") && !category.equals("government")) {
                                 System.out.println("Please only input public, private or government.\n");
                             }else{
+                                clearScreen();
                                 donorUI.displayDonorDetail();
                                 filterByCategory(category);
                                 System.out.println("=================================================================================================\n");
@@ -419,6 +420,7 @@ public class DonorController {
                             }else if(!type.equals("individual") && !type.equals("organization")){
                                 System.out.println("Please only input individual or organization.\n");
                             }else{
+                                clearScreen();
                                 donorUI.displayDonorDetail();
                                 filterByType(type);
                                 System.out.println("=================================================================================================\n");
@@ -437,6 +439,7 @@ public class DonorController {
                             }else if(!month.equals("january") && !month.equals("february") && !month.equals("march") && !month.equals("april") && !month.equals("may") && !month.equals("june") && !month.equals("july") && !month.equals("august") && !month.equals("september") && !month.equals("october") && !month.equals("november") && !month.equals("december")){
                                 System.out.println("Please only input month with required format. (eg. january)\n");
                             }else{
+                                clearScreen();
                                 donorUI.displayDonorDetail();
                                 filterByMonth(month);
                                 System.out.println("=================================================================================================\n");
@@ -661,6 +664,7 @@ public class DonorController {
         int option;
 
         do {
+            
             option = donorUI.donorMenu();
             clearScreen();
             switch (option) {
