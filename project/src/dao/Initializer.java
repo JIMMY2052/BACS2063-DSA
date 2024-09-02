@@ -522,10 +522,10 @@ public class Initializer {
         Donation d3 = new Donation(donors.getEntry(2), "F", "EV002", new Date(2024 - 1900, 6, 15));
         Donation d4 = new Donation(donors.getEntry(3), "C", "EV004", new Date(2024 - 1900, 6, 18));
         Donation d5 = new Donation(donors.getEntry(4), "C", "EV004", new Date(2024 - 1900, 6, 28));
-        Donation d6 = new Donation(donors.getEntry(5), "F", "EV002", new Date(2024 - 1900, 8, 1));
-        Donation d7 = new Donation(donors.getEntry(6), "F", "EV002", new Date(2024 - 1900, 8, 2));
-        Donation d8 = new Donation(donors.getEntry(7), "F", "EV003", new Date(2024 - 1900, 8, 5));
-        Donation d9 = new Donation(donors.getEntry(8), "C", "EV005", new Date(2024 - 1900, 8, 10));
+        Donation d6 = new Donation(donors.getEntry(5), "F", "EV002", new Date(2024 - 1900, 7, 1));
+        Donation d7 = new Donation(donors.getEntry(6), "F", "EV002", new Date(2024 - 1900, 7, 2));
+        Donation d8 = new Donation(donors.getEntry(7), "F", "EV003", new Date(2024 - 1900, 7, 5));
+        Donation d9 = new Donation(donors.getEntry(8), "C", "EV005", new Date(2024 - 1900, 7, 10));
         Donation d10 = new Donation(donors.getEntry(9), "F", "EV002");
         Donation d11 = new Donation(donors.getEntry(10), "C", "EV005");
         Donation d12 = new Donation(donors.getEntry(11), "F", "EV003");
