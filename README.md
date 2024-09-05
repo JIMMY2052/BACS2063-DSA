@@ -1,4 +1,6 @@
-# Data Structure and Algorithm Assignment
+# Data Structure and Algorithm Assignment (Charity Donation System)
 
-Draw.io : [Class Diagram](https://drive.google.com/file/d/1FVRCWOjlSDaAMUcRRjPHeiPaUzt5vi2c/view?usp=sharing)<br>
-Google Docs : [ADT Specification](https://docs.google.com/document/d/11FhzJuJ80bGqomXfEjpHrp_3pxNup10ZFGDAAINgoN8/edit?usp=sharing)
+Collection: List (Sorted)
+Using array implemntation.
+
+
