@@ -12,9 +12,6 @@ import entity.Donor;
 import entity.Donee;
 import java.util.Iterator;
 import java.util.Scanner;
-import java.util.HashSet;
-import java.util.Set;
-import dao.Initializer;
 import entity.DonatedItem;
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -356,51 +353,69 @@ public class DonationDistributionController {
     }
 
     //------------- Generate Summary Reports ------------------------------
-    private void generateSummaryReports() {
-        System.out.println("Generating Summary Report...\n");
+   private void generateSummaryReports() {
+    System.out.println("Generating Summary Report...\n");
 
-        int totalDistributions = 0;
-        Set<String> donationIds = new HashSet<>();
-        int totalItemsDistributed = 0;
+    int totalDistributions = 0;
+    String[] processedDonationIds = new String[1000];  
+    int uniqueDonations = 0;
+    int totalItemsDistributed = 0;
 
-        System.out.println(new String(new char[55]).replace('\0', '-') + " Summary Report " + new String(new char[59]).replace('\0', '-'));
-        System.out.printf("%-20s | %-20s | %-20s | %-30s | %-20s\n",
-                "Distribution ID", "Donor", "Donee", "Address", "Date");
-        System.out.println(new String(new char[130]).replace('\0', '-'));
+    System.out.println(new String(new char[55]).replace('\0', '-') + " Summary Report " + new String(new char[59]).replace('\0', '-'));
+    System.out.printf("%-20s | %-20s | %-20s | %-30s | %-20s\n",
+            "Distribution ID", "Donor", "Donee", "Address", "Date");
+    System.out.println(new String(new char[130]).replace('\0', '-'));
 
-        Iterator<DonationDistribution> distributionIterator = allDistributions.getIterator();
-        while (distributionIterator.hasNext()) {
-            DonationDistribution distribution = distributionIterator.next();
-            totalDistributions++;
+    Iterator<DonationDistribution> distributionIterator = allDistributions.getIterator();
+    while (distributionIterator.hasNext()) {
+        DonationDistribution distribution = distributionIterator.next();
+        totalDistributions++;
 
-            Donation donation = distribution.getDonation();
-            donationIds.add(donation.getDonationId());
+        Donation donation = distribution.getDonation();
+        String donationId = donation.getDonationId();
 
-            Iterator<DonatedItem> itemIterator = donation.getDonatedItems().getIterator();
-            while (itemIterator.hasNext()) {
-                itemIterator.next();
-                totalItemsDistributed++;
+    
+        boolean isNewDonation = true;
+        for (int i = 0; i < uniqueDonations; i++) {
+            if (processedDonationIds[i].equals(donationId)) {
+                isNewDonation = false;
+                break;
             }
-
-            Donor donor = donation.getDonor();
-            Donee donee = distribution.getDonee();
-            String donorName = donor != null ? donor.getName() : "N/A";
-            String doneeName = donee != null ? donee.getDoneeName() : "N/A";
-            String address = distribution.getAddress() != null ? distribution.getAddress() : "N/A";
-            String date = distribution.getDate() != null ? distribution.getDate().toString() : "N/A";
-
-            System.out.printf("%-20s | %-20s | %-20s | %-30s | %-20s\n",
-                    distribution.getDistributionId(), donorName, doneeName, address, date);
         }
 
-        System.out.printf("\n\n\n\n\n\n\n\n\n\n");
-        System.out.println(new String(new char[57]).replace('\0', '-') + new String(new char[73]).replace('\0', '-'));
-        System.out.printf("Total Number of Distributions: %-20d\n", totalDistributions);
-        System.out.printf("Total Number of Unique Donations: %-20d\n", donationIds.size());
-        System.out.printf("Total Number of Items Distributed: %-20d\n", totalItemsDistributed);
+        if (isNewDonation) {
+            processedDonationIds[uniqueDonations] = donationId;
+            uniqueDonations++;
+        }
 
-        pressEnterContinue();
+        // 计算总分发物品数
+        Iterator<DonatedItem> itemIterator = donation.getDonatedItems().getIterator();
+        while (itemIterator.hasNext()) {
+            itemIterator.next();
+            totalItemsDistributed++;
+        }
+
+        Donor donor = donation.getDonor();
+        Donee donee = distribution.getDonee();
+        String donorName = donor != null ? donor.getName() : "N/A";
+        String doneeName = donee != null ? donee.getDoneeName() : "N/A";
+        String address = distribution.getAddress() != null ? distribution.getAddress() : "N/A";
+        String date = distribution.getDate() != null ? distribution.getDate().toString() : "N/A";
+
+        System.out.printf("%-20s | %-20s | %-20s | %-30s | %-20s\n",
+                distribution.getDistributionId(), donorName, doneeName, address, date);
     }
+
+    System.out.printf("\n\n\n\n\n\n\n\n\n\n");
+    System.out.println(new String(new char[57]).replace('\0', '-') + new String(new char[73]).replace('\0', '-'));
+    System.out.printf("Total Number of Distributions: %-20d\n", totalDistributions);
+    System.out.printf("Total Number of Unique Donations: %-20d\n", uniqueDonations);
+    System.out.printf("Total Number of Items Distributed: %-20d\n", totalItemsDistributed);
+
+    pressEnterContinue();
+}
+
+
 
     //------------- Helper Methods ------------------------------
     private DonationDistribution searchDistributionByID(String distributionId) {

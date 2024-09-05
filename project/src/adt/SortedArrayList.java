@@ -1,6 +1,6 @@
 package adt;
 
-import java.util.Arrays;
+
 import java.util.Iterator;
 
 /**
@@ -168,7 +168,12 @@ public class SortedArrayList<T extends Comparable<T>> implements SortedListInter
     }
 
     private void doubleCapacity() {
-        int newLength = array.length * 2;
-        array = Arrays.copyOf(array, newLength);
+        T[] oldArray = array;
+
+        array = (T[]) new Comparable[2 * oldArray.length];
+        for (int index = 0; index < oldArray.length; index++) {
+            array[index] = oldArray[index];
+        }
+
     }
 }
